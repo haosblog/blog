@@ -94,21 +94,21 @@ abstract class core {
 	 * @param type $path
 	 */
 	private static function _getAction($path){
-			$router = explode('/', $urlInfo['path']);
-			$controller = $router[1];
+		$router = explode('/', $path);
+		$controller = $router[1];
 
-			// Admin mode:  /admin, /admin/index/,  /admin/user/ ...
-			if($controller == 'admin'){
-				$controller = !empty($router[2]) ? $router[2]: 'index';
-				$action = isset($router[3]) ? $router[3]: '';
-				$tplPath .= 'admin/';
+		
+		if($controller == 'admin'){
+			$controller = !empty($router[2]) ? $router[2]: 'index';
+			$action = isset($router[3]) ? $router[3]: '';
+			$tplPath .= 'admin/';
 
-				require HAO_ROOT .'source/controller/admin/adminBase.class.php';
-				define('ADMIN', 1);
-				define('ADMIN_PATH', HAO_ROOT.'admin');
-			} else {
-				$action = $router[2];
-			}
+			require HAO_ROOT .'source/controller/admin/adminBase.class.php';
+			define('ADMIN', 1);
+			define('ADMIN_PATH', HAO_ROOT.'admin');
+		} else {
+			$action = $router[2];
+		}
 	}
 
 	/*
