@@ -14,17 +14,16 @@ class controller {
 	/**
 	 * 控制器初始化
 	 */
-	public function __construct($router = array()){
-		//创建smarty对象
-		$tpl = new Smarty();
-		$tpl->template_dir = HAO_ROOT . TPL_PATH;
-		$tpl->compile_dir = HAO_ROOT .'data/template/';
-		$tpl->config_dir = HAO_ROOT .'data/tplconf/';
-		$tpl->cache_dir = HAO_ROOT .'data/cache/';
-		$tpl->left_delimiter = '<{';
-		$tpl->right_delimiter = '}>';
-
-		$this->smarty = $tpl;
+	public function __construct($router = array()){ }
+	
+	/**
+	 * 魔术方法，当运行的方法不存在的时候运行
+	 * 
+	 * @param type $name
+	 * @param type $arguments
+	 */
+	public function __call($name, $arguments) {
+		;
 	}
 
 	protected function showmessage($message, $status = 0, $jumpurl = ''){
@@ -64,6 +63,15 @@ class controller {
 	 * @param type $tpl	模板路径如果为空，则调用与控制器同名的模板
 	 */
 	protected function display($tpl = ''){
+		// 初始化smarty对象
+		$smarty = new Smarty();
+		$smarty->template_dir = HAO_ROOT . $GLOBALS['tplPath'];
+		$smarty->compile_dir = HAO_ROOT .'data/template/';
+		$smarty->config_dir = HAO_ROOT .'data/tplconf/';
+		$smarty->cache_dir = HAO_ROOT .'data/cache/';
+		$smarty->left_delimiter = '<{';
+		$smarty->right_delimiter = '}>';
+		
 		if(empty($tpl) || is_array($tpl)){
 			$tpl = $GLOBALS['controller'] . '/'. $GLOBALS['action'];
 		}
@@ -71,10 +79,10 @@ class controller {
 		$this->buffer['title'] = $this->title;
 		$this->buffer['keyword'] = $this->keyword;
 		$this->buffer['description'] = $this->description;
-		$this->smarty->assign($this->buffer);
+		$smarty->assign($this->buffer);
 
 		$tpl .= '.tpl';
-		$this->smarty->display($tpl);
+		$smarty->display($tpl);
 		exit();
 	}
 

@@ -27,8 +27,6 @@ abstract class core {
 		DB::init();
 
 //		self::websiteInfo($tplPath);
-
-		define('TPL_PATH', $tplPath);
 	}
 	
 	public static function run(){
@@ -65,12 +63,9 @@ abstract class core {
 		if(!$controllerObj){
 			$controllerObj = A('default');
 		}
-		
-		if(!method_exists($actionObj, $action)){//控制器中没有指定的方法，尝试输出指定模板
-			$actionObj->display();
-		} else {
-			call_user_func(array($actionObj, $action));
-		}
+
+		// 运行方法
+		call_user_func(array($controllerObj, $action));
 	}
 
 	/**
