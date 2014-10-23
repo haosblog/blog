@@ -9,7 +9,7 @@
  * 管理系统模型
  */
 
-class modelAction extends adminBase {
+class modelController extends baseController {
 	public function index(){
 		$page = $this->getPage();
 		$m_model = M('model');

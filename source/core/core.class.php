@@ -26,40 +26,9 @@ abstract class core {
 		//初始化数据操作类
 		DB::init();
 
-
-
-
-		self::websiteInfo($tplPath);
+//		self::websiteInfo($tplPath);
 
 		define('TPL_PATH', $tplPath);
-
-		if(empty($action)){
-			$action = 'index';
-		}
-
-		if($action == 'list') {
-			$action = 'showlist';
-		}
-
-		$GLOBALS['controller'] = $controller;
-		$GLOBALS['action'] = $action;
-		if(!defined('ADMIN') && $controller != 'index'){
-			if($controller != 'plugin'){
-				$controller = 'model';
-			}
-			$controllerObj = C($controller, $router);
-//			$controllerObj->init($router);
-		} else {
-			$actionObj = C($controller);
-			//执行控制器初始化
-//			$actionObj->init();
-		}
-		
-		if(!method_exists($actionObj, $action)){//控制器中没有指定的方法，尝试输出指定模板
-			$actionObj->display();
-		} else {
-			call_user_func(array($actionObj, $action));
-		}
 	}
 	
 	public static function run(){
@@ -81,7 +50,26 @@ abstract class core {
 		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
 			$controller = $action = 'index';
 		} else {
-			self::_getAction($urlInfo['path']);
+			list($controller, $action) = self::_getAction($urlInfo['path']);
+		}
+		
+		
+		$GLOBALS['controller'] = $controller;
+		$GLOBALS['action'] = $action;
+
+		if(empty($action)){
+			$action = 'index';
+		}
+
+		$controllerObj = A($controller);
+		if(!$controllerObj){
+			$controllerObj = A('default');
+		}
+		
+		if(!method_exists($actionObj, $action)){//控制器中没有指定的方法，尝试输出指定模板
+			$actionObj->display();
+		} else {
+			call_user_func(array($actionObj, $action));
 		}
 	}
 
@@ -96,20 +84,31 @@ abstract class core {
 	private static function _getAction($path){
 		$router = explode('/', $path);
 		$controller = $router[1];
+		$sitegroupArr = C('GROUP');
+		$tplPath = HAO_ROOT .'./template/';
 		
-		
-		
-		if($controller == 'admin'){
+		if($controller == 'extend'){
+			
+		} elseif(isset($sitegroupArr[$controller])){
+			$GLOBALS['sitegroup'] = $sitegroup = $router[1];
 			$controller = !empty($router[2]) ? $router[2]: 'index';
-			$action = isset($router[3]) ? $router[3]: '';
-			$tplPath .= 'admin/';
+			$action = !empty($router[3]) ? $router[3]: '';
 
-			require HAO_ROOT .'source/controller/admin/adminBase.class.php';
-			define('ADMIN', 1);
-			define('ADMIN_PATH', HAO_ROOT.'admin');
-		} else {
-			$action = $router[2];
+			$tplPath .= $sitegroup .'/';
+			
+			$extendBase = HAO_ROOT .'source/controller/'. $sitegroup .'/baseController.class.php';
+			if(file_exists($extendBase)){// 如果存在扩展的控制器基类
+				require $extendBase;
+			}
+			
+		} else {// 不存在分组
+			$tplPath = 'default';
+			$action = !empty($router[2]) ? $router[2]: 'index';
 		}
+
+		$GLOBALS['tplPath'] = $tplPath;
+
+		return array($controller, $action);
 	}
 
 	/*

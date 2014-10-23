@@ -8,7 +8,7 @@
  *
  * 后台首页
  */
-class indexAction extends adminBase {
+class indexController extends baseController {
 	public function index(){
 		$this->display('index');
 	}

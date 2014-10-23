@@ -5,7 +5,7 @@
  *
  * @author hao
  */
-class loginAction extends controller {
+class loginController extends controller {
 	public function index(){
 		$this->display();
 	}

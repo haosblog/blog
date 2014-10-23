@@ -8,7 +8,7 @@
  * text
  */
 
-class linkAction extends adminBase {
+class linkController extends baseController {
 
 	public function index(){
 		$this->buffer['list'] = M('friend_link')->loadList(true);

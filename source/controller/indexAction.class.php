@@ -8,7 +8,7 @@
  *
  * text
  */
-class indexAction extends controller {
+class indexController extends controller {
 
 	public function index(){
 		$this->title = $GLOBALS['website']['seotitle'];

@@ -8,7 +8,7 @@
  *
  * text
  */
-class categoryAction extends adminBase {
+class categoryController extends baseController {
 
 	public function index(){
 		$mid = intval($_GET['mid']);

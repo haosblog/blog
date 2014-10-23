@@ -7,7 +7,7 @@
  *
  * 相册控制器
  */
-class photoAction extends adminBase {
+class photoController extends baseController {
 	public function index(){
 		$page = $this->getPage();
 		$aid = intval($_GET['aid']);

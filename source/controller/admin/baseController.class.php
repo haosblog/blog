@@ -10,7 +10,7 @@
 
 session_start();
 
-abstract class adminBase extends controller {
+abstract class baseController extends controller {
 	protected $m_user;
 
 	function __construct() {

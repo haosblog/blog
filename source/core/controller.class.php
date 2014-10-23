@@ -5,7 +5,7 @@
  *
  * 控制器基类
  */
-abstract class controller {
+class controller {
 	protected $title, $keyword, $description, $smarty;
 	protected $error = false;
 	protected $errormsg = '';
@@ -64,7 +64,6 @@ abstract class controller {
 	 * @param type $tpl	模板路径如果为空，则调用与控制器同名的模板
 	 */
 	protected function display($tpl = ''){
-
 		if(empty($tpl) || is_array($tpl)){
 			$tpl = $GLOBALS['controller'] . '/'. $GLOBALS['action'];
 		}

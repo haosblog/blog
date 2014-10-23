@@ -17,19 +17,15 @@ class mysql implements database {
 	 * @param type $config 设置数据库链接信息，如果为空，则调用sysconfig
 	 */
 	public function __construct($config = array()){
-		if(count($config) <= 0){
-			global $sysconfig;
-			$config = $sysconfig['db'];
-		}
-		$this->pre = isset($config['pre']) ? $config['pre'] : 'hao_';
-		$dbhost = isset($config['dbhost']) ? $config['dbhost'] : 'localhost';
-		$dbhost .= isset($cofig['port']) ? ':'. $config['port'] : '';
-		$dbname = $config['dbname'];
-		$dbuser = isset($config['dbuser']) ? $config['dbuser'] : 'root';
-		$dbpswd = isset($config['dbpswd']) ? $config['dbpswd'] : '';
-		$charset = isset($config['charset']) ? $config['charset'] : 'UTF8';
+		$this->pre = isset(C('DB_PRE')) ? C('DB_PRE') : 'hao_';
+		$dbhost = isset(C('DB_HOST')) ? C('DB_HOST') : 'localhost';
+		$dbhost .= isset(C('DB_PORT')) ? ':'. C('DB_PORT') : '';
+		$dbname = C('DB_NAME');
+		$dbuser = isset(C('DB_USER')) ? C('DB_USER') : 'root';
+		$dbpswd = isset(C('DB_PSWD')) ? C('DB_PSWD') : '';
+		$charset = isset(C('DB_CHARSET')) ? C('DB_CHARSET') : 'UTF8';
 
-		if(isset($config['pconnect']) && $config['pconnect']){
+		if(isset(C('DB_PCONNECT')) && C('DB_PCONNECT')){
 			$this->conn = mysql_pconnect($dbhost, $dbuser, $dbpswd, 131072);
 		}else{
 			$this->conn = mysql_connect($dbhost, $dbuser, $dbpswd, true, 131072);

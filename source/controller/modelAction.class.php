@@ -8,7 +8,7 @@
  * text
  */
 
-class modelAction extends controller {
+class modelController extends controller {
 	private $_router;
 	private $m_model = null;
 

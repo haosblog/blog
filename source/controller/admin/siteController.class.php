@@ -7,7 +7,7 @@
  *
  * 后台站点管理控制器
  */
-class siteAction extends adminBase{
+class siteController extends baseController{
 	var $m_website;
 
 	public function __construct() {

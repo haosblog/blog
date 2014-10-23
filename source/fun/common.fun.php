@@ -46,14 +46,38 @@ function model_file($model){
 	return HAO_ROOT .'./source/model/'. $model .'Model.class.php';
 }
 
+function C($name = NULL, $value = NULL){
+	static $config = array();
+	print_r($config);
+	
+	if(empty($config)){
+		$config = include HAO_ROOT .'./config/config.php';
+	}
+	
+	if(!$name){// 未传入名，则返回整个配置文件
+		return $config;
+	}
+	
+	$name = strtoupper($name);	// 将配置字段转为大写，大小写不敏感
+	
+	if(!empty($value)){// 传入了value，则给对应配置赋值
+		$config[$name] = $value;
+		
+		return $value;
+	}
+	
+	// 返回对应的配置值
+	return $config[$name];
+}
+
 /**
  *
  * @param type $controller
  * @return \actionclass|boolean
  */
-function C($controller){
-	if(controller_exists($controller)){
-		$controllerClass = $controller .'Action';
+function A($controller){
+	if(controller_exists($controller)){// 控制器文件存在
+		$controllerClass = $controller .'Controller';
 		if(!class_exists($controllerClass)){
 			require controller_file($controller);
 		}
@@ -61,6 +85,8 @@ function C($controller){
 			$controllerobj = new $controllerClass();
 			return $controllerobj;
 		}
+	} else {
+		return FALSE;
 	}
 	showerror('无法找到控制器'. $controller);
 }
@@ -75,8 +101,8 @@ function controller_exists($controller){
 }
 
 function controller_file($controller){
-	$path = defined('ADMIN') ? 'admin/' : '';
-	return HAO_ROOT  .'./source/controller/'. $path . $controller .'Action.class.php';
+	$path = isset($GLOBALS['sitegroup']) ? $GLOBALS['sitegroup'] .'/' : '';
+	return HAO_ROOT  .'./source/controller/'. $path . $controller .'Controller.class.php';
 }
 
 /**
