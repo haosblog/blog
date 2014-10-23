@@ -1,0 +1,76 @@
+{
+	"info" : {
+		"modname" : "文章",
+		"tablename" : "article",
+		"classable" : "1",
+		"commentable" : "1"
+	},
+	"field" : {
+		"title" : {
+			"viewname" : "标题",
+			"fieldtype" : "VARCHAR",
+			"length" : "50",
+			"formtype" : "1",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"content" : {
+			"viewname" : "内容",
+			"fieldtype" : "TEXT",
+			"formtype" : "7",
+			"linebreak" : "1",
+			"allowhtml" : "1",
+			"loadtype" : "2"
+		},
+		"aut" : {
+			"viewname" : "原创",
+			"fieldtype" : "TINYINT",
+			"length" : "1",
+			"formtype" : "5",
+			"default" : "1",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"formurl" : {
+			"viewname" : "转发来源",
+			"fieldtype" : "VARCHAR",
+			"length" : "200",
+			"formtype" : "1",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"wrtime" : {
+			"viewname" : "发表时间",
+			"fieldtype" : "INT",
+			"length" : "10",
+			"formtype" : "10",
+			"default" : "0",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"retime" : {
+			"viewname" : "评论时间",
+			"fieldtype" : "INT",
+			"length" : "10",
+			"formtype" : "0",
+			"default" : "0",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"chtime" : {
+			"viewname" : "修改",
+			"fieldtype" : "INT",
+			"length" : "10",
+			"formtype" : "0",
+			"default" : "0",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		}
+	}
+}

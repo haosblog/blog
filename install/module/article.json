@@ -1,0 +1,83 @@
+{
+	"info" : {
+		"modname" : "文章",
+		"tablename" : "article",
+		"classable" : "1",
+		"commentable" : "1"
+	},
+	"field" : {
+		"title" : {
+			"viewname" : "标题",
+			"fieldtype" : "0",
+			"length" : "50",
+			"formtype" : "1",
+			"listview" : "1",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"content" : {
+			"viewname" : "内容",
+			"fieldtype" : "2",
+			"formtype" : "7",
+			"linebreak" : "0",
+			"allowhtml" : "1",
+			"loadtype" : "2"
+		},
+		"aut" : {
+			"viewname" : "原创",
+			"fieldtype" : "12",
+			"length" : "0",
+			"formtype" : "5",
+			"default" : "1",
+			"listview" : "1",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"pass" : {
+			"viewname" : "草稿",
+			"fieldtype" : "12",
+			"length" : "0",
+			"formtype" : "5",
+			"default" : "1",
+			"listview" : "1",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"formurl" : {
+			"viewname" : "转发来源",
+			"fieldtype" : "0",
+			"length" : "200",
+			"formtype" : "1",
+			"listview" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"wrtime" : {
+			"viewname" : "发表时间",
+			"fieldtype" : "1",
+			"formtype" : "0",
+			"default" : "0",
+			"listview" : "1",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"retime" : {
+			"viewname" : "评论时间",
+			"fieldtype" : "11",
+			"formtype" : "0",
+			"default" : "0",
+			"listview" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"chtime" : {
+			"viewname" : "修改时间",
+			"fieldtype" : "11",
+			"formtype" : "0",
+			"default" : "0",
+			"listview" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		}
+	}
+}

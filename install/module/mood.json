@@ -1,0 +1,27 @@
+{
+	"info" : {
+		"modname" : "心情",
+		"tablename" : "mood",
+		"classable" : "0",
+		"commentable" : "1"
+	},
+	"field" : {
+		"content" : {
+			"viewname" : "心情内容",
+			"fieldtype" : "2",
+			"formtype" : "1",
+			"listview" : "1",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"wrtime" : {
+			"viewname" : "发表时间",
+			"fieldtype" : "11",
+			"formtype" : "0",
+			"default" : "0",
+			"listview" : "1",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		}
+	}
+}

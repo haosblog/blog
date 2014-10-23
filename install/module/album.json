@@ -1,0 +1,40 @@
+{
+	"info" : {
+		"modname" : "相册",
+		"tablename" : "photo",
+		"classable" : "1",
+		"commentable" : "1",
+		"classname" : "相册管理",
+		"listname" : "相片管理",
+		"createname" : "上传照片"
+	},
+	"field" : {
+		"title" : {
+			"viewname" : "相片标题",
+			"fieldtype" : "VARCHAR",
+			"length" : "50",
+			"formtype" : "1",
+			"default" : "",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"photo" : {
+			"viewname" : "相片路径",
+			"fieldtype" : "VARCHAR",
+			"length" : "100",
+			"formtype" : "8",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		},
+		"intro" : {
+			"viewname" : "简介",
+			"fieldtype" : "TEXT",
+			"formtype" : "5",
+			"linebreak" : "0",
+			"allowhtml" : "0",
+			"loadtype" : "0"
+		}
+	}
+}
