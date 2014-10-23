@@ -75,7 +75,7 @@ abstract class core {
 		$GLOBALS['port'] = isset($urlInfo['port']) ? $urlInfo['port'] : 80;
 		$GLOBALS['path'] = $urlInfo['path'];
 
-		$tplPath =  HAO_ROOT;	//模板路径，默认先定位到根目录，如果启用了分组或插件模式，则转到相应的模板目录
+		$GLOBALS['tpl_path'] =  HAO_ROOT;	//模板路径，默认先定位到根目录，如果启用了分组或插件模式，则转到相应的模板目录
 		
 		
 		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
@@ -96,7 +96,8 @@ abstract class core {
 	private static function _getAction($path){
 		$router = explode('/', $path);
 		$controller = $router[1];
-
+		
+		
 		
 		if($controller == 'admin'){
 			$controller = !empty($router[2]) ? $router[2]: 'index';
