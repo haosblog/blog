@@ -48,7 +48,6 @@ function model_file($model){
 
 function C($name = NULL, $value = NULL){
 	static $config = array();
-	print_r($config);
 	
 	if(empty($config)){
 		$config = include HAO_ROOT .'./config/config.php';

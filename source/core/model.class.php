@@ -44,7 +44,7 @@ abstract class model {
 	public function __construct($tableName = ''){
 		$this->getTableName($tableName);
 
-		$this->logFile = D .'/'. date('Ymd') .'.log';
+		$this->logFile = HAO_ROOT .'./runtime/log/' . date('Ymd') .'.log';
 		if(!file_exists($this->logFile) && ENVIRONMENT != 'DEV'){
 			touch($this->logFile);
 		}

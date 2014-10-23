@@ -65,13 +65,13 @@ class controller {
 	protected function display($tpl = ''){
 		// 初始化smarty对象
 		$smarty = new Smarty();
-		$smarty->template_dir = HAO_ROOT . $GLOBALS['tplPath'];
+		$smarty->template_dir = $GLOBALS['tplPath'];
 		$smarty->compile_dir = HAO_ROOT .'data/template/';
 		$smarty->config_dir = HAO_ROOT .'data/tplconf/';
 		$smarty->cache_dir = HAO_ROOT .'data/cache/';
 		$smarty->left_delimiter = '<{';
 		$smarty->right_delimiter = '}>';
-		
+
 		if(empty($tpl) || is_array($tpl)){
 			$tpl = $GLOBALS['controller'] . '/'. $GLOBALS['action'];
 		}
