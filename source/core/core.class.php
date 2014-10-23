@@ -26,37 +26,8 @@ abstract class core {
 		//初始化数据操作类
 		DB::init();
 
-		//$cachemodel = M('cache');
-		//获取控制器名和方法名
-		$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		$urlInfo = parse_url($url);
 
-		//保存站点URL信息到全局变量
-		$GLOBALS['host'] = $urlInfo['host'];
-		$GLOBALS['port'] = isset($urlInfo['port']) ? $urlInfo['port'] : 80;
-		$GLOBALS['path'] = $urlInfo['path'];
 
-		$tplPath =  '/template/';
-
-		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
-			$controller = $action = 'index';
-		} else {
-			$router = explode('/', $urlInfo['path']);
-			$controller = $router[1];
-
-			// Admin mode:  /admin, /admin/index/,  /admin/user/ ...
-			if($controller == 'admin'){
-				$controller = !empty($router[2]) ? $router[2]: 'index';
-				$action = isset($router[3]) ? $router[3]: '';
-				$tplPath .= 'admin/';
-
-				require HAO_ROOT .'source/controller/admin/adminBase.class.php';
-				define('ADMIN', 1);
-				define('ADMIN_PATH', HAO_ROOT.'admin');
-			} else {
-				$action = $router[2];
-			}
-		}
 
 		self::websiteInfo($tplPath);
 
@@ -88,6 +59,43 @@ abstract class core {
 			$actionObj->display();
 		} else {
 			call_user_func(array($actionObj, $action));
+		}
+	}
+	
+	public static function run(){
+		self::init();
+
+		// $cachemodel = M('cache');
+		// 获取控制器名和方法名
+		$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$urlInfo = parse_url($url);
+
+		//保存站点URL信息到全局变量
+		$GLOBALS['host'] = $urlInfo['host'];
+		$GLOBALS['port'] = isset($urlInfo['port']) ? $urlInfo['port'] : 80;
+		$GLOBALS['path'] = $urlInfo['path'];
+
+		$tplPath =  HAO_ROOT;	//模板路径，默认先定位到根目录，如果启用了分组或插件模式，则转到相应的模板目录
+		
+		
+		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
+			$controller = $action = 'index';
+		} else {
+			$router = explode('/', $urlInfo['path']);
+			$controller = $router[1];
+
+			// Admin mode:  /admin, /admin/index/,  /admin/user/ ...
+			if($controller == 'admin'){
+				$controller = !empty($router[2]) ? $router[2]: 'index';
+				$action = isset($router[3]) ? $router[3]: '';
+				$tplPath .= 'admin/';
+
+				require HAO_ROOT .'source/controller/admin/adminBase.class.php';
+				define('ADMIN', 1);
+				define('ADMIN_PATH', HAO_ROOT.'admin');
+			} else {
+				$action = $router[2];
+			}
 		}
 	}
 

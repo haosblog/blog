@@ -8,4 +8,4 @@
 
 require './source/core/core.class.php';
 
-core::init();
+core::run();
