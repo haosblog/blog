@@ -1,4 +1,4 @@
-{capture name='_smarty_debug' assign=debug_output}
+<{capture name='_smarty_debug' assign=debug_output}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -124,7 +124,7 @@ td {
 </table>
 </body>
 </html>
-{/capture}
+<{/capture}>
 <script type="text/javascript">
 <{$id = $template_name|default:''|md5}>
     _smarty_console = window.open("","console{$id}","width=680,height=600,resizable,scrollbars=yes");
