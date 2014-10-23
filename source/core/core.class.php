@@ -81,6 +81,19 @@ abstract class core {
 		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
 			$controller = $action = 'index';
 		} else {
+			self::_getAction($urlInfo['path']);
+		}
+	}
+
+	/**
+	 * 读取控制器与方法的名
+	 * 规则为：[分组]/控制器/[方法]
+	 * 首先判断是否有对应分组配置，存在则调用分组
+	 * 获取到的分组名、控制器名、方法名将存于$GLOBAL['controller']中
+	 * 
+	 * @param type $path
+	 */
+	private static function _getAction($path){
 			$router = explode('/', $urlInfo['path']);
 			$controller = $router[1];
 
@@ -96,9 +109,7 @@ abstract class core {
 			} else {
 				$action = $router[2];
 			}
-		}
 	}
-
 
 	/*
 	 * 加载站点数据
