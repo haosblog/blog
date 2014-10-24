@@ -51,17 +51,17 @@ abstract class model {
 
 		
 		//如果没有设置本模型的表名，则抛出错误，避免后面无法加载表结构缓存
-		if(!$this->table){//尚未设置表名，一般是模型的构造函数里顺序不对导致
-//			throw new Exception('$this->table表名未设置，请检查construct中');
+		if(!$this->tablename){//尚未设置表名，一般是模型的构造函数里顺序不对导致
+//			throw new Exception('$this->tablename表名未设置，请检查construct中');
 			return true;
 		}
 
 		//读取字段缓存
 		if(empty($this->_fieldsSetting)){//未设置_fieldsSetting，则加载缓存
-			$fieldCacheFile = '/db/'. $this->table .'.php';
+			$fieldCacheFile = '/db/'. $this->tablename .'.php';
 			$fieldSetting = getCache($fieldCacheFile);
 			if(!$fieldSetting){//无法从缓存中读取字段，从数据库中读取，并创建缓存
-				$sql = 'DESC '. $this->table;
+				$sql = 'DESC '. $this->tablename;
 				$fields = DB::fetch_all($sql);
 				foreach($fields as $item){
 					$key = $item['Field'];
@@ -353,15 +353,11 @@ abstract class model {
 	 * @param boolean => return numRows
 	 * @return records on success or false on failure or numRows if $numRows is true on success
 	 */
-	final public function select($fields = '', $where = '', $orderby = '', $limit = '', $numRows = false, $total = true){
+	final public function select(){
 		//如果options属性不为空，则执行链式操作
-		if(!empty($this->options)){
-			$sql = $this->parseOptionSQL($fields, $where);
-		} else {
-			$sql = $this->parseSQL($fields, $where, $orderby, $limit);
-		}
+		$sql = $this->parseOptionSQL();
 
-		if($fields === false){//如果第一个参数为false，则返回SQL用于子查询
+		if(func_num_args() > 0 && func_get_arg(0) === false){//如果第一个参数为false，则返回SQL用于子查询
 			return $sql;
 		}
 
@@ -381,11 +377,6 @@ abstract class model {
 
 		$return = DB::fetch_all($sql);
 
-		if($total){
-			$totalQuery = DB::fetch_first($this->totalSql);
-			$this->count = $totalQuery['count'];
-		}
-
 		if($numRows){
 			return $total;
 		}
@@ -403,7 +394,6 @@ abstract class model {
 	 * @return records on success or false on failure or numRows if $numRows is true on success
 	 */
 	final public function selectOne(){
-		$limit = (is_string($where) && stripos($where, 'LIMIT') !== false) || (is_string($orderby) && stripos($orderby, 'LIMIT') !== false) ? '' : 'LIMIT 1';
 		$query = $this->Select();
 
 		$data = null;
@@ -899,7 +889,6 @@ abstract class model {
 		
 		
 		if(isset($this->options['scope'])){
-			file_put_contents(TMP_PATH .'/a.txt', $this->options['scope']);
 			$scope = $this->parseScope();
 			
 			$sqlfield = !empty($scope['field']) ? $this->mergeField($sqlfield, $scope['field']) : $sqlfield;
@@ -1199,7 +1188,7 @@ abstract class model {
 	final protected function parseGroup($group){
 		if(is_array($group)){
 			$group = 'GROUP BY '. $this->_parseGroup($group);
-		} else {
+		} elseif(!empty($group)) {
 			$group = 'GROUP BY '. $group;
 		}
 
@@ -1298,7 +1287,7 @@ abstract class model {
 			$database = $this->parseField($this->_database) .'.';
 		}
 
-		$sqltable = $database . $this->table;
+		$sqltable = $database . $this->tablename;
 		if(isset($this->options['alias'])){
 			$sqltable .= ' AS '. $this->options['alias'];
 			unset($this->options['alias']);

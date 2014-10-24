@@ -15,8 +15,13 @@ abstract class baseController extends controller {
 
 	function __construct() {
 		parent::__construct();	//先执行一遍父类的初始化操作
+		
 		$this->m_user = M('user');
-		$this->islogin();
+		if(isset($_POST['loginmode'])){// 登陆模式，进行登陆验证
+			$this->_loginAction();
+		}
+
+		$this->islogin();	//检测用户是否登陆
 
 		//加载站点列表
 		$field = array('wsid', 'sitename', 'isdefault');
@@ -87,5 +92,31 @@ abstract class baseController extends controller {
 
 	protected function cookieLogin($cookie){
 
+	}
+	
+	/**
+	 * 当用户提交了登陆表单，则执行本方法进行验证
+	 */
+	private function _loginAction(){
+		$rule = array(
+			'username' => array('explain' => '用户名', 'rule' => ''),
+			'password' => array('explain' => '密码', 'rule' => '')
+		);
+
+		$param = $this->getParam($rule);
+
+		if($this->error){
+			$this->showmessage($this->errormsg);
+		}
+
+		$param['password'] = md5($param['password']);
+		$userdata = $this->m_user->where($param)->selectOne();
+		print_r($userdata);die;
+		if($userdata){
+			$_SESSION['user'] = $userdata;
+			$this->showmessage('登陆成功！');
+		} else {
+			$this->showmessage('账号密码错误！');
+		}
 	}
 }

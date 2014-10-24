@@ -85,9 +85,9 @@ class mysql implements database {
 	 */
 	public function query($sql) {
 		if(0===stripos($sql, 'call')){ $this->close(); }
-		if(stripos($sql, '@_@') !== false){
-			$sql = str_replace('@_@', $this->pre, $sql);
-		}
+//		if(stripos($sql, '@_@') !== false){
+//			$sql = str_replace('@_@', $this->pre, $sql);
+//		}
 		//释放前次的查询结果
 		if ( $this->result ) { $this->free(); }
 		$this->result = mysql_query($sql);

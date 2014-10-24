@@ -241,3 +241,51 @@ function array_lower($array, $key = ''){
 
 	return $return;
 }
+
+/**
+ * 获取文件缓存的数据
+ * 缓存规则：
+ * 将filename使用16位MD5加密，生成一个唯一字符串，并将该字符串作为函数名
+ * 需要缓存的数据将被var_export为PHP代码并由该函数return
+ * getCache时调用该函数得到数据
+ * 
+ * @param type $filename	缓存文件名，不包括完整路径
+ */
+function getCache($filename){
+	$filename = RUNTIME_PATH . $filename;
+	$function = 'cache_'. substr(md5($filename),8,16);
+	if(!file_exists($filename)){//文件不存在
+		return false;
+	}
+	
+	require $filename;
+	
+	if(!function_exists($function)){
+		return false;
+	}
+	
+	return $function();
+}
+
+/**
+ * 将数据写入文件缓存
+ * 缓存规则：
+ * 将filename使用16位MD5加密，生成一个唯一字符串，并将该字符串作为函数名
+ * 需要缓存的数据将被var_export为PHP代码并由该函数return
+ * 
+ * @param type $filename	缓存文件名，不包括完整路径
+ * @param type $data		要缓存的数据
+ */
+function saveCache($filename, $data = array()){
+	$filename = RUNTIME_PATH . $filename;
+	$function = 'cache_'. substr(md5($filename),8,16);
+	
+	$code = var_export($data, true);
+	//生成缓存文件的PHP代码
+	$fileText = '<?php'. NL .
+		'function '. $function .'(){'. NL .
+		'return '. $code .';' . NL .
+		'}';
+			
+	file_put_contents($filename, $fileText);
+}

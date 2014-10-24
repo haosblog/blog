@@ -13,6 +13,7 @@ abstract class core {
 	public static function init(){
 		define('NL', "\n");
 		define('HAO_ROOT', substr(dirname(__FILE__), 0, -11));
+		define('RUNTIME_PATH', HAO_ROOT .'./runtime');
 		require HAO_ROOT .'./source/fun/common.fun.php';
 		require HAO_ROOT .'./config/config.php';
 		require HAO_ROOT .'./source/core/smarty/Smarty.class.php';
