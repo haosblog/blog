@@ -205,8 +205,15 @@ class controller {
 		$this->errormsg = $this->errormsg . $msg ."<br />";
 	}
 
-	protected function response($msg, $typr = 0, $json = false){
-
+	protected function response($data, $type = 'JSON'){
+		$type = strtolower($type);
+		switch ($type){
+			case 'JSON':
+				header('Content-type:text/json');
+				$text = json_encode($data);
+		}
+		
+		echo($text);
 	}
 }
 ?>
