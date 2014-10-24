@@ -6,6 +6,7 @@
 		<link href="/static/css/bootstrap.css" rel="stylesheet">
 		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css"  href="/template/admin/static/css/admin.css" />
+		<link rel="stylesheet" type="text/css"  href="/template/admin/static/css/font-awesome/css/font-awesome.css" />
 		<{$loadcss|loadCSS}>
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
@@ -24,18 +25,24 @@
 		<div id="main">
 			<nav>
 				<a class="list-group-item menu-first collapsed" href="/admin/">后台首页</a>
-				<a href="#siteMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">站点管理</a>
+				<a href="#siteMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">
+					站点管理<span class="pull-right"><i class="icon-chevron-right"></i></span>
+				</a>
 				<ul id="siteMenu" class="nav nav-list collapse menu-second">
 					<li><a href="/admin/site/add">添加站点</a></li>
 					<li><a href="/admin/site">站点列表</a></li>
 					<li><a href="/admin/site/domain">域名列表</a></li>
 				</ul>
-				<a href="#modelMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">系统模型管理</a>
+				<a href="#modelMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">
+					系统模型管理<span class="pull-right"><i class="icon-chevron-right"></i></span>
+				</a>
 				<ul id="modelMenu" class="nav nav-list collapse menu-second">
 					<li><a href="/admin/model/">模型列表</a></li>
 					<li><a href="/admin/model/import/">导入模型</a></li>
 				</ul>
-				<a href="#photoMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">相片管理</a>
+				<a href="#photoMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">
+					相片管理<span class="pull-right"><i class="icon-chevron-right"></i></span>
+				</a>
 				<ul id="photoMenu" class="nav nav-list collapse menu-second">
 					<li><a href="/admin/photo/album">相册管理</a></li>
 					<li><a href="/admin/photo/">图片管理</a></li>
