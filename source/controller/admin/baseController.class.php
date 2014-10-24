@@ -111,10 +111,8 @@ abstract class baseController extends controller {
 
 		$param['password'] = md5($param['password']);
 		$userdata = $this->m_user->where($param)->selectOne();
-		print_r($userdata);die;
 		if($userdata){
 			$_SESSION['user'] = $userdata;
-			$this->showmessage('登陆成功！');
 		} else {
 			$this->showmessage('账号密码错误！');
 		}
