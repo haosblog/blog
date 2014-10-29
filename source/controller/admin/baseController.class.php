@@ -5,7 +5,7 @@
  * copyright 小皓 (C)2013-2099 版权所有
  * www.haosblog.com
  *
- * 后台管理基类，所有后台控制器均基层本类
+ * 后台管理基类，所有后台控制器均继承本类
  */
 
 session_start();
