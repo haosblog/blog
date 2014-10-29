@@ -105,7 +105,7 @@ class siteController extends baseController{
 		
 		$where = array();
 		if($wsid > 0){
-			$where = array('wsid' => $wsid);
+			$where = array('d.wsid' => $wsid);
 		}
 		$this->buffer['list'] = M('domain')->field($field)->where($where)
 				->join('website AS s', 's.wsid=d.wsid')->alias('d')->select();
