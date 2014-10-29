@@ -22,7 +22,7 @@ class siteController extends baseController{
 	public function index(){
 		$page = $this->getPage();
 
-		$this->buffer['list'] = $this->m_website->field('wsid', 'sitename', 'isdefault', 'type', 'tpid')->limit($page, 20);
+		$this->buffer['list'] = $this->m_website->field('wsid', 'sitename', 'isdefault', 'type', 'tpid')->limit((($page - 1) * 20), 20)->select();
 		$this->buffer['page'] = $page;
 
 		$this->display();
