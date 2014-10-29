@@ -12,10 +12,7 @@ class domainModel extends model {
 	public function loadList($wsid = 0, $page = 1, $pagecount = 20){
 		$limit = $this->getLimit($page, $pagecount);
 
-		$field = array(
-			'd' => array('did', 'domain'),
-			's' => array('wsid', 'sitename')
-		);
+		
 
 		$tables = array('d' => 'domain', 's' => 'website');
 

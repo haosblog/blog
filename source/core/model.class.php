@@ -4,7 +4,7 @@
  *
  * 模型基类
  */
-abstract class model {
+class model {
 	const LOG_PATH = '';
 
 	public $data = array();				//查询到的数据存储数组
@@ -187,7 +187,7 @@ abstract class model {
 	 * @param type $field	需要查询的字段，可以是直接的SQL字符串，也可以是一个array（字段集合）。不传入或传入为false则查询所有字段(*)
 	 * @return \M_Model
 	 */
-	final public function Field($field = false){
+	final public function field($field = false){
 		//如果传入的field为true，则载入所有字段
 		if(empty($field)) {
 			$field = '*';
@@ -216,7 +216,7 @@ abstract class model {
 	 * @param string arg2	第二个参数如果传入，则表示使用第二套方案
 	 * @return \M_Model
 	 */
-	final public function Where($where){
+	final public function where($where){
 		if(func_num_args() > 1 && is_string($where)){
 			$options = func_get_args();
 			$this->options['where'] = array(
@@ -233,7 +233,7 @@ abstract class model {
 		return $this;
 	}
 	
-	final public function Database($database){
+	final public function database($database){
 		$this->options['database'] = $database;
 		
 		return $this;
@@ -247,7 +247,7 @@ abstract class model {
 	 * @param array $keywordArr
 	 * @return \M_Model	返回自身供链式操作使用
 	 */
-	final public function Search($keywordArr){
+	final public function search($keywordArr){
 		if(is_array($keywordArr)){//keyword必须为数组
 			$this->options['search'] = $keywordArr;
 		}
@@ -255,7 +255,7 @@ abstract class model {
 		return $this;
 	}
 
-	final public function Group($group){
+	final public function group($group){
 		if(is_string($group)){
 			$group = ' GROUP BY '. $group;
 		}
@@ -264,7 +264,7 @@ abstract class model {
 		return $this;
 	}
 
-	final public function Order($orderby){
+	final public function order($orderby){
 		if(empty($orderby)){//$orderby为空则不作处理
 			return $this;
 		}
@@ -274,7 +274,7 @@ abstract class model {
 		return $this;
 	}
 
-	final public function Limit($limit){
+	final public function limit($limit){
 		if(func_num_args() == 2){
 			$limit = func_get_args();
 		}
@@ -297,7 +297,7 @@ abstract class model {
 	 * @param string $type	联表类型，默认为空，可选择 LEFT 或 RIGHT
 	 * @return obj $this
 	 */
-	final public function Join($table, $on, $type = ''){
+	final public function join($table, $on, $type = ''){
 		$this->options['join'][] = array(
 			'table' => $table,
 			'on' => $on,
@@ -315,7 +315,7 @@ abstract class model {
 	 * @param type $name
 	 * @return obj $this
 	 */
-	final public function Scope($name){
+	final public function scope($name){
 		$scope = $this->_scope[$name];
 		if($scope){//是否存在该定义的命名范围
 			if(isset($scope['join'])){
@@ -337,7 +337,7 @@ abstract class model {
 		return $this;
 	}
 
-	public function Alias($alias){
+	public function alias($alias){
 		$this->options['alias'] = $alias;
 		return $this;
 	}
@@ -437,7 +437,7 @@ abstract class model {
 	 * @param Array => Array('field1'=>'value1', 'field2'=>'value2', 'field3'=>'value1')
 	 * @return false on failure or inserted_id on success
 	 */
-	final public function Insert($maps = array()) {
+	final public function insert($maps = array()) {
 		if($this->_errNo != 0){//错误不可执行insert操作
 			return false;
 		}
@@ -466,7 +466,7 @@ abstract class model {
 	 * @param type $data
 	 * @return boolean
 	 */
-	public function MultiInsert($data){
+	public function multiInsert($data){
 		$sql = "INSERT INTO ". $this->tablename;
 		$sqlFieldArr = array();
 		$sqlValueArr = array();
@@ -501,7 +501,7 @@ abstract class model {
 	 * @param Array => Array('field1'=>'value1', 'field2'=>'value2', 'field3'=>'value1')
 	 * @return false on failure or inserted_id on success
 	 */
-	final public function ReplaceInto($maps) {
+	final public function replaceInto($maps) {
 		$table = $this->parseTable();
 		if (!$maps || !is_array($maps)) {
 			return false;
@@ -530,7 +530,7 @@ abstract class model {
 	 * @param boolean $self => self field ?
 	 * @return false on failure or affected rows on success
 	 */
-	final public function Update($maps, $where = '', $self = FALSE) {
+	final public function update($maps, $where = '', $self = FALSE) {
 		$where = $this->_getWhere($where);
 		$table = $this->parseTable();
 
@@ -547,7 +547,7 @@ abstract class model {
 	 * @param string => where condition for deletion
 	 * @return false on failure or affected rows on success
 	 */
-	final public function Delete($where = '') {
+	final public function delete($where = '') {
 		$where = $this->_getWhere($where);
 		$table = $this->parseTable();
 
@@ -606,7 +606,7 @@ abstract class model {
 	 * @param type $return		用于链式操作支持，默认为true不支持链式操作，仅返回数据，设置为false则返回自身并支持链式操作
 	 * @return mixed			返回数据或类自身，默认返回数据
 	 */
-	final public function Create($param = array(), $rule = array(), $mode = 0, $return = true){
+	final public function create($param = array(), $rule = array(), $mode = 0, $return = true){
 		if(empty($param) || !is_array($param)) {
 			$param = $_POST;
 		}
@@ -1017,26 +1017,7 @@ abstract class model {
 	 * @return string
 	 */
 	protected function parseWhere($where, $join = false){
-		if($join && is_array($where)){//如果是联表查询，且where是数组，则判断自动加别名if(isset($where['_logic'])) {
-			// 定义逻辑运算规则 例如 OR XOR AND NOT
-			if(isset($where['_logic'])) {
-				$logic    =   ' '.strtoupper($where['_logic']).' ';
-				unset($where['_logic']);
-			} else {
-				// 默认进行 AND 运算
-				$logic    =   ' AND ';
-			}
-			foreach($where as $key => $val){
-				if(is_string($key) && is_array($val)){//如果$key为字符串，且val是数组，则以key为别名拼接where
-					$sqlwhere .= $logic . $this->_parseWhere($val, $key);
-				} else {
-					$sqlwhere .= $logic . $this->_parseWhere($where);
-					break;
-				}
-			}
-
-			$sqlwhere = substr($sqlwhere, strlen($logic));
-		} elseif(is_numeric($where)){//如果where是纯数字，则将其作为主键(id)来查询
+		if(is_numeric($where)){//如果where是纯数字，则将其作为主键(id)来查询
 			$sqlwhere = $this->_parseWhere(array('id' => $where));
 		} elseif(is_string($where)){
 			$sqlwhere = $where;
@@ -1324,7 +1305,7 @@ abstract class model {
 	 * @param null
 	 * @return true on success or false on failure
 	 */
-	public function Commit() {
+	public function commit() {
 		DB::commit();
 	}
 
@@ -1335,7 +1316,7 @@ abstract class model {
 	 * @param  null
 	 * @return true on success or false on failure
 	 */
-	public function Rollback() {
+	public function rollback() {
 		DB::rollBack();
 	}
 
@@ -1348,7 +1329,7 @@ abstract class model {
 	 * @param null
 	 * @return null
 	 */
-	private function Close() {
+	private function close() {
 //		self::$conn = null;
 	}
 
@@ -1404,12 +1385,6 @@ abstract class model {
 		return $value = '\''.$value.'\'';;
 	}
 
-
-	//扩展方法:
-	public function SelectByID($field = '', $id){
-		return $this->Field($field)->Where($id)->SelectOne();
-	}
-
 	/**
 	 * 根据ID更新某一条记录
 	 *
@@ -1417,11 +1392,11 @@ abstract class model {
 	 * @param $id
 	 * @return false
 	 */
-	public function UpdateByID($maps, $id){
+	public function updateByID($maps, $id){
 		return $this->Where($id)->Update($maps);
 	}
 
-	public function DeleteByID($id){
+	public function deleteByID($id){
 		return $this->Where($id)->Delete();
 	}
 

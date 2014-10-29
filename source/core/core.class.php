@@ -88,7 +88,7 @@ abstract class core {
 		} elseif(isset($sitegroupArr[$controller])){
 			$GLOBALS['sitegroup'] = $sitegroup = $router[1];
 			$controller = !empty($router[2]) ? $router[2]: 'index';
-			$action = !empty($router[3]) ? $router[3]: '';
+			$action = !empty($router[3]) ? $router[3]: 'index';
 
 			$tplPath .= $sitegroup .'/';
 			

@@ -22,7 +22,7 @@ class siteController extends baseController{
 	public function index(){
 		$page = $this->getPage();
 
-		$this->buffer['list'] = $this->m_website->loadList($page, 20);
+		$this->buffer['list'] = $this->m_website->field('wsid', 'sitename', 'isdefault', 'type', 'tpid')->limit($page, 20);
 		$this->buffer['page'] = $page;
 
 		$this->display();
@@ -97,8 +97,20 @@ class siteController extends baseController{
 	public function domain(){
 		$page = $this->getPage();
 		$wsid = intval($_GET['wsid']);
-		$this->buffer['list'] = M('domain')->loadList($wsid, $page, 20);
+		
+		$field = array(
+			'd' => array('did', 'domain'),
+			's' => array('wsid', 'sitename')
+		);
+		
+		$where = array();
+		if($wsid > 0){
+			$where = array('wsid' => $wsid);
+		}
+		$this->buffer['list'] = M('domain')->field($field)->where($where)
+				->join('website AS s', 's.wsid=d.wsid')->alias('d')->select();
 
+		print_r(M('domain')->getLastSQL());
 		$this->display();
 	}
 }

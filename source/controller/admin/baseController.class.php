@@ -24,14 +24,11 @@ abstract class baseController extends controller {
 		$this->islogin();	//检测用户是否登陆
 
 		//加载站点列表
-		$field = array('wsid', 'sitename', 'isdefault');
-		$where = array('type' => 0);
-		$websiteList = M('website')->select($field, $where);
+		$websiteList = M('website')->field('wsid', 'sitename', 'isdefault')->where(array('type' => 0))->select();
 		if($websiteList){
 			//如果SESSION中没有当前站点wsid信息，则初始化站点
 			if(!$_SESSION['wsid']){
-				$currentSite = $_SESSION['user']['wsid'];
-				$_SESSION['wsid'] = $currentSite['wsid'];
+				$_SESSION['wsid'] = $_SESSION['user']['wsid'];
 			}
 			$GLOBALS['website']['list'] = $websiteList;
 			$GLOBALS['wsid'] = $_SESSION['wsid'];

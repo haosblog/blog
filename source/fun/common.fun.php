@@ -28,6 +28,8 @@ function M($model){
 			$modelObj = new $modelClass();
 			return $modelObj;
 		}
+	} else {
+		return new model($model);
 	}
 
 	showerror('无法找到模型'. $model);
@@ -254,14 +256,16 @@ function array_lower($array, $key = ''){
 function getCache($filename){
 	$filename = RUNTIME_PATH . $filename;
 	$function = 'cache_'. substr(md5($filename),8,16);
-	if(!file_exists($filename)){//文件不存在
-		return false;
-	}
-	
-	require $filename;
-	
-	if(!function_exists($function)){
-		return false;
+	if(!function_exists($function)){//函数不存在，则加载文件
+		if(!file_exists($filename)){//文件不存在
+			return false;
+		}
+
+		require_once $filename;
+
+		if(!function_exists($function)){
+			return false;
+		}
 	}
 	
 	return $function();
