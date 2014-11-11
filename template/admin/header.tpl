@@ -3,13 +3,13 @@
 	<head>
 		<title><{$title}></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link href="/static/css/bootstrap.css" rel="stylesheet">
-		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css"  href="/template/admin/static/css/admin.css" />
-		<link rel="stylesheet" type="text/css"  href="/template/admin/static/css/font-awesome/css/font-awesome.css" />
+		<link href="/static/common/css/bootstrap.css" rel="stylesheet">
+		<link href="/static/common/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css"  href="/static/admin/css/admin.css" />
+		<link rel="stylesheet" type="text/css"  href="/static/admin/css/font-awesome/css/font-awesome.css" />
 		<{$loadcss|loadCSS}>
-		<script type="text/javascript" src="/static/js/jquery.js"></script>
-		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/common/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/common/js/bootstrap.min.js"></script>
 		<{$loadjs|loadJS}>
 	</head>
 	<body>
