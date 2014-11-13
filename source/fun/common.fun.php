@@ -50,25 +50,25 @@ function model_file($model){
 
 function C($name = NULL, $value = NULL){
 	static $config = array();
-	
+
 	if(empty($config)){
 		$config = include HAO_ROOT .'./config/config.php';
 	}
-	
+
 	if(!$name){// 未传入名，则返回整个配置文件
 		return $config;
 	}
-	
+
 	$name = strtoupper($name);	// 将配置字段转为大写，大小写不敏感
-	
+
 	if(!empty($value)){// 传入了value，则给对应配置赋值
 		$config[$name] = $value;
-		
+
 		return $value;
 	}
-	
+
 	// 返回对应的配置值
-	return $config[$name];
+	return isset($config[$name]) ? $config[$name] : null;
 }
 
 /**
@@ -250,7 +250,7 @@ function array_lower($array, $key = ''){
  * 将filename使用16位MD5加密，生成一个唯一字符串，并将该字符串作为函数名
  * 需要缓存的数据将被var_export为PHP代码并由该函数return
  * getCache时调用该函数得到数据
- * 
+ *
  * @param type $filename	缓存文件名，不包括完整路径
  */
 function getCache($filename){
@@ -267,7 +267,7 @@ function getCache($filename){
 			return false;
 		}
 	}
-	
+
 	return $function();
 }
 
@@ -276,20 +276,20 @@ function getCache($filename){
  * 缓存规则：
  * 将filename使用16位MD5加密，生成一个唯一字符串，并将该字符串作为函数名
  * 需要缓存的数据将被var_export为PHP代码并由该函数return
- * 
+ *
  * @param type $filename	缓存文件名，不包括完整路径
  * @param type $data		要缓存的数据
  */
 function saveCache($filename, $data = array()){
 	$filename = RUNTIME_PATH . $filename;
 	$function = 'cache_'. substr(md5($filename),8,16);
-	
+
 	$code = var_export($data, true);
 	//生成缓存文件的PHP代码
 	$fileText = '<?php'. NL .
 		'function '. $function .'(){'. NL .
 		'return '. $code .';' . NL .
 		'}';
-			
+
 	file_put_contents($filename, $fileText);
 }

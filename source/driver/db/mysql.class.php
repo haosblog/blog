@@ -17,15 +17,15 @@ class mysql implements database {
 	 * @param type $config 设置数据库链接信息，如果为空，则调用sysconfig
 	 */
 	public function __construct($config = array()){
-		$this->pre = !empty(C('DB_PRE')) ? C('DB_PRE') : 'hao_';
-		$dbhost = !empty(C('DB_HOST')) ? C('DB_HOST') : 'localhost';
-		$dbhost .= !empty(C('DB_PORT')) ? ':'. C('DB_PORT') : '';
+		$this->pre = C('DB_PRE') ? C('DB_PRE') : 'hao_';
+		$dbhost = C('DB_HOST') ? C('DB_HOST') : 'localhost';
+		$dbhost .= C('DB_PORT') ? ':'. C('DB_PORT') : '';
 		$dbname = C('DB_NAME');
-		$dbuser = !empty(C('DB_USER')) ? C('DB_USER') : 'root';
-		$dbpswd = !empty(C('DB_PSWD')) ? C('DB_PSWD') : '';
-		$charset = !empty(C('DB_CHARSET')) ? C('DB_CHARSET') : 'UTF8';
+		$dbuser = C('DB_USER') ? C('DB_USER') : 'root';
+		$dbpswd = C('DB_PSWD') ? C('DB_PSWD') : '';
+		$charset = C('DB_CHARSET') ? C('DB_CHARSET') : 'UTF8';
 
-		if(!empty(C('DB_PCONNECT')) && C('DB_PCONNECT')){
+		if(C('DB_PCONNECT') && C('DB_PCONNECT')){
 			$this->conn = mysql_pconnect($dbhost, $dbuser, $dbpswd, 131072);
 		}else{
 			$this->conn = mysql_connect($dbhost, $dbuser, $dbpswd, true, 131072);
@@ -158,4 +158,3 @@ class mysql implements database {
 		return mysql_insert_id($this->conn);
 	}
 }
-?>

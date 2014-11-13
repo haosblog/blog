@@ -1,4 +1,4 @@
 RewriteEngine on
 RewriteBase /
 RewriteRule !\.(js|ico|gif|jpg|png|css|html|eot|svg|ttf|woff)$ index.php
-RewriteRule (.*)\.(js|css)$ min/index.php?f=$1\.$2
+#RewriteRule (.*)\.(js|css)$ min/index.php?f=$1\.$2

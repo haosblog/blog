@@ -17,10 +17,10 @@ class model {
 	protected $modelname;
 	protected $_database = '';			//当前模型使用的数据库，默认为空，用于支持跨库查询
 
-	
+
 	// The result of last operation: 0 => failure,  1 => success
 	private $success = false;
-	
+
 	// SQL log file: Log SQL error for debug if not under DEV
 	private $logFile = '';
 
@@ -45,11 +45,11 @@ class model {
 		$this->getTableName($tableName);
 
 		$this->logFile = HAO_ROOT .'./runtime/log/' . date('Ymd') .'.log';
-		if(!file_exists($this->logFile) && ENVIRONMENT != 'DEV'){
+		if(!file_exists($this->logFile)){
 			touch($this->logFile);
 		}
 
-		
+
 		//如果没有设置本模型的表名，则抛出错误，避免后面无法加载表结构缓存
 		if(!$this->tablename){//尚未设置表名，一般是模型的构造函数里顺序不对导致
 //			throw new Exception('$this->tablename表名未设置，请检查construct中');
@@ -87,8 +87,8 @@ class model {
 			$this->_fieldsSetting = $fieldSetting;
 		}
 	}
-	
-	
+
+
 	/**
 	 * 利用__call方法实现一些特殊的Model方法
 	 * @access public
@@ -167,7 +167,7 @@ class model {
 		return $this;
 	}
 
-	
+
 	/**
 	 * Switch DB
 	 *
@@ -183,7 +183,7 @@ class model {
 	/**
 	 * 链式操作中的field，构造SQL查询中的字段部分
 	 * 如果传入多个参数，则多个参数被集合到一个array中作为要查询的字段（多表联结不适用）
-	 * 
+	 *
 	 * @param type $field	需要查询的字段，可以是直接的SQL字符串，也可以是一个array（字段集合）。不传入或传入为false则查询所有字段(*)
 	 * @return \M_Model
 	 */
@@ -211,7 +211,7 @@ class model {
 	 * 简化操作本方法将接受2~3个string参数，分别为：field、value、operation
 	 * 根据3个参数，将生成如下格式的array格式的Where：
 	 * array( field => value, _op => operation )
-	 * 
+	 *
 	 * @param string|array $where
 	 * @param string arg2	第二个参数如果传入，则表示使用第二套方案
 	 * @return \M_Model
@@ -222,7 +222,7 @@ class model {
 			$this->options['where'] = array(
 				$options[0] => $options[1]
 			);
-			
+
 			if(isset($options[2])){
 				$this->options['where']['_op'] = $options[2];
 			}
@@ -232,16 +232,16 @@ class model {
 
 		return $this;
 	}
-	
+
 	final public function database($database){
 		$this->options['database'] = $database;
-		
+
 		return $this;
 	}
 
 	/**
 	 * 传入关键词进行搜索使用
-	 * 
+	 *
 	 * @create 2014-8-11 10:20
 	 * @auth 小皓
 	 * @param array $keywordArr
@@ -251,7 +251,7 @@ class model {
 		if(is_array($keywordArr)){//keyword必须为数组
 			$this->options['search'] = $keywordArr;
 		}
-		
+
 		return $this;
 	}
 
@@ -289,7 +289,7 @@ class model {
 
 	/**
 	 * 链式操作中的联表定义
-	 * 
+	 *
 	 * @author 小皓
 	 * @add 2014-5-12
 	 * @param type $table	表名
@@ -311,7 +311,7 @@ class model {
 	 * 命名范围用于定义一些常用的操作，使用时只需要调用本方法传入该操作的别名即可将参数合并
 	 * 如房源需要根据发表时间做排序，则可定义以下命名范围：
 	 * prote
-	 * 
+	 *
 	 * @param type $name
 	 * @return obj $this
 	 */
@@ -362,24 +362,8 @@ class model {
 		}
 
 		$this->sql = $sql;
-		//echo $sql;
-
-		/*
-		$this->cache = FALSE; // 暂停使用 MS
-		if($this->cache === FALSE || ENTIRE_CACHE == 1){
-			$key  = md5($this->sql);
-			$data = Helper::getMemcacheInstance()->key($key)->get();
-			if($data){
-				return $data;
-			}
-		}
-		*/
 
 		$return = DB::fetch_all($sql);
-
-		if($numRows){
-			return $total;
-		}
 
 		return $return;
 	}
@@ -430,7 +414,7 @@ class model {
 		return $this->query($sql);
 	}
 
-	
+
 	/**
 	 * Insert | Add a new record
 	 *
@@ -441,7 +425,7 @@ class model {
 		if($this->_errNo != 0){//错误不可执行insert操作
 			return false;
 		}
-		
+
 		if(!empty($this->_needField)){//如果自动装载数据时产生了未填满的必填字段，则做一次判断
 			foreach($this->_needField as $item){
 				if(empty($maps[$item])){
@@ -449,7 +433,7 @@ class model {
 				}
 			}
 		}
- 
+
 		$table = $this->parseTable();
 		$maps = empty($maps) ? $this->data : $maps;
 		if (!$maps || !is_array($maps)) {
@@ -459,7 +443,7 @@ class model {
 		}
 	}
 
-	
+
 	/**
 	 * Insert | Add a list record
 	 *
@@ -561,7 +545,7 @@ class model {
 
 	/**
 	 * 返回上一次运行的SQL
-	 * 
+	 *
 	 * @return type
 	 */
 	public function getLastSQL(){
@@ -596,7 +580,7 @@ class model {
 
 	/**
 	 * 加载数据
-	 * 
+	 *
 	 * @todo rule未来可能抛弃
 	 * @todo return计划抛弃，Create直接支持链式操作
 	 * @todo 自动验证尚需要完善
@@ -610,7 +594,7 @@ class model {
 		if(empty($param) || !is_array($param)) {
 			$param = $_POST;
 		}
-		
+
 		if($mode == 0){//未设置模式
 			//传入的数据是否存在主键，存在则为更新模式（$mode=2），否则为插入模式（$mode=1）
 			$mode = isset($param[$this->_fieldsSetting['_pk']['field']]) ? 2 : 1;
@@ -752,7 +736,7 @@ class model {
 	/**
 	 * 合并多个field定义，最终返回格式化后的字符串
 	 * warning：暂未对多表联结支持，请勿使用本方法合并多表链接的参数
-	 * 
+	 *
 	 * @param type $fields
 	 * @return Boolean|string
 	 */
@@ -774,7 +758,7 @@ class model {
 	 * 合并多个where定义，最终返回格式化后的字符串
 	 * warning：暂未对多表联结支持，请勿使用本方法合并多表链接的参数
 	 * warning：暂时只支持使用AND逻辑符连接，如果需要使用OR或其他逻辑符号，请勿使用本方法
-	 * 
+	 *
 	 * @param type $wheres
 	 * @return boolean
 	 */
@@ -802,7 +786,7 @@ class model {
 	/**
 	 * 合并多个order定义，最终返回格式化后的字符串
 	 * warning：暂未对多表联结支持，请勿使用本方法合并多表链接的参数
-	 * 
+	 *
 	 * @param type $orders
 	 * @return Boolean|string
 	 */
@@ -828,7 +812,7 @@ class model {
 	 * @return string SQL语句
 	 */
 	final protected function parseOptionSQL($fieldsParam = '', $whereParam = ''){
-		$fields = $where = $orderby = $limit = $join = '';
+		$fields = $where = $orderby = $limit = $join = $group = '';
 		if(isset($this->options['fields'])){
 			$fields = $this->options['fields'];
 			unset($this->options['fields']);
@@ -885,12 +869,12 @@ class model {
 		$sqlorder = $this->parseOrder($orderby);
 		$sqllimit = $this->parseLimit($limit);
 		$sqlgroup = $this->parseGroup($group);
-		
-		
-		
+
+
+
 		if(isset($this->options['scope'])){
 			$scope = $this->parseScope();
-			
+
 			$sqlfield = !empty($scope['field']) ? $this->mergeField($sqlfield, $scope['field']) : $sqlfield;
 			$sqlwhere = !empty($scope['where']) ? $this->mergeWhere($sqlwhere, $scope['where']) : $sqlwhere;
 			$sqlorder = !empty($scope['order']) ? $this->mergeOrder($sqlorder, $scope['order']) : $sqlorder;
@@ -952,7 +936,7 @@ class model {
 
 	/**
 	 * 处理命名空间，将命名空间的数据转化为SQL并返回
-	 * 
+	 *
 	 * @auth 小皓
 	 * @since 2014-08-27
 	 * @return array
@@ -974,7 +958,7 @@ class model {
 				$data['where'][] = $sqlArr['where'];
 				$data['order'][] = $sqlArr['order'];
 			}
-			
+
 			$this->mergeField($data['field']);
 			$this->mergeWhere($data['where']);
 			$this->mergeOrder($data['order']);
@@ -983,7 +967,7 @@ class model {
 		}
 		return $return;
 	}
-	
+
 	private function _parseScope($scope){
 		//可用于命名范围合并的内容
 		$actionArr = array('field', 'where', 'order');
@@ -1001,7 +985,7 @@ class model {
 				);
 			}
 		}
-		
+
 		return $return;
 	}
 
@@ -1120,11 +1104,11 @@ class model {
 
 		return $sqlwhere;
 	}
-	
+
 	/**
 	 * 处理由Search方法引入的搜索数据
 	 * 处理完后将于原有的Where合并
-	 * 
+	 *
 	 * @param type $oldwhere	旧的Where
 	 * @return string
 	 */
@@ -1149,13 +1133,13 @@ class model {
 
 			$where[] = $whereTmp;
 		}
-		
+
 		if(isset($this->options['alias'])){
 			$where = array(
 				$this->options['alias'] => $where
 			);
 		}
-		
+
 		return ' WHERE '. $this->mergeWhere(array($oldwhere, $where));
 	}
 
@@ -1380,7 +1364,7 @@ class model {
 //        }elseif(is_null($value)){
 //            $value   =  'null';
 //        } elseif(empty($value)) {
-//			
+//
 //		}
 		return $value = '\''.$value.'\'';;
 	}
@@ -1405,7 +1389,7 @@ class model {
 		if($field){//有传入field
 			$this->Field($field);
 		}
-		
+
 		if($where){//有传入where
 			$this->Where($where);
 		}
@@ -1421,10 +1405,10 @@ class model {
 
 		return $data ? $data[$field] : false;
 	}
-	
+
 	/**
 	 * 从传入的where或链式传入的where中获得查询条件，并解析为可执行的SQL
-	 * 
+	 *
 	 * @param type $where
 	 * @return string
 	 */
@@ -1433,7 +1417,7 @@ class model {
 			$where = $this->options['where'];
 			unset($this->options['where']);
 		}
-		
+
 		return $this->parseWhere($where);
 	}
 

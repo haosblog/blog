@@ -26,14 +26,16 @@ header > .headernav { float: right; margin-right: 10px; font-size: 14px; }
 header > .headernav li { float: left; margin-right: 10px; }
 header a { color: #2a6496; }
 td, th { background: #f5f5ee; }
-form.edit { width: 830px; }
 meter { width: 100%; border: 1px none; }
 meter, .meter-progress { width: 100%; height: 15px; border-radius: 15px; }
 .alertBg { position: absolute; z-index: 9999; background-color: #000; opacity: 0.6; width: 100%; height: 100%; top: 0; left: 0; display: none; text-align: center; line-height: 100%; }
 
 nav{ float: left; width: 200px; font-size: 15px; padding-bottom:10050px;margin-bottom:-10000px; background-color: #F6F6F6; border-right: 1px solid #c4c8cb; }
-.menu-first { height:45px; line-height:42px; background-color: #e9e9e9; border-top: 1px solid #efefef;
-		border-bottom: 1px solid #e1e1e1; padding: 0; font-size: 14px; font-weight: normal; text-align: center; }
+nav > ul { padding: 0; }
+.menu-first { background: -moz-linear-gradient(center top , #f9f9f9, #f2f2f2) repeat scroll 0 0 rgba(0, 0, 0, 0);
+			height:45px; line-height:42px; border-top: 1px solid #fff; border-bottom: 1px solid #ddd;
+			padding: 0; font-size: 14px; font-weight: normal; text-align: center;
+}
 .menu-first:hover{ text-decoration: none; background-color: #d6d4d5; border-top: 1px solid #b7b7b7; border-bottom: 1px solid #acacac; }
 .menu-second li a{ background-color: #f6f6f6; height:31px; line-height:31px; border-top: 1px solid #efefef;
 		border-bottom: 1px solid #efefef; font-size: 12px; text-align:center; }
@@ -52,4 +54,7 @@ div#body { margin-right: -200px; padding: 20px; float: right; width: 100%; paddi
 
 footer { height: 25px; margin-top: -25px; line-height: 25px; clear: both; background-color: #c2c9d0; }
 
+/* 表单相关公用样式 */
 .form-signin { max-width: 330px; margin: 0 auto; }
+.table-form { width: 100%; }
+.table-form th { width: 200px; }

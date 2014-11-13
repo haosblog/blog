@@ -11,6 +11,8 @@ abstract class core {
 	var $controller, $method;
 
 	public static function init(){
+		header("Content-type: text/html; charset=utf-8");
+
 		define('NL', "\n");
 		define('HAO_ROOT', substr(dirname(__FILE__), 0, -11));
 		define('RUNTIME_PATH', HAO_ROOT .'./runtime');
@@ -18,18 +20,17 @@ abstract class core {
 		require HAO_ROOT .'./config/config.php';
 		require HAO_ROOT .'./source/core/smarty/Smarty.class.php';
 		require HAO_ROOT .'/source/interface/database.interface.php';
-		require HAO_ROOT .'/source/driver/mysql.class.php';
-		
+		require HAO_ROOT .'/source/driver/db/mysql.class.php';
+
 		importCore('DB');
 		importCore('controller');
 		importCore('model');
-		
 		//初始化数据操作类
 		DB::init();
 
 //		self::websiteInfo($tplPath);
 	}
-	
+
 	public static function run(){
 		self::init();
 
@@ -44,15 +45,15 @@ abstract class core {
 		$GLOBALS['path'] = $urlInfo['path'];
 
 		$GLOBALS['tpl_path'] =  HAO_ROOT;	//模板路径，默认先定位到根目录，如果启用了分组或插件模式，则转到相应的模板目录
-		
-		
+
+
 		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
 			$controller = $action = 'index';
 		} else {
 			list($controller, $action) = self::_getAction($urlInfo['path']);
 		}
-		
-		
+
+
 		$GLOBALS['controller'] = $controller;
 		$GLOBALS['action'] = $action;
 
@@ -74,7 +75,7 @@ abstract class core {
 	 * 规则为：[分组]/控制器/[方法]
 	 * 首先判断是否有对应分组配置，存在则调用分组
 	 * 获取到的分组名、控制器名、方法名将存于$GLOBAL['controller']中
-	 * 
+	 *
 	 * @param type $path
 	 */
 	private static function _getAction($path){
@@ -82,21 +83,21 @@ abstract class core {
 		$controller = $router[1];
 		$sitegroupArr = C('GROUP');
 		$tplPath = HAO_ROOT .'./template/';
-		
+
 		if($controller == 'extend'){
-			
+
 		} elseif(isset($sitegroupArr[$controller])){
 			$GLOBALS['sitegroup'] = $sitegroup = $router[1];
 			$controller = !empty($router[2]) ? $router[2]: 'index';
 			$action = !empty($router[3]) ? $router[3]: 'index';
 
 			$tplPath .= $sitegroup .'/';
-			
+
 			$extendBase = HAO_ROOT .'source/controller/'. $sitegroup .'/baseController.class.php';
 			if(file_exists($extendBase)){// 如果存在扩展的控制器基类
 				require $extendBase;
 			}
-			
+
 		} else {// 不存在分组
 			$tplPath = 'default';
 			$action = !empty($router[2]) ? $router[2]: 'index';
