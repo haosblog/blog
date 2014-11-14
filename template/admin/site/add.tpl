@@ -1,15 +1,15 @@
 <{include file="header.tpl"}>
 <form action="/admin/site/addAction" method="post" class="form-horizontal edit" role="form">
-	<table class="table table-hover table-form">
+	<!--table class="table table-hover table-form">
 		<tr>
-			<th><label for="sitename" class=" control-label">站点名：</label></th>
-			<td><input type="text" name="sitename" id="sitename" class="form-control" required="required" /></td>
+			<th></th>
+			<td></td>
 		</tr>
-	</table>
+	</table-->
 	<div class="form-group">
-
-		<div class="col-sm-9">
-
+		<label for="sitename" class="control-label">站点名：</label>
+		<div>
+			<input type="text" name="sitename" id="sitename" class="form-control" required="required" />
 		</div>
 	</div>
 	<div class="form-group">
