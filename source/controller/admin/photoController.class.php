@@ -32,8 +32,12 @@ class photoController extends baseController {
 	 */
 	public function upload(){
 		$this->buffer['aidSelect'] = intval($_GET['aid']);
-		$this->buffer['albumList'] = M('album')->loadSelectList();
 
+		$albumList = M('album')->field('aid', 'name')->order('time DESC')->select();
+		foreach($albumList as $item){
+			$this->buffer['albumList'][$item['aid']] = $item['name'];
+		}
+		
 		$this->display();
 	}
 
