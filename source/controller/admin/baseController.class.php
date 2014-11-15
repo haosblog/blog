@@ -11,11 +11,11 @@
 session_start();
 
 abstract class baseController extends controller {
-	protected $m_user;
+	protected $m_user, $where;
 
 	function __construct() {
 		parent::__construct();	//先执行一遍父类的初始化操作
-		
+
 		$this->m_user = M('user');
 		if(isset($_POST['loginmode'])){// 登陆模式，进行登陆验证
 			$this->_loginAction();
@@ -34,8 +34,10 @@ abstract class baseController extends controller {
 			$GLOBALS['wsid'] = $_SESSION['wsid'];
 		}
 
-		$field = array('mid', 'modname', 'tablename', 'classable');
-		$this->buffer['model'] = M('model')->select($field);
+		$this->where = array('wsid' => $_SESSION['wsid']);
+
+//		$field = array('mid', 'modname', 'tablename', 'classable');
+//		$this->buffer['model'] = M('model')->field($field)->select();
 	}
 
 
@@ -87,10 +89,17 @@ abstract class baseController extends controller {
 		}
 	}
 
+	/**
+	 *
+	 */
+	protected function getWsid(){
+		return $GLOBALS['wsid'];
+	}
+
 	protected function cookieLogin($cookie){
 
 	}
-	
+
 	/**
 	 * 当用户提交了登陆表单，则执行本方法进行验证
 	 */

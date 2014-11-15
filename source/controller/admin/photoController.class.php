@@ -8,40 +8,45 @@
  * 相册控制器
  */
 class photoController extends baseController {
+
+	public function __construct() {
+		parent::__construct();
+		$this->buffer['nav'] = 'photo';
+	}
+
 	public function index(){
 		$limit = $this->getLimit(15);
 		$aid = intval($_GET['aid']);
-		$where = $aid ? array('p.aid' => $aid) : array();
+		$where = array("p.wsid='{$GLOBALS['wsid']}'");
+		if($aid){
+			$where['p.aid'] = $aid;
+		}
 
-		$this->buffer['list'] = M('photo')->field('p.*', 'a.name')->where($where)
-				->alias('p')->join('album AS a', 'p.aid=a.aid')->select();
-
-		$this->display();
-	}
-
-	public function album(){
-		$limit = $this->getLimit(20);
-		$this->buffer['list'] = M('album')->limit($limit)->select();
+		$this->buffer['list'] = M('photo')->field('p.*', 'a.name')->where($where)->order('p.`time` DESC')
+				->alias('p')->join('album AS a', 'p.aid=a.aid')->limit($limit)->select();
 
 		$this->display();
 	}
 
 
 	/**
-	 * 上传相册
+	 * 上传照片
 	 */
 	public function upload(){
 		$this->buffer['aidSelect'] = intval($_GET['aid']);
 
-		$albumList = M('album')->field('aid', 'name')->order('time DESC')->select();
+		$albumList = M('album')->field('aid', 'name')->where($this->where)->order('time DESC')->select();
 		foreach($albumList as $item){
 			$this->buffer['albumList'][$item['aid']] = $item['name'];
 		}
-		
+
 		$this->display();
 	}
 
-	public function uploadAction(){
+	/**
+	 * 图片上传处理事件
+	 */
+	public function action(){
 		import('upload');
 		$rule = array(
 			'source' => array('explain' => '上传类型', 'rule' => 'null'),

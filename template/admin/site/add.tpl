@@ -8,46 +8,44 @@
 	</table-->
 	<fieldset>
 		<div class="form-group">
-			<label for="sitename" class="col-sm-3 control-label">站点名：</label>
-			<div class="col-sm-6">
+			<label for="sitename" class="col-sm-2 control-label">站点名：</label>
+			<div class="col-sm-4">
 				<input type="text" name="sitename" id="sitename" class="form-control" required="required" />
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="seotitle" class="col-sm-3 control-label">首页标题：</label>
+			<label for="seotitle" class="col-sm-2 control-label">首页标题：</label>
 			<div class="col-sm-6">
 				<input type="text" name="seotitle" id="seotitle" class="form-control" required="required" />
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="keyword" class="col-sm-3 control-label">首页关键字：</label>
+			<label for="keyword" class="col-sm-2 control-label">首页关键字：</label>
 			<div class="col-sm-6">
 				<input type="text" name="keyword" id="keyword" class="form-control" />
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="description" class="col-sm-3 control-label">站点描述：</label>
+			<label for="description" class="col-sm-2 control-label">站点描述：</label>
 			<div class="col-sm-6">
 				<textarea name="description" id="description" class="form-control" ></textarea>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="domain" class="col-sm-3 control-label">站点域名：</label>
+			<label for="domain" class="col-sm-2 control-label">站点域名：</label>
 			<div class="col-sm-5">
 				<input name="domain[]" class="form-control" />
 			</div>
 			<div class="col-sm-1" style="font-size: 20px; font-weight: bold;">
-				<a href="javascript:void(0);" onclick="addDomain(this);">+</a>
-			</div>
-			<div class="col-sm-1" style="font-size: 20px; font-weight: bold;">
-				<a href="javascript:void(0);" onclick="addDomain(this);">－</a>
+				<a href="javascript:void(0);" data-handle="plus" class="glyphicon glyphicon-plus"></a>
+				<a href="javascript:void(0);" data-handle="remove" class="glyphicon glyphicon-minus"></a>
 			</div>
 		</div>
 		<div class="form-group">
 
 		</div>
 		<div class="form-group">
-			<label for="tpid" class="col-sm-3 control-label">站点模板：</label>
+			<label for="tpid" class="col-sm-2 control-label">站点模板：</label>
 			<div class="col-sm-6">
 				<select  name="tpid" id="tpid" class="form-control">
 					<{foreach from=$tplist item=tp}>
@@ -59,7 +57,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-3"></div>
+			<div class="col-sm-2"></div>
 			<div class="col-sm-6">
 				<button type="submit" class="btn btn-default">提交</button>
 				<input type="hidden" name="wsid" id="wsid" value="<{$wsid}>" />
@@ -70,9 +68,12 @@
 </form>
 <{include file="footer.tpl"}>
 <script type="text/javascript">
-function addDomain(obj){
-	var formgroup = $(obj).parent().parent();
+$(document).on("click", "[data-handle=plus]", function(){
+	var formgroup = $(this).parent().parent();
 	formgroup.after(formgroup.clone());
-	$(obj).remove();
-}
+//	$(this).remove();
+});
+$(document).on("click", "[data-handle=remove]", function(){
+	$(this).parent().parent().remove();
+});
 </script>

@@ -30,7 +30,7 @@ meter { width: 100%; border: 1px none; }
 meter, .meter-progress { width: 100%; height: 15px; border-radius: 15px; }
 .alertBg { position: absolute; z-index: 9999; background-color: #000; opacity: 0.6; width: 100%; height: 100%; top: 0; left: 0; display: none; text-align: center; line-height: 100%; }
 
-nav{ float: left; width: 200px; font-size: 15px; padding-bottom:10050px;margin-bottom:-10000px; background-color: #F6F6F6; border-right: 1px solid #c4c8cb; }
+nav { float: left; width: 200px; font-size: 15px; padding-bottom:10050px;margin-bottom:-10000px; background-color: #F6F6F6; border-right: 1px solid #c4c8cb; }
 nav > ul { padding: 0; }
 
 

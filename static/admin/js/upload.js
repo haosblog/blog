@@ -99,7 +99,7 @@ var html5up = {
 	},
 	uploadAction : function (fd){
 		var xhr = new XMLHttpRequest();
-		var url = '/admin/photo/uploadAction';
+		var url = '/admin/photo/action';
 
 		xhr.open('POST', url, true);
 

@@ -7,7 +7,7 @@
 			</a>
 		</li>
 		<li>
-			<a id="menu_site" href="#siteMenu" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse">
+			<a id="menu_site" href="#siteMenu" class="list-group-item menu-first collapsed menu_button<{if $nav eq 'site'}> on<{/if}>" data-toggle="collapse">
 				站点管理
 				<span class="pull-right down"><i class="glyphicon glyphicon-chevron-down"></i></span>
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
@@ -19,7 +19,7 @@
 			</ul>
 		</li>
 		<li>
-			<a id="menu_model" href="#modelMenu" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse">
+			<a id="menu_model" href="#modelMenu" class="list-group-item menu-first collapsed menu_button<{if $nav eq 'model'}> on<{/if}>" data-toggle="collapse">
 				系统模型管理
 				<span class="pull-right down"><i class="glyphicon glyphicon-chevron-down"></i></span>
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
@@ -30,13 +30,13 @@
 			</ul>
 		</li>
 		<li>
-			<a id="menu_photo" href="#photoMenu" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse">
+			<a id="menu_photo" href="#photoMenu" class="list-group-item menu-first collapsed menu_button<{if $nav eq 'photo'}> on<{/if}>" data-toggle="collapse">
 				相片管理
 				<span class="pull-right down"><i class="glyphicon glyphicon-chevron-down"></i></span>
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
 			</a>
 			<ul id="photoMenu" class="nav nav-list collapse menu-second">
-				<li><a href="/admin/photo/album">相册管理</a></li>
+				<li><a href="/admin/album">相册管理</a></li>
 				<li><a href="/admin/photo/">图片管理</a></li>
 				<li><a href="/admin/photo/upload">上传图片</a></li>
 			</ul>
