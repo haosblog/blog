@@ -1,6 +1,6 @@
 $(function(){
 	// 读取cookie处理侧边栏菜单的展开情况
-	$(".collapsed").each(function(){
+	$(".menu_button").each(function(){
 		var id = $(this).attr("id");
 		var cookie = getCookie(id);
 		if(cookie == 1){

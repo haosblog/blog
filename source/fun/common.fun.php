@@ -143,12 +143,12 @@ function loadJS($jsfiles){
 				continue;
 			}
 
-			$jsPath = TPL_PATH .'static/js/';
+			$jsPath = TPL_PATH .'static/'. ($GLOBALS['sitegroup'] ? $GLOBALS['sitegroup'] .'/' : '') .'js/';
 			$jsfile .= '.js';
 
 			$filePath = HAO_ROOT . $jsPath .$jsfile;
 			if(!file_exists($filePath)){
-				$jsPath = '/static/js/';
+				$jsPath = '/static/'. ($GLOBALS['sitegroup'] ? $GLOBALS['sitegroup'] .'/' : '') .'js/';
 			}
 
 			echo('<script type="text/javascript" src="'. $jsPath . $jsfile .'"></script>'. NL);
@@ -167,12 +167,12 @@ function loadCSS($cssfiles){
 				continue;
 			}
 
-			$cssPath = TPL_PATH .'static/css/';
+			$cssPath = TPL_PATH .'static/'. ($GLOBALS['sitegroup'] ? $GLOBALS['sitegroup'] .'/' : '') .'css/';
 			$cssfile .= '.css';
 
 			$filePath = HAO_ROOT . $cssPath .$cssfile;
 			if(!file_exists($filePath)){
-				$cssPath = '/static/css/';
+				$cssPath = '/static/'. ($GLOBALS['sitegroup'] ? $GLOBALS['sitegroup'] .'/' : '') .'css/';
 			}
 
 			echo('<link rel="stylesheet" href="'. $cssPath . $cssfile .'" />'. NL);

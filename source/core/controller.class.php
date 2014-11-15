@@ -199,6 +199,11 @@ class controller {
 	protected function getPage(){
 		return max(1, intval($_GET['page']));
 	}
+	
+	protected function getLimit($pageCount = 10){
+		$page = $this->getPage();
+		return array($page, $pageCount);
+	}
 
 	protected function set_err($msg){
 		$this->error = true;

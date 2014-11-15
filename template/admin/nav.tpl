@@ -7,7 +7,7 @@
 			</a>
 		</li>
 		<li>
-			<a id="menu_site" href="#siteMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">
+			<a id="menu_site" href="#siteMenu" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse">
 				站点管理
 				<span class="pull-right down"><i class="glyphicon glyphicon-chevron-down"></i></span>
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
@@ -19,7 +19,7 @@
 			</ul>
 		</li>
 		<li>
-			<a id="menu_model" href="#modelMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">
+			<a id="menu_model" href="#modelMenu" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse">
 				系统模型管理
 				<span class="pull-right down"><i class="glyphicon glyphicon-chevron-down"></i></span>
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
@@ -30,7 +30,7 @@
 			</ul>
 		</li>
 		<li>
-			<a id="menu_photo" href="#photoMenu" class="list-group-item menu-first collapsed" data-toggle="collapse">
+			<a id="menu_photo" href="#photoMenu" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse">
 				相片管理
 				<span class="pull-right down"><i class="glyphicon glyphicon-chevron-down"></i></span>
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
@@ -43,7 +43,7 @@
 		</li>
 		<{foreach from=$model item=modelRow}>
 			<li>
-				<a href="#<{$modelRow.tablename}>" class="list-group-item menu-first collapsed" data-toggle="collapse"><{$modelRow.modname}>管理</a>
+				<a id="menu_<{$modelRow.tablename}>" href="#<{$modelRow.tablename}>" class="list-group-item menu-first collapsed menu_button" data-toggle="collapse"><{$modelRow.modname}>管理</a>
 				<ul id="<{$modelRow.tablename}>" class="nav nav-list collapse menu-second">
 					<li><a href="/admin/model/post?mid=<{$modelRow.mid}>">发表<{$modelRow.modname}></a></li>
 					<{if $modelRow.classable eq 1}>

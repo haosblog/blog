@@ -9,16 +9,19 @@
  */
 class photoController extends baseController {
 	public function index(){
-		$page = $this->getPage();
+		$limit = $this->getLimit(15);
 		$aid = intval($_GET['aid']);
-		$this->buffer['list'] = M('photo')->loadList($aid, $page, 30);
+		$where = $aid ? array('p.aid' => $aid) : array();
+
+		$this->buffer['list'] = M('photo')->field('p.*', 'a.name')->where($where)
+				->alias('p')->join('album AS a', 'p.aid=a.aid')->select();
 
 		$this->display();
 	}
 
 	public function album(){
-		$page = $this->getPage();
-		$this->buffer['list'] = M('album')->loadList($page, 10);
+		$limit = $this->getLimit(20);
+		$this->buffer['list'] = M('album')->limit($limit)->select();
 
 		$this->display();
 	}
