@@ -79,8 +79,9 @@ class upload {
 		}
 
 		if(empty($this->error)){
-			if (!is_dir($this->savePath)) {
-				if (!@mkdir($this->savePath, 0777, true)) {
+			$staticPath = HAO_ROOT . $this->savePath;
+			if (!is_dir($staticPath)) {
+				if (!mkdir($staticPath, 0777, true)) {
 					return array('创建文件夹失败', 'error');
 				}
 			}

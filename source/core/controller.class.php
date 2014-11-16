@@ -15,10 +15,10 @@ class controller {
 	 * 控制器初始化
 	 */
 	public function __construct($router = array()){ }
-	
+
 	/**
 	 * 魔术方法，当运行的方法不存在的时候运行
-	 * 
+	 *
 	 * @param type $name
 	 * @param type $arguments
 	 */
@@ -199,10 +199,11 @@ class controller {
 	protected function getPage(){
 		return max(1, intval($_GET['page']));
 	}
-	
+
 	protected function getLimit($pageCount = 10){
 		$page = $this->getPage();
-		return array($page, $pageCount);
+		$start = ($page - 1) * $pageCount;
+		return array($start, $pageCount);
 	}
 
 	protected function set_err($msg){
@@ -217,7 +218,7 @@ class controller {
 				header('Content-type:text/json');
 				$text = json_encode($data);
 		}
-		
+
 		echo($text);
 	}
 }
