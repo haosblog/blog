@@ -25,7 +25,7 @@
 				<span class="pull-right up"><i class="glyphicon glyphicon-chevron-up"></i></span>
 			</a>
 			<ul id="articleMenu" class="nav nav-list collapse menu-second">
-				<li><a href="/admin/class">分类管理</a></li>
+				<li><a href="/admin/category/">分类管理</a></li>
 				<li><a href="/admin/article/">日志管理</a></li>
 				<li><a href="/admin/article/add">写日志</a></li>
 			</ul>
