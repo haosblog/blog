@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-<form action="/admin/category/addAction" method="post" class="form-horizontal edit" role="form">
+<form action="/admin/category/action" method="post" class="form-horizontal edit" role="form">
 	<div class="form-group">
 		 <label for="catname" class="col-sm-2 control-label">栏目名：</label>
 		<div class="col-sm-10">

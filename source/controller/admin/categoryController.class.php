@@ -21,19 +21,29 @@ class categoryController extends baseController {
 
 
 	public function action(){
-		print_r($_POST);die;
 		$rule = array(
 			'catname' => array('explain' => '栏目名', 'rule' => ''),
 			'title' => array('explain' => '栏目SEO标题', 'rule' => 'null'),
 			'keyword' => array('explain' => '栏目SEO关键词', 'rule' => 'null'),
 			'description' => array('explain' => '栏目SEO描述', 'rule' => 'null'),
-			'tpid' => array('explain' => '站点模板', 'rule' => ''),
-			'isdefault' => array('explain' => '默认站点', 'rule' => 'null')
+			'arc_title' => array('explain' => '文章页SEO标题', 'rule' => 'null'),
+			'arc_keyword' => array('explain' => '文章页SEO关键词', 'rule' => 'null'),
+			'arc_description' => array('explain' => '文章页SEO描述', 'rule' => 'null'),
 		);
 
 		$param = $this->getParam($rule);
+		$cid = intval($_POST['cid']);
 
-		print_r($param);
+		if($cid){
+			M('category')->where(array('cid' => $cid))->update($param);
+			$msg = '修改栏目成功！';
+		} else {
+			$param['wsid'] = $this->wsid;
+			M('category')->insert($param);
+			$msg = '新增栏目成功！';
+		}
+
+		$this->showmessage($msg, 1);
 	}
 
 	private function _update(){

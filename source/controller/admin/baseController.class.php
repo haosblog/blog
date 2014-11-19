@@ -11,7 +11,7 @@
 session_start();
 
 abstract class baseController extends controller {
-	protected $m_user, $where;
+	protected $m_user, $where, $wsid;
 
 	function __construct() {
 		parent::__construct();	//先执行一遍父类的初始化操作
@@ -22,19 +22,7 @@ abstract class baseController extends controller {
 		}
 
 		$this->islogin();	//检测用户是否登陆
-
-		//加载站点列表
-		$websiteList = M('website')->field('wsid', 'sitename', 'isdefault')->where(array('type' => 0))->select();
-		if($websiteList){
-			//如果SESSION中没有当前站点wsid信息，则初始化站点
-			if(!$_SESSION['wsid']){
-				$_SESSION['wsid'] = $_SESSION['user']['wsid'];
-			}
-			$GLOBALS['website']['list'] = $websiteList;
-			$GLOBALS['wsid'] = $_SESSION['wsid'];
-		}
-
-		$this->where = array('wsid' => $_SESSION['wsid']);
+		$this->_getWebSiteInfo();	// 获取站点列表
 
 //		$field = array('mid', 'modname', 'tablename', 'classable');
 //		$this->buffer['model'] = M('model')->field($field)->select();
@@ -122,5 +110,24 @@ abstract class baseController extends controller {
 		} else {
 			$this->showmessage('账号密码错误！');
 		}
+	}
+
+	/**
+	 *
+	 */
+	private function _getWebSiteInfo(){
+		//加载站点列表
+		$websiteList = M('website')->field('wsid', 'sitename', 'isdefault')->where(array('type' => 0))->select();
+		if($websiteList){
+			//如果SESSION中没有当前站点wsid信息，则初始化站点
+			if(!$_SESSION['wsid']){
+				$_SESSION['wsid'] = $_SESSION['user']['wsid'];
+			}
+			$GLOBALS['website']['list'] = $websiteList;
+			$GLOBALS['wsid'] = $_SESSION['wsid'];
+		}
+
+		$this->wsid = $_SESSION['wsid'];
+		$this->where = array('wsid' => $_SESSION['wsid']);
 	}
 }

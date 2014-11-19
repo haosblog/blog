@@ -14,4 +14,11 @@ class articleController extends controller {
 		parent::__construct($router);
 		$this->buffer['nav'] = 'article';
 	}
+
+	/**
+	 * 编辑/新增文章
+	 */
+	public function edit(){
+		$this->display();
+	}
 }
