@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="/static/common/css/bootstrap.css" rel="stylesheet">
 		<link href="/static/common/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="/static/common/css/font-awesome/css/font-awesome.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css"  href="/static/admin/css/admin.css" />
 		<{$loadcss|loadCSS}>
 		<script type="text/javascript" src="/static/common/js/jquery.js"></script>

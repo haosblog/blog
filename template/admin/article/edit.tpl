@@ -26,7 +26,7 @@
 		<div class="form-group">
 			<label for="content" class="col-sm-2 control-label">文章内容：</label>
 			<div class="col-sm-10">
-				<textarea class="form-control"></textarea>
+				<{include file="field/wysiwyg.tpl" name="content"}>
 			</div>
 		</div>
 		<div class="form-group">
@@ -38,7 +38,9 @@
 				</select>
 			</div>
 			<div class="col-sm-2">
-				<input type=""
+				<label for="status">
+					<input type="checkbox" value="1" name="" id="" /> 原创
+				</label>
 			</div>
 		</div>
 	</fieldset>
