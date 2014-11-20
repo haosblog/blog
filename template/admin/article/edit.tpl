@@ -1,3 +1,46 @@
 <{include file="header.tpl"}>
-
+<form action="/admin/site/addAction" method="post" class="form-horizontal edit" role="form">
+	<!--table class="table table-hover table-form">
+		<tr>
+			<th></th>
+			<td></td>
+		</tr>
+	</table-->
+	<fieldset>
+		<div class="form-group">
+			<label for="title" class="col-sm-2 control-label">文章标题：</label>
+			<div class="col-sm-4">
+				<input type="text" name="title" id="title" class="form-control" required="required" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="cid" class="col-sm-2 control-label">文章分类：</label>
+			<div class="col-sm-2">
+				<select name="cid" id="cid" class="form-control">
+					<{foreach from=$category item=item}>
+						<option value="<{$item.cid}>"><{$item.catname}></option>
+					<{/foreach}>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="content" class="col-sm-2 control-label">文章内容：</label>
+			<div class="col-sm-10">
+				<textarea class="form-control"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="status" class="col-sm-2 control-label">文章属性：</label>
+			<div class="col-sm-2">
+				<select name="status" id="status" class="form-control">
+					<option value="1">正常</option>
+					<option value="0">草稿</option>
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<input type=""
+			</div>
+		</div>
+	</fieldset>
+</form>
 <{include file="footer.tpl"}>

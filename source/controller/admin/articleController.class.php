@@ -19,6 +19,13 @@ class articleController extends controller {
 	 * 编辑/新增文章
 	 */
 	public function edit(){
+		$aid = intval($_GET['aid']);
+		if($aid){
+			$this->buffer['article'] = M('article')->getByAid($aid);
+		}
+
+		$this->buffer['category'] = M('category')->field('cid', 'catname')->select();
+
 		$this->display();
 	}
 }
