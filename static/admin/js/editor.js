@@ -11,7 +11,24 @@ $(function(){
 				editorFunction[event].call();
 			}
 		});
-
+		
+		contentArea.keypress(keyevent);
+		
+		function keyevent(e){
+			var k = e.keyCode || e.which; 
+			var returnValue = true;
+			switch(k){
+				case 9:
+					contentArea.selection().replace("	");
+					returnValue = false;
+					break;
+			}
+			
+			if(!returnValue){
+				return false;
+			}
+			alert(k);
+		}
 
 		var editorFunction = {
 			"bold" : function (){
