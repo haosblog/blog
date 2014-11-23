@@ -86,6 +86,7 @@
 			start: newStart,
 			end: newEnd,
 			text: newText,
+			selection : selection,
 			replace : function(pre, type, allowMuti){
 				if(typeof type === "undefined"){
 					type = 1;
