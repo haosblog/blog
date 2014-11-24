@@ -1,5 +1,5 @@
 <{include file="header.tpl"}>
-<form action="/admin/site/addAction" method="post" class="form-horizontal edit" role="form">
+<form action="/admin/article/action" method="post" class="form-horizontal edit" role="form">
 	<!--table class="table table-hover table-form">
 		<tr>
 			<th></th>
@@ -41,6 +41,12 @@
 				<label for="status">
 					<input type="checkbox" value="1" name="" id="" /> 原创
 				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="submit" class="col-sm-2 control-label"></label>
+			<div class="col-sm-2">
+				<button type="submit" name="submit"></button>
 			</div>
 		</div>
 	</fieldset>
