@@ -60,9 +60,22 @@ $(function(){
 				case 13:// 回车键，自动判断上一行是否存在制表符/列表标记，自动添加
 					var sel = contentArea.selectionLine();
 					var firstLetter = contentArea.val().substr(sel.start, 1);
-					if(firstLetter === "	" || firstLetter === "#" || firstLetter === "*"){
-						if(firstLetter !== "	"){ firstLetter += " "; }
+					if(firstLetter === "	"){
+						var i = sel.start;
+						while(true){
+							i++;
+							if(contentArea.val().substr(i, 1) === "	"){
+								firstLetter += "	";
+							} else {
+								break;
+							}
+						}
 						sel.selection.replace("\n" + firstLetter);
+						return false;
+					}
+
+					if(firstLetter === "#" || firstLetter === "*"){
+						sel.selection.replace("\n" + firstLetter + " ");
 						return false;
 					}
 					break;

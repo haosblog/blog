@@ -36,6 +36,10 @@
 			text: te,
 			replace : function(text){
 				container.value = container.value.substr(0, this.start) + text + container.value.substr(this.end);
+				container.selectionEnd = this.start + text.length;
+				if(this.start !== this.end){
+					container.selectionStart = this.start;
+				}
 				container.focus();
 			}
 		}
@@ -51,9 +55,10 @@
 			return content.substr(end, 1) === "\n";
 		};
 
-		var container = $(this);
-		var selection = container.selection();
-		var content = container.val();
+		var container = this;
+		var $container = $(container);
+		var selection = $container.selection();
+		var content = $container.val();
 		var start = selection.start;
 		var end = selection.end;
 		var newStart, newEnd, newText;
@@ -119,8 +124,10 @@
 					}
 				}
 
-				container.val(container.val().substr(0, this.start) + newText + container.val().substr(this.end));
-				container.focus();
+				$container.val($container.val().substr(0, this.start) + newText + $container.val().substr(this.end));
+				container.selectionEnd = container.selectionStart = this.start;
+//				container.selectionEnd = this.start + newText.length;
+				$container.focus();
 			}
 		}
 	}
