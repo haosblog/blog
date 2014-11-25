@@ -10,6 +10,8 @@
 
 class editorEvent extends controller {
 
+	private $_titleArr;
+
 	public function parseContent($content){
 		// 按行分解内容
 		$lineArr = explode("\n", $content);
@@ -25,6 +27,18 @@ class editorEvent extends controller {
 			}
 
 			$firstLetter = substr($line, 0, 1);
+			switch ($firstLetter){
+				case '#':
+					break;
+
+				case '*':
+					break;
+
+				case '=':
+					$line = $this->_parseTitle($line);
+					break;
+
+			}
 
 			$htmlContent .= $line ."\n";
 		}
@@ -61,5 +75,9 @@ class editorEvent extends controller {
 		}
 
 		return $content;
+	}
+
+	private function _parseTitle($content){
+
 	}
 }
