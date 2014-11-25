@@ -35,20 +35,94 @@
 			end: e,
 			text: te,
 			replace : function(text){
-				selection = document.selection;
+				container.value = container.value.substr(0, this.start) + text + container.value.substr(this.end);
 				container.focus();
-				if (typeof container.selectionStart != "undefined") {
-					var s = container.selectionStart;
-					container.value = container.value.substr(0, container.selectionStart) + text + container.value.substr(container.selectionEnd);
-					container.selectionEnd = s + text.length;
-				} else if (selection && selection.createRange) {
-					var sel = selection.createRange();
-					sel.text = text;
-				} else {
-					container.value += text;
-				}
 			}
 		}
 	};
+
+	$.fn.selectionLine = function(){
+
+		this.checkFirst = function(start){
+			return content.substr(start - 1, 1) === "\n";
+		};
+
+		this.checkEnd = function(end){
+			return content.substr(end, 1) === "\n";
+		};
+
+		var container = $(this);
+		var selection = container.selection();
+		var content = container.val();
+		var start = selection.start;
+		var end = selection.end;
+		var newStart, newEnd, newText;
+
+		if(start === 0 || this.checkFirst(start)){
+			newStart = start;
+		} else {
+			for(var i = start; i >= 0; i--){
+				if(i === 0 || this.checkFirst(i)){
+					newStart = i;
+					break;
+				}
+			}
+		}
+
+		if(end === content.length || this.checkEnd()){
+			newEnd = end;
+		} else {
+			for(var i = end; i <= content.length; i++){
+				if(i === content.length || this.checkEnd(i)){
+					newEnd = i;
+					break;
+				}
+			}
+		}
+
+		newText = $(this).val().substring(newStart, newEnd);
+
+		return {
+			start: newStart,
+			end: newEnd,
+			text: newText,
+			selection : selection,
+			replace : function(pre, type, allowMuti){
+				if(typeof type === "undefined"){
+					type = 1;
+				}
+
+				if(typeof allowMuti === "undefined"){
+					allowMuti = true;
+				}
+
+				var lineArr = this.text.split("\n");
+				var newText = "";
+				if(!allowMuti && lineArr.length > 1){
+					alert("您选中了多行文本，本操作无法完成");
+				}
+
+				var len = lineArr.length - 1;
+				for(var i = 0; i <= len; i++){
+					var newLine = lineArr[i];
+					if(type === 1){// type为1，加前缀
+						newLine = pre + newLine;
+					} else if(type === 2) {// type为2，前后加标记
+						newLine = pre + newLine + pre;
+					} else {// type非1和2，则type作为后缀使用
+						newLine = pre + newLine + type;
+					}
+
+					newText += newLine;
+					if(i !== len){
+						newText += "\n";
+					}
+				}
+
+				container.val(container.val().substr(0, this.start) + newText + container.val().substr(this.end));
+				container.focus();
+			}
+		}
+	}
 })(jQuery);
 

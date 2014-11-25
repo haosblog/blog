@@ -28,4 +28,30 @@ class articleController extends controller {
 
 		$this->display();
 	}
+
+	public function article(){
+		$content = $this->_parseContent($_POST['content']);
+
+	}
+
+	private function _parseContent($content){
+		$pregMatchArr = $loopingData = array();
+		preg_match_all("/\{\{loop .*?from=\"(.*?)\"\}\}(.*?)\{\{\/loop\}\}/is", $content, $pregMatchArr);
+
+		foreach($pregMatchArr[0] as $key => $val){
+			$fieldName = $pregMatchArr[1][$key];
+			$block  = $pregMatchArr[2][$key];
+
+			if(!isset($loopingData)){
+				$data = $this->_getCategoryData($fieldName);
+				if($data === FALSE){
+					continue;
+				}
+
+				$loopingData[$fieldName] = $data;
+			}
+
+			$content = $this->_replaceLoop($content, $val, $block, $loopingData[$fieldName]);
+		}
+	}
 }
