@@ -46,7 +46,7 @@
 		<div class="form-group">
 			<label for="submit" class="col-sm-2 control-label"></label>
 			<div class="col-sm-2">
-				<button type="submit" name="submit"></button>
+				<button type="submit" name="submit" class="btn">提交</button>
 			</div>
 		</div>
 	</fieldset>
