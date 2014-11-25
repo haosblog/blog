@@ -29,6 +29,7 @@ abstract class core {
 		DB::init();
 
 //		self::websiteInfo($tplPath);
+		spl_autoload_register('core::autoload');
 	}
 
 	public static function run(){
@@ -119,6 +120,19 @@ abstract class core {
 			$website = $m_website->loadDefault();
 			$GLOBALS['website'] = $website;
 			$tplPath .= $website['tppath'] .'/';
+		}
+	}
+
+	public static function autoload($class){
+		if(strpos($class, 'Event') !== FALSE){
+			$classFile = HAO_ROOT .'/source/event/'. $class .'.class.php';
+		} elseif(strpos($class, 'Controller') !== FALSE) {
+			$controller = substr($class, 0, -10);
+			$classFile = controller_file($controller);
+		}
+
+		if(file_exists($classFile)){
+			require $classFile;
 		}
 	}
 }
