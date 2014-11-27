@@ -10,7 +10,9 @@
 
 class editorEvent extends controller {
 
-	private $_titleArr;
+	private $_titleArr = array();
+
+	private $_lastList = array();
 
 	public function parseContent($content){
 		// 按行分解内容
@@ -18,6 +20,7 @@ class editorEvent extends controller {
 		$htmlContent = '';
 
 		foreach($lineArr as $line){
+			$getList = false;
 			if(strpos($line, '\'\'\'') !== FALSE){// 三引号，解析加粗
 				$line = $this->_parseBlod($line);
 			}
@@ -34,6 +37,8 @@ class editorEvent extends controller {
 			switch ($firstLetter){
 				case '#':
 				case '*':
+
+					$getList = true;
 					break;
 
 				case '=':
@@ -43,6 +48,9 @@ class editorEvent extends controller {
 			}
 
 			$htmlContent .= $line ."\n";
+			if(!$getList){
+				$this->_lastList = array();
+			}
 		}
 
 		echo($htmlContent);
@@ -101,6 +109,26 @@ class editorEvent extends controller {
 		}
 
 		return $content;
+	}
+
+
+	private function _parseList($content){
+		$listInfo = array();
+		$len = strlen($content);
+		for($i = 0; $i < $len; $i++){
+			$letter = substr($content, $i, 1);
+			if($letter == ' '){
+				continue;
+			}
+
+			if($letter == '#' || $letter == '*'){
+				$listInfo['type'][] = $letter;
+			} else {
+				break;
+			}
+		}
+
+		
 	}
 
 	private function _parseTitle($content){
