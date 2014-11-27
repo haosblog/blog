@@ -37,7 +37,7 @@ class editorEvent extends controller {
 			switch ($firstLetter){
 				case '#':
 				case '*':
-
+					$this->_parseList($line);
 					$getList = true;
 					break;
 
@@ -128,7 +128,14 @@ class editorEvent extends controller {
 			}
 		}
 
-		
+		if(!empty($this->_lastList)){
+			$thisLineLen = count($listInfo['type']);
+			$lastLineLen = count($this->_lastList['type']);
+			
+			
+		} else {
+			
+		}
 	}
 
 	private function _parseTitle($content){
