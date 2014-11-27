@@ -39,7 +39,7 @@
 			</div>
 			<div class="col-sm-2">
 				<label for="status">
-					<input type="checkbox" value="1" name="" id="" /> 原创
+					<input type="checkbox" value="1" name="original" id="original" checked="checked"/> 原创
 				</label>
 			</div>
 		</div>
