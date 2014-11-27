@@ -10,7 +10,9 @@
 
 class editorEvent extends controller {
 
-	private $_titleArr;
+	private $_titleArr = array();
+
+	private $_lastList = array();
 
 	public function parseContent($content){
 		// 按行分解内容
@@ -18,6 +20,7 @@ class editorEvent extends controller {
 		$htmlContent = '';
 
 		foreach($lineArr as $line){
+			$getList = false;
 			if(strpos($line, '\'\'\'') !== FALSE){// 三引号，解析加粗
 				$line = $this->_parseBlod($line);
 			}
@@ -26,12 +29,16 @@ class editorEvent extends controller {
 				$line = $this->_parseItalic ($line);
 			}
 
+			if(strpos($line, '[[') !== FALSE){// 二引号，解析倾斜
+				$line = $this->_parseLink($line);
+			}
+
 			$firstLetter = substr($line, 0, 1);
 			switch ($firstLetter){
 				case '#':
-					break;
-
 				case '*':
+
+					$getList = true;
 					break;
 
 				case '=':
@@ -41,6 +48,9 @@ class editorEvent extends controller {
 			}
 
 			$htmlContent .= $line ."\n";
+			if(!$getList){
+				$this->_lastList = array();
+			}
 		}
 
 		echo($htmlContent);
@@ -49,7 +59,6 @@ class editorEvent extends controller {
 	private function _parseBlod($content){
 		$pregMatchArr = $loopingData = array();
 		preg_match_all("/'''(.*?)'''/is", $content, $pregMatchArr);
-		print_r($pregMatchArr);
 
 		foreach($pregMatchArr[0] as $key => $val){
 			$text = $pregMatchArr[1][$key];
@@ -61,11 +70,9 @@ class editorEvent extends controller {
 		return $content;
 	}
 
-
 	private function _parseItalic($content){
 		$pregMatchArr = $loopingData = array();
 		preg_match_all("/''(.*?)''/is", $content, $pregMatchArr);
-		print_r($pregMatchArr);
 
 		foreach($pregMatchArr[0] as $key => $val){
 			$text = $pregMatchArr[1][$key];
@@ -77,7 +84,113 @@ class editorEvent extends controller {
 		return $content;
 	}
 
-	private function _parseTitle($content){
+	private function _parseLink($content){
+		$pregMatchArr = $loopingData = array();
+		preg_match_all("/\[\[(.*?)\]\]/is", $content, $pregMatchArr);
 
+		foreach($pregMatchArr[0] as $key => $val){
+			$text = $pregMatchArr[1][$key];
+			if(strpos(strtolower($text), 'image:') === 0){// 调用图片
+				$html = $this->_parseImage($text);
+			} elseif(is_numeric($text)){// 纯数字，读取文章链接
+				$html = $this->_getArticleLink($text);
+			} elseif(strpos($text, '|') !== false) {
+				list($link, $node) = explode('|', $text, 2);
+				$html = '<a href="'. $link .'" target="_blank">'. $node .'</a>';
+			} else {
+				continue;
+			}
+
+			if(!$html){
+				continue;
+			}
+
+			$content = str_replace($val, $html, $content);
+		}
+
+		return $content;
+	}
+
+
+	private function _parseList($content){
+		$listInfo = array();
+		$len = strlen($content);
+		for($i = 0; $i < $len; $i++){
+			$letter = substr($content, $i, 1);
+			if($letter == ' '){
+				continue;
+			}
+
+			if($letter == '#' || $letter == '*'){
+				$listInfo['type'][] = $letter;
+			} else {
+				break;
+			}
+		}
+
+		
+	}
+
+	private function _parseTitle($content){
+		$content = trim($content);
+		$level = 0;
+		// 标题等级最高到6（大于5），或本行长度的一半则跳出
+		$levelUp = min(5, strlen($content) / 2);
+		while(TRUE){
+			$firstLetter = substr($content, $level, 1);
+			$lastLetter = substr($content, -1 - $level, 1);
+
+			if($firstLetter != '=' || $firstLetter != $lastLetter){
+				break;
+			}
+			$level++;
+
+			if($level > $levelUp){
+				break;
+			}
+		}
+		if($level > 1){
+			$content = '<h'. $level .'>'. trim(substr($content, $level, -$level)) .'</h'. $level .'>';
+		}
+
+		return $content;
+	}
+
+	private function _parseImage($content){
+		$pid = $info = substr($content, 6);
+		if(strpos($info, '|') !== FALSE){// 如果有|符号，则切割获取参数，参数分别为：相片ID(或图片路径)、图片的显示位置、图片尺寸
+			list($pid, $align, $size) = explode('|', $info);
+		}
+
+
+		$align = strtolower($align);
+		if(!$align || !in_array($align, array('left', 'right', 'middle'))){
+			$align = 'middle';
+		}
+
+		if(is_numeric($pid)){// pid为数字，则作为相册的ID处理，读取相册信息
+			$photoInfo = M('photo')->field('pid', 'path')->getByPid($pid);
+			if(!$photoInfo){ return false; }
+
+			$large = $path = $photoInfo['path'];
+
+			if(is_numeric($size)){// 未定义size，或size不为数字，则默认为500
+				$size = 500;
+			}
+			$path = '/thumb/'. $size .'x0'. $path;	// 生成缩略图路径
+		} else {// pid不为数字，则作为图片的URL处理
+			$large = $path = $pid;
+		}
+
+		return '<div class="'. $align .'"><img data-large="'. $large .'" data-pid="'. $pid .'" src="'. $path .'" /></div>';
+	}
+
+	private function _getArticleLink($aid){
+		$articleInfo = M('article')->field('aid', 'title')->getByAid($aid);
+		if($articleInfo){
+			return '<a href="/article/'. $articleInfo['aid'] .'" target="_blank">'. $articleInfo['title'] .'</a>';
+		} else {
+			return false;
+		}
 	}
 }
