@@ -128,14 +128,62 @@ class editorEvent extends controller {
 			}
 		}
 
+		$lineContent = trim(substr($content, $i));	// 剔除前面的符号后的行内容
+
 		if(!empty($this->_lastList)){
 			$thisLineLen = count($listInfo['type']);
 			$lastLineLen = count($this->_lastList['type']);
-			
-			
+			$up = min($thisLineLen, $lastLineLen);
+			$different = null;
+
+			for($i = 0; $i < $up; $i++){
+				if($listInfo['type'][$i] != $this->_lastList['type'][$i]){
+					$different = $i;
+					break;
+				}
+			}
+
+			if($different >= $lastLineLen){// 如果差异点位于上一行的标记之后，即本行标记比上行标记多，则不需闭合直接新增
+				$return = $this->_addList($listInfo['type'], $lineContent, $different);
+			} elseif(is_null($different)) {// 如果different为空，说明不存在差异点，直接新增li
+
+			} else {
+
+			}
 		} else {
-			
+
 		}
+
+		$this->_lastList = $listInfo;
+	}
+
+	private function _closeList(){
+
+	}
+
+	private function _addList($type, $lineContent, $star = 0){
+		$len = count($type);
+		$return = '';
+		if($star != 0){// 从第0个开始，则不增加<li>标记
+			$return .="<li>\n";
+		}
+		for($i = $star; $i < $len; $i++){
+			if($type[$i] == '#'){
+				$return .= '<ol>';
+			} elseif($type[$i] == '*'){
+				$return .= '<ul>';
+			}
+
+			$return .= "\n<li>";
+		}
+
+		$return .= $lineContent ."</li>\n";
+
+		return $return;
+	}
+
+	private function _addLi(){
+
 	}
 
 	private function _parseTitle($content){
