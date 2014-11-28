@@ -45,12 +45,17 @@ class editorEvent extends controller {
 					$line = $this->_parseTitle($line);
 					break;
 
+				default:
+					$line = '<p>'. $line .'</p>';
+
 			}
 
-			$htmlContent .= $line ."\n";
+			$htmlContent .= $line;
 			if(!$getList){
 				$this->_lastList = array();
-				$htmlContent .= $this->_closeList(0);
+				if(!empty($this->_lastList)){// 如果本行没有列表标记，但上一行存在，则闭合
+					$htmlContent .= $this->_closeList(0);
+				}
 			}
 		}
 
