@@ -30,9 +30,32 @@ class articleController extends controller {
 	}
 
 	public function action(){
-		$content = $_POST['content'];
+		$maps = array();
+		$maps['title'] = $title = htmlspecialchars($_POST['title'], 3);
+		$maps['content_ori'] = $content = addslashes($_POST['content']);
+		$maps['cid'] = $cid = intval($_POST['cid']);
+		$maps['original'] = $original = intval($_POST['original']);
+		$maps['status'] = intval($_POST['status']);
+		if(!$original){// 文章不是原创，记录来源地址
+			$maps['fromurl'] = $fromurl = addslashes($_POST['fromurl']);
+		}
+
+		if(!$title){
+			$this->showmessage('标题不能为空');
+		}
+
+		if(!$cid){
+			$this->showmessage('请选择文章分类');
+		}
+
+		if(!$content){
+			$this->showmessage('请选择文章分类');
+		}
+
 		$parseObj = new editorEvent();
-		$html = $parseObj->parseContent($content);
+		$maps['content'] = $html = $parseObj->parseContent($content);
+
+		M('article')->insert($maps);
 	}
 
 }
