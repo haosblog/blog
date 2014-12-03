@@ -43,6 +43,12 @@
 				</label>
 			</div>
 		</div>
+		<div class="form-group" style="display: none;">
+			<label for="formurl" class="col-sm-2 control-label">来源地址：</label>
+			<div class="col-sm-4">
+				<input type="text" name="formurl" id="formurl" class="form-control" />
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="submit" class="col-sm-2 control-label"></label>
 			<div class="col-sm-2">
