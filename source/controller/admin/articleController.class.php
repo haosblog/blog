@@ -32,7 +32,7 @@ class articleController extends controller {
 	public function action(){
 		$content = $_POST['content'];
 		$parseObj = new editorEvent();
-		$parseObj->parseContent($content);
+		$html = $parseObj->parseContent($content);
 	}
 
 }
