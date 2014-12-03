@@ -11,9 +11,9 @@
 
 class modelController extends baseController {
 	public function index(){
-		$page = $this->getPage();
+		$limit = $this->getLimit();
 		$m_model = M('model');
-		$this->buffer['list'] = $m_model->loadList($page, 10);
+		$this->buffer['list'] = $m_model->limit($limit)->select();
 
 		$this->display();
 	}
