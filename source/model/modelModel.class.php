@@ -17,18 +17,6 @@ class modelModel extends model {
 	}
 
 
-	/**
-	 * 根据ID返回模型名
-	 *
-	 * @param type $mid
-	 */
-	public function getModNameById($mid){
-		$field = array('modname');
-		$where = array('mid' => $mid);
-
-		$data = $this->selectOne($field, $where);
-		return $data['modname'];
-	}
 
 	/**
 	 * 由JSON导入一个新模型
