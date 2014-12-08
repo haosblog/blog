@@ -15,6 +15,12 @@ class articleController extends controller {
 		$this->buffer['nav'] = 'article';
 	}
 
+	public function index(){
+		$this->buffer['list'] = M('view_article')->order('wrtime DESC')->select();
+
+		$this->display();
+	}
+
 	/**
 	 * 编辑/新增文章
 	 */
