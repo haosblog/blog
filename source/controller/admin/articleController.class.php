@@ -37,6 +37,7 @@ class articleController extends controller {
 
 	public function action(){
 		$maps = array();
+		$aid = intval($_GET['aid']);
 		$maps['title'] = $title = htmlspecialchars($_POST['title'], 3);
 		$maps['content_ori'] = $content = addslashes($_POST['content']);
 		$maps['cid'] = $cid = intval($_POST['cid']);
@@ -61,7 +62,13 @@ class articleController extends controller {
 		$parseObj = new editorEvent();
 		$maps['content'] = $html = $parseObj->parseContent($content);
 
-		M('article')->insert($maps);
+		if($aid){
+			M('article')->where(array('aid' => $aid))->update($maps);
+		} else {
+			M('article')->insert($maps);
+		}
+
+		$this->showmessage('文章发表成功！', 1, '/admin/article');
 	}
 
 }
