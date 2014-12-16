@@ -17,7 +17,7 @@
 				<td><{$item.modname}></td>
 				<td><{$item.tablename}></td>
 				<td><{if $item.classable eq 1}><i class="icon-ok text-success"></i><{else}><i class="icon-remove text-danger"></i><{/if}></td>
-				<td><{if $item.classable eq 1}><i class="icon-ok text-success"></i><{else}><i class="icon-remove text-danger"></i><{/if}></td>
+				<td><{if $item.commentable eq 1}><i class="icon-ok text-success"></i><{else}><i class="icon-remove text-danger"></i><{/if}></td>
 				<td>
 					<a href="/admin/model/edit?mid=<{$item.mid}>">编辑</a>&nbsp;&nbsp;
 					<a href="/admin/model/del?mid=<{$item.mid}>">删除</a>
