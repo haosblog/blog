@@ -10,12 +10,27 @@
  */
 
 class modelController extends baseController {
+
+	/**
+	 * 模型管理列表
+	 */
 	public function index(){
-		$page = $this->getPage();
+		$limit = $this->getLimit();
 		$m_model = M('model');
-		$this->buffer['list'] = $m_model->loadList($page, 10);
+		$this->buffer['list'] = $m_model->limit($limit)->select();
 
 		$this->display();
+	}
+
+	/**
+	 * 编辑/新增模型
+	 */
+	public function edit(){
+		$mid = intval($_GET['mid']);
+
+		if($mid){
+			M('model')->getByMid($mid);
+		}
 	}
 
 	public function import(){

@@ -15,6 +15,12 @@ class articleController extends controller {
 		$this->buffer['nav'] = 'article';
 	}
 
+	public function index(){
+		$this->buffer['list'] = M('view_article')->order('wrtime DESC')->select();
+
+		$this->display();
+	}
+
 	/**
 	 * 编辑/新增文章
 	 */
@@ -30,9 +36,39 @@ class articleController extends controller {
 	}
 
 	public function action(){
-		$content = $_POST['content'];
+		$maps = array();
+		$aid = intval($_GET['aid']);
+		$maps['title'] = $title = htmlspecialchars($_POST['title'], 3);
+		$maps['content_ori'] = $content = addslashes($_POST['content']);
+		$maps['cid'] = $cid = intval($_POST['cid']);
+		$maps['original'] = $original = intval($_POST['original']);
+		$maps['status'] = intval($_POST['status']);
+		if(!$original){// 文章不是原创，记录来源地址
+			$maps['fromurl'] = $fromurl = addslashes($_POST['fromurl']);
+		}
+
+		if(!$title){
+			$this->showmessage('标题不能为空');
+		}
+
+		if(!$cid){
+			$this->showmessage('请选择文章分类');
+		}
+
+		if(!$content){
+			$this->showmessage('请选择文章分类');
+		}
+
 		$parseObj = new editorEvent();
-		$parseObj->parseContent($content);
+		$maps['content'] = $html = $parseObj->parseContent($content);
+
+		if($aid){
+			M('article')->where(array('aid' => $aid))->update($maps);
+		} else {
+			M('article')->insert($maps);
+		}
+
+		$this->showmessage('文章发表成功！', 1, '/admin/article');
 	}
 
 }

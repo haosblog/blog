@@ -38,9 +38,15 @@
 				</select>
 			</div>
 			<div class="col-sm-2">
-				<label for="status">
+				<label for="original">
 					<input type="checkbox" value="1" name="original" id="original" checked="checked"/> 原创
 				</label>
+			</div>
+		</div>
+		<div class="form-group" style="display: none;" id="fromurl_box">
+			<label for="fromurl" class="col-sm-2 control-label">来源地址：</label>
+			<div class="col-sm-4">
+				<input type="text" name="fromurl" id="fromurl" class="form-control" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -51,4 +57,13 @@
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript">
+	$("#original").change(function(){
+		if($(this).is(":checked")){
+			$("#fromurl_box").hide(200);
+		} else {
+			$("#fromurl_box").show(200);
+		}
+	});
+</script>
 <{include file="footer.tpl"}>

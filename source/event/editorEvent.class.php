@@ -37,7 +37,7 @@ class editorEvent extends controller {
 			switch ($firstLetter){
 				case '#':
 				case '*':
-					$this->_parseList($line);
+					$line = $this->_parseList($line);
 					$getList = true;
 					break;
 
@@ -45,15 +45,25 @@ class editorEvent extends controller {
 					$line = $this->_parseTitle($line);
 					break;
 
+				default:
+					$line = '<p>'. $line .'</p>';
+
 			}
 
-			$htmlContent .= $line ."\n";
+			$htmlContent .= $line;
 			if(!$getList){
 				$this->_lastList = array();
+				if(!empty($this->_lastList)){// 如果本行没有列表标记，但上一行存在，则闭合
+					$htmlContent .= $this->_closeList(0);
+				}
 			}
 		}
 
-		echo($htmlContent);
+		if(!empty($this->_lastList)){// 循环结束，但列表尚未被闭合，则闭合
+			$htmlContent .= $this->_closeList(0);
+		}
+
+		return$htmlContent;
 	}
 
 	private function _parseBlod($content){
@@ -129,11 +139,11 @@ class editorEvent extends controller {
 		}
 
 		$lineContent = trim(substr($content, $i));	// 剔除前面的符号后的行内容
+		$thisLineLen = $listInfo['count'] = count($listInfo['type']);
 
 		if(!empty($this->_lastList)){
-			$thisLineLen = count($listInfo['type']);
-			$lastLineLen = count($this->_lastList['type']);
-			$up = min($thisLineLen, $lastLineLen);
+			$lastLineLen = $this->_lastList['count'];
+			$up = max($thisLineLen, $lastLineLen);
 			$different = null;
 
 			for($i = 0; $i < $up; $i++){
@@ -142,23 +152,41 @@ class editorEvent extends controller {
 					break;
 				}
 			}
-
 			if($different >= $lastLineLen){// 如果差异点位于上一行的标记之后，即本行标记比上行标记多，则不需闭合直接新增
 				$return = $this->_addList($listInfo['type'], $lineContent, $different);
 			} elseif(is_null($different)) {// 如果different为空，说明不存在差异点，直接新增li
-
-			} else {
-
+				$return = "\n<li>". $lineContent .'</li>';
+			} else {// 存在差异点且差异点处于上一行列表的中段，先闭合上段列表再新增
+				$return = $this->_closeList($different);
+				$return .= $this->_addList($listInfo['type'], $lineContent, $different);
 			}
-		} else {
-
+		} else {// 上一行不存在列表，则直接输出列表
+			$return = $this->_addList($listInfo['type'], $lineContent, 0);
 		}
 
 		$this->_lastList = $listInfo;
+		return $return;
 	}
 
-	private function _closeList(){
+	private function _closeList($different){
+		$return = '';
+		$count = $this->_lastList['count'];
+		for($i = $count - 1; $i >= $different; $i--){
+			$tag = $this->_lastList['type'][$i];
+			if($tag == '*'){
+				$return .= '</ul>';
+			} else {
+				$return .= '</ol>';
+			}
 
+			if($i != 0){// 循环没有到行首，则增加</li>
+				$return .= '</li>';
+			}
+
+			$return .= "\n";
+		}
+
+		return $return;
 	}
 
 	private function _addList($type, $lineContent, $star = 0){
