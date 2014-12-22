@@ -25,8 +25,6 @@ abstract class baseController extends controller {
 		$this->_getWebSiteInfo();	// 获取站点列表
 
 		$this->buffer['menu'] = $this->_getMenu();
-//		$field = array('mid', 'modname', 'tablename', 'classable');
-//		$this->buffer['model'] = M('model')->field($field)->select();
 	}
 
 
@@ -136,14 +134,128 @@ abstract class baseController extends controller {
 	 * 获取后台菜单列表
 	 */
 	private function _getMenu(){
-		return array(
+		$menu = array(
+			// 站点管理
 			array(
 				'title' => '站点管理',
 				'active' => 'site',
 				'sub' => array(
-					
+					array(
+						'title' => '添加站点',
+						'active' => 'add',
+						'link' => 'site/add'
+					),
+					array(
+						'title' => '站点列表',
+						'active' => 'list',
+						'link' => 'site'
+					),
+					array(
+						'title' => '域名列表',
+						'active' => 'domain',
+						'link' => 'site/domain'
+					),
 				)
-			)
+			),
+			// 日志管理
+			array(
+				'title' => '日志管理',
+				'active' => 'article',
+				'sub' => array(
+					array(
+						'title' => '分类管理',
+						'active' => 'category',
+						'link' => 'category'
+					),
+					array(
+						'title' => '日志管理',
+						'active' => 'list',
+						'link' => 'article'
+					),
+					array(
+						'title' => '写日志',
+						'active' => 'edit',
+						'link' => 'article/edit'
+					),
+				)
+			),
+			// 相册管理
+			array(
+				'title' => '相册管理',
+				'active' => 'photo',
+				'sub' => array(
+					array(
+						'title' => '相册管理',
+						'active' => 'album',
+						'link' => 'album'
+					),
+					array(
+						'title' => '图片管理',
+						'active' => 'list',
+						'link' => 'photo'
+					),
+					array(
+						'title' => '上传图片',
+						'active' => 'upload',
+						'link' => 'photo/upload'
+					),
+				)
+			),
+			// 系统模型管理
+			array(
+				'title' => '系统模型管理',
+				'active' => 'model',
+				'sub' => array(
+					array(
+						'title' => '模型列表',
+						'active' => 'list',
+						'link' => 'model'
+					),
+					array(
+						'title' => '导入模型',
+						'active' => 'import',
+						'link' => 'model/import'
+					),
+				)
+			),
 		);
+		
+		// 运行_getModelMenu方法获取模型的菜单项，并与默认菜单合并返回
+		return array_merge($menu, $this->_getModelMenu());
+	}
+	
+	private function _getModelMenu(){
+		$modelList = M('model')->field('mid', 'modname', 'tablename', 'classable')->select();
+		$modelMenu = array();
+		foreach($modelList as $item){
+			$tmp = array(
+				'title' => $item['modname'] .'管理',
+				'active' => $item['tablename'],
+				'sub' => array(
+					array(
+						'title' => '发表'. $item['modname'],
+						'active' => $item['add'],
+						'link' => 'data/edit?mid='. $item['mid']
+					),
+					array(
+						'title' => $item['modname'] .'列表',
+						'active' => 'data',
+						'link' => 'data?mid='. $item['mid']
+					),
+				)
+			);
+			
+			if($item['classable']){
+				$tmp['sub'][] = array(
+					'title' => $item['modname'] .'分类',
+					'active' => 'category',
+					'link' => 'category?mid='. $item['mid']
+				);
+			}
+			
+			$modelMenu[] = $tmp;
+		}
+		
+		return $modelMenu;
 	}
 }
