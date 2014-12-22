@@ -24,6 +24,7 @@ abstract class baseController extends controller {
 		$this->islogin();	//检测用户是否登陆
 		$this->_getWebSiteInfo();	// 获取站点列表
 
+		$this->buffer['menu'] = $this->_getMenu();
 //		$field = array('mid', 'modname', 'tablename', 'classable');
 //		$this->buffer['model'] = M('model')->field($field)->select();
 	}
@@ -129,5 +130,20 @@ abstract class baseController extends controller {
 
 		$this->wsid = $_SESSION['wsid'];
 		$this->where = array('wsid' => $_SESSION['wsid']);
+	}
+	
+	/**
+	 * 获取后台菜单列表
+	 */
+	private function _getMenu(){
+		return array(
+			array(
+				'title' => '站点管理',
+				'active' => 'site',
+				'sub' => array(
+					
+				)
+			)
+		);
 	}
 }
