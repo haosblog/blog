@@ -29,8 +29,11 @@ class modelController extends baseController {
 		$mid = intval($_GET['mid']);
 
 		if($mid){
-			M('model')->getByMid($mid);
+			$this->buffer['info'] =M('model')->getByMid($mid);
+			$this->buffer['field'] =M('model_field')->getByMid($mid);
 		}
+		
+		$this->display();
 	}
 
 	public function import(){
