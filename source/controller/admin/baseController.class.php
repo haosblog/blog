@@ -212,6 +212,11 @@ abstract class baseController extends controller {
 						'link' => 'model'
 					),
 					array(
+						'title' => '新建模型',
+						'active' => 'edit',
+						'link' => 'model/edit'
+					),
+					array(
 						'title' => '导入模型',
 						'active' => 'import',
 						'link' => 'model/import'
