@@ -95,13 +95,15 @@ abstract class core {
 			$tplPath .= $sitegroup .'/';
 
 			$extendBase = HAO_ROOT .'source/controller/'. $sitegroup .'/baseController.class.php';
-			if(file_exists($extendBase)){// 如果存在扩展的控制器基类
-				require $extendBase;
-			}
 
 		} else {// 不存在分组
+			$extendBase = HAO_ROOT .'source/controller/home/baseController.class.php';
 			$tplPath = 'default';
 			$action = !empty($router[2]) ? $router[2]: 'index';
+		}
+
+		if($extendBase && file_exists($extendBase)){// 如果存在扩展的控制器基类
+			require $extendBase;
 		}
 
 		$GLOBALS['tplPath'] = $tplPath;

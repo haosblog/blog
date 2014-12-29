@@ -8,10 +8,9 @@
  *
  * text
  */
-class indexController extends controller {
+class indexController extends baseController {
 
 	public function index(){
-		echo('adsfasdf');
 		$this->title = $GLOBALS['website']['seotitle'];
 		$this->keyword = $GLOBALS['website']['keyword'];
 		$this->description = $GLOBALS['website']['description'];
