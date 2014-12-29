@@ -11,6 +11,7 @@
 class indexController extends controller {
 
 	public function index(){
+		echo('adsfasdf');
 		$this->title = $GLOBALS['website']['seotitle'];
 		$this->keyword = $GLOBALS['website']['keyword'];
 		$this->description = $GLOBALS['website']['description'];
