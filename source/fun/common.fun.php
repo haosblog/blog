@@ -102,7 +102,7 @@ function controller_exists($controller){
 }
 
 function controller_file($controller){
-	$path = isset($GLOBALS['sitegroup']) ? $GLOBALS['sitegroup'] .'/' : '';
+	$path = isset($GLOBALS['sitegroup']) ? $GLOBALS['sitegroup'] .'/' : 'home/';
 	return HAO_ROOT  .'./source/controller/'. $path . $controller .'Controller.class.php';
 }
 
