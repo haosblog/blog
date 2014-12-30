@@ -1,4 +1,4 @@
-<{include file="header.tpl"}>
+<{include file="common/header.tpl"}>
 <article id="arc_list" class="indexbox box">
 	<header>
 		<b class="count fr">阅/评</b>
@@ -73,4 +73,4 @@
 #body { height: 985px; }
 #search{ top: 149px; left: 360px; }
 </style>
-<{include file="footer.tpl"}>
+<{include file="common/footer.tpl"}>

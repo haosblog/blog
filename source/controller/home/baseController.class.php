@@ -7,15 +7,25 @@
  * 前台页面中的基类，用于处理前台公用逻辑
  */
 
+session_start();
+
 class baseController extends controller {
 	
 	public function __construct($router = array()) {
 		parent::__construct($router);
 		
-		$host = $GLOBALS['host'];
+		if(!isset($_SESSION['website'])){
+			$host = $GLOBALS['host'];
+			$info = M('domain')->alias('d')->join('website AS w', 'w.wsid=d.wsid')
+					->field(array('w' => array('sitename', 'seotitle', 'keyword', 'description', 'tppath')))
+					->where(array('w.domain' => $host))->selectOne();
+
+			$_SESSION['website'] = $info;
+		} else {
+			$info = $_SESSION['website'];
+		}
 		
-		M('domain')->field();
-		
-		$GLOBALS['tplPath'] = 'hao';
+		$GLOBALS['tplPath'] = $info['tppath'];
+		$this->display();
 	}
 }
