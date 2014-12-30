@@ -1,13 +1,13 @@
 <{include file="header.tpl" title="发表$modname" loadjs="kindeditor/kindeditor, kindeditor/lang/zh_CN,editor" loadcss="editorthemes/default/default"}>
-<form action="/admin/model/postAction?mid=<{$mid}>" method="post" class="form-horizontal edit" role="form">
-	<div class="form-group">
+<form action="" method="post" class="form-horizontal edit" role="form">
+	<{*<div class="form-group">
 		<label for="cid" class="col-sm-2 control-label">请选择栏目：</label>
 		<div class="col-sm-10">
 			<select name="cid">
 				<option value="1">栏目</option>
 			</select>
 		</div>
-	</div>
+	</div>*}>
 	<{foreach from=$list item=row}>
 		<div class="form-group">
 			<label for="<{$row.fieldname}>" class="col-sm-2 control-label"><{$row.viewname}>：</label>
