@@ -6,10 +6,9 @@
 <meta name="Keywords" content="小皓|独立博客|博客|技术博客|<{$keywords}>" />
 <meta name="Description" content="小皓的独立博客，记录技术，时事，还有生活|<{$kwcontent}>" />
 <title><{$title}> - 小皓的blog</title>
-<link rel="stylesheet" type="text/css" href="<{$smarty.const.TPL_PATH}>static/css/common.css" />
-<link rel="stylesheet" type="text/css" href="http://www.google.com/cse/api/branding.css" />
-<script type="text/javascript" language="javascript" src="<{$smarty.const.TPL_PATH}>static/js/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="<{$smarty.const.TPL_PATH}>static/js/common.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+<script type="text/javascript" language="javascript" src="/static/common/js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="/static/hao2014/js/common.js"></script>
 </head>
 <!--[if lt IE 8]><script type="text/javascript" language="javascript">document.execCommand("Stop");document.write('<iframe src="fuckie.html" width="100%" height="650" frameborder="0"></iframe>');</script><![endif]-->
 <body>

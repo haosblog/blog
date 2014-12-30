@@ -14,12 +14,11 @@ class baseController extends controller {
 	public function __construct($router = array()) {
 		parent::__construct($router);
 		
-		die($GLOBALS['host']);
-		if(!isset($_SESSION['website'])){
+		if(empty($_SESSION['website'])){
 			$host = $GLOBALS['host'];
 			$info = M('domain')->alias('d')->join('website AS w', 'w.wsid=d.wsid')
 					->field(array('w' => array('sitename', 'seotitle', 'keyword', 'description', 'tppath')))
-					->where(array('w.domain' => $host))->selectOne();
+					->where(array('d.domain' => $host))->selectOne();
 
 			$_SESSION['website'] = $info;
 		} else {
