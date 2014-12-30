@@ -15,6 +15,6 @@ class baseController extends controller {
 		$host = $GLOBALS['host'];
 		
 		
-		$GLOBALS['tplPath'] = $tplPath;
+		$GLOBALS['tplPath'] = 'hao';
 	}
 }
