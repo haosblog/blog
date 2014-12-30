@@ -3,8 +3,8 @@
 	<thead>
 		<tr>
 			<th>ID</th>
-			<{foreach from=$field item=fieldRow}>
-				<th><{$fieldRow}></th>
+			<{foreach from=$fieldtype item=fieldRow}>
+				<th><{$fieldRow.viewname}></th>
 			<{/foreach}>
 			<th>操作</th>
 		</tr>
