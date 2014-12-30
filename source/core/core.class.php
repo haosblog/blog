@@ -45,8 +45,6 @@ abstract class core {
 		$GLOBALS['port'] = isset($urlInfo['port']) ? $urlInfo['port'] : 80;
 		$GLOBALS['path'] = $urlInfo['path'];
 
-		$GLOBALS['tpl_path'] =  HAO_ROOT;	//模板路径，默认先定位到根目录，如果启用了分组或插件模式，则转到相应的模板目录
-
 
 		if($urlInfo['path'] === '/' || $urlInfo['path'] === '/index.php'){
 			$controller = $action = 'index';
@@ -98,7 +96,7 @@ abstract class core {
 
 		} else {// 不存在分组
 			$extendBase = HAO_ROOT .'source/controller/home/baseController.class.php';
-			$tplPath = 'default';
+			$tplPath .= 'default';
 			$action = !empty($router[2]) ? $router[2]: 'index';
 		}
 
