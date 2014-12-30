@@ -286,6 +286,12 @@ class model {
 		return $this;
 	}
 
+	final public function page($page, $pageCount = 10){
+		$start = ($page - 1) * $pageCount;
+		$this->options['limit'] = array($start, $pageCount);
+		return $this;
+	}
+
 
 	/**
 	 * 链式操作中的联表定义
