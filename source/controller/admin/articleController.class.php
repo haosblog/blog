@@ -8,7 +8,7 @@
  * text
  */
 
-class articleController extends controller {
+class articleController extends baseController {
 
 	public function __construct($router = array()) {
 		parent::__construct($router);
