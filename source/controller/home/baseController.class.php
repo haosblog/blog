@@ -26,6 +26,5 @@ class baseController extends controller {
 		}
 		
 		$GLOBALS['tplPath'] = $info['tppath'];
-		$this->display();
 	}
 }
