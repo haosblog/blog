@@ -28,7 +28,7 @@ class systemModel extends model{
 			$where = array('tablename' => $tablename);
 		}
 
-		$modData = $this->m_model->selectOne('', $where);
+		$modData = $this->m_model->where($where)->selectOne();
 		if(!$modData){
 			die('错误的模型调用！');
 		}
