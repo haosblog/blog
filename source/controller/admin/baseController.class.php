@@ -129,7 +129,7 @@ abstract class baseController extends controller {
 		$this->wsid = $_SESSION['wsid'];
 		$this->where = array('wsid' => $_SESSION['wsid']);
 	}
-	
+
 	/**
 	 * 获取后台菜单列表
 	 */
@@ -224,11 +224,11 @@ abstract class baseController extends controller {
 				)
 			),
 		);
-		
+
 		// 运行_getModelMenu方法获取模型的菜单项，并与默认菜单合并返回
 		return array_merge($menu, $this->_getModelMenu());
 	}
-	
+
 	private function _getModelMenu(){
 		$modelList = M('model')->field('mid', 'modname', 'tablename', 'classable')->select();
 		$modelMenu = array();
@@ -240,16 +240,16 @@ abstract class baseController extends controller {
 					array(
 						'title' => '发表'. $item['modname'],
 						'active' => $item['add'],
-						'link' => 'data/edit?mid='. $item['mid']
+						'link' => 'dynamic/edit?mid='. $item['mid']
 					),
 					array(
 						'title' => $item['modname'] .'列表',
 						'active' => 'data',
-						'link' => 'data?mid='. $item['mid']
+						'link' => 'dynamic?mid='. $item['mid']
 					),
 				)
 			);
-			
+
 			if($item['classable']){
 				$tmp['sub'][] = array(
 					'title' => $item['modname'] .'分类',
@@ -257,10 +257,10 @@ abstract class baseController extends controller {
 					'link' => 'category?mid='. $item['mid']
 				);
 			}
-			
+
 			$modelMenu[] = $tmp;
 		}
-		
+
 		return $modelMenu;
 	}
 }
