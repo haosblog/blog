@@ -25,6 +25,6 @@ class baseController extends controller {
 			$info = $_SESSION['website'];
 		}
 		
-		$GLOBALS['tplPath'] = $info['tppath'];
+		$GLOBALS['tplPath'] = TPL_PATH . $info['tppath'] .'/';
 	}
 }

@@ -16,6 +16,7 @@ abstract class core {
 		define('NL', "\n");
 		define('HAO_ROOT', substr(dirname(__FILE__), 0, -11));
 		define('RUNTIME_PATH', HAO_ROOT .'./runtime');
+		define(TPL_PATH, HAO_ROOT .'./template/');
 		require HAO_ROOT .'./source/fun/common.fun.php';
 		require HAO_ROOT .'./config/config.php';
 		require HAO_ROOT .'./source/core/smarty/Smarty.class.php';
@@ -81,7 +82,6 @@ abstract class core {
 		$router = explode('/', $path);
 		$controller = $router[1];
 		$sitegroupArr = C('GROUP');
-		$tplPath = HAO_ROOT .'./template/';
 
 		if($controller == 'extend'){
 
@@ -90,13 +90,13 @@ abstract class core {
 			$controller = !empty($router[2]) ? $router[2]: 'index';
 			$action = !empty($router[3]) ? $router[3]: 'index';
 
-			$tplPath .= $sitegroup .'/';
+			$tplPath = TPL_PATH . $sitegroup .'/';
 
 			$extendBase = HAO_ROOT .'source/controller/'. $sitegroup .'/baseController.class.php';
 
 		} else {// 不存在分组
 			$extendBase = HAO_ROOT .'source/controller/home/baseController.class.php';
-			$tplPath .= 'default';
+			$tplPath = TPL_PATH . 'default/';
 			$action = !empty($router[2]) ? $router[2]: 'index';
 		}
 
