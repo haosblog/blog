@@ -14,6 +14,7 @@ class baseController extends controller {
 		
 		$host = $GLOBALS['host'];
 		
+		M('domain')->field();
 		
 		$GLOBALS['tplPath'] = 'hao';
 	}
