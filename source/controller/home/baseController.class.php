@@ -14,6 +14,7 @@ class baseController extends controller {
 	public function __construct($router = array()) {
 		parent::__construct($router);
 		
+		die($GLOBALS['host']);
 		if(!isset($_SESSION['website'])){
 			$host = $GLOBALS['host'];
 			$info = M('domain')->alias('d')->join('website AS w', 'w.wsid=d.wsid')

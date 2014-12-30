@@ -11,11 +11,11 @@
 class indexController extends baseController {
 
 	public function index(){
-		$this->title = $GLOBALS['website']['seotitle'];
-		$this->keyword = $GLOBALS['website']['keyword'];
-		$this->description = $GLOBALS['website']['description'];
+		$this->title = $_SESSION['website']['seotitle'];
+		$this->keyword = $_SESSION['website']['keyword'];
+		$this->description = $_SESSION['website']['description'];
 		$GLOBALS['block'] = 'aaaa';
 
-		$this->display('index');
+		$this->display();
 	}
 }
