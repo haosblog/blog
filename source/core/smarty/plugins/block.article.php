@@ -32,6 +32,16 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 	if(!isset($GLOBALS['blockdata'][$dataindex])){
 		$m_article = M('article');
 		$field = isset($params['field']) ? $params['field'] : array();
+		$order = isset($params['order']) ? $params['order'] : 'wrtime DESC';
+		$limit = isset($params['count']) ? $params['count'] : 10;
+		$where = array();
+		
+		if(isset($params['cid'])){
+			$where['cid'] = $params['cid'];
+		}
+		
+		
+		$data = $m_article->field($field)->where($where)->order($order)->limit($limit)->select();
 		if(!$data){
 			return '';
 		}
@@ -42,8 +52,6 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 	$blockdata = $GLOBALS['blockdata'][$dataindex];
 	$row = $blockdata[$_index];
 	if(isset($blockdata[$_index])){
-		$row['cover'] = '/data/upload/cover/'. $row['aid'] .'.jpg';
-		$smarty->assign('row', $row);
 		$_index++;
 
 		$repeat = true;
