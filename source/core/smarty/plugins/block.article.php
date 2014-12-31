@@ -8,15 +8,6 @@
  */
 
 function smarty_block_article($params, $content, &$smarty, &$repeat){
-	extract($params);
-
-	$count = intval($count);
-
-	if(!wsid){
-		$wsid = false;
-	}
-
-
 	if(method_exists($smarty, 'get_template_vars')){
 		$_index = $smarty->get_template_vars('_index');
 	} else {
@@ -33,7 +24,7 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 		$m_article = M('article');
 		$field = isset($params['field']) ? $params['field'] : array();
 		$order = isset($params['order']) ? $params['order'] : 'wrtime DESC';
-		$limit = isset($params['count']) ? $params['count'] : 10;
+		$limit = isset($params['count']) ? intval($params['count']) : 10;
 		$where = array();
 		
 		if(isset($params['cid'])){
