@@ -26,5 +26,6 @@ class baseController extends controller {
 		}
 		
 		$GLOBALS['tplPath'] = TPL_PATH . $info['tppath'] .'/';
+		$GLOBALS['wsid'] = $info['wsid'];
 	}
 }
