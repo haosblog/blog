@@ -6,16 +6,16 @@
 		<b class="title">标题</b>
 	</header>
 	<ul>
-		<{model model="article" orderby="wrtime" count="8"}>
+		<{article count="8"}>
 			<li class="cl">
-				<i class="fr">{%$articleRs.read%}/{%$articleRs.review%}</i>
-				<span class="fr"><{$row.wrtime}></span>
+				<i class="fr"><{$row.viewcount}>/<{$row.repostcount}></i>
+				<span class="fr"><{date('Y-m-d H:i:s', $row.wrtime)}></span>
 				<span>
-					[<a href="?mod=article_list&cid={%$articleRs.cid%}"><{$row.catname}></a>]
+					[<a href="?mod=article_list&cid=<{$articleRs.cid}>"><{$row.catname}></a>]
 					<em class="nobr"><a href="?mod=article_read&id={%$articleRs.id%}" title="{%$articleRs.title%}"><{$row.title}></a></em>
 				</span>
 			</li>
-		<{/model}>
+		<{/article}>
 	</ul>
 	<a href="?mod=article_list" class="more fr">更多...</a>
 </article>
