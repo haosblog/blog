@@ -39,12 +39,13 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 
 		$GLOBALS['blockdata'][$dataindex] = $data;
 	}
+	
 
 	$blockdata = $GLOBALS['blockdata'][$dataindex];
 	$row = $blockdata[$_index];
 	if(isset($blockdata[$_index])){
 		$_index++;
-
+		$smarty->assign('row', $row);
 		$repeat = true;
 	} else {
 		$_index = 0;

@@ -8,7 +8,7 @@
  * text
  */
 
-class articleController extends controller {
+class articleController extends baseController {
 
 	public function index(){
 		$this->display();
