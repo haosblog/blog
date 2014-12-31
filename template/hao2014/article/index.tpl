@@ -1,3 +1,3 @@
 <{article}>
-<{$row.title}>d
+<{$row.aid}>d
 <{/article}>

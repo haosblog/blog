@@ -31,6 +31,11 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 			$where['cid'] = $params['cid'];
 		}
 		
+		if(isset($params['wsid'])){
+			
+		} else {
+			$where['wsid'] = $GLOBALS[];
+		}
 		
 		$data = $m_article->field($field)->where($where)->order($order)->limit($limit)->select();
 		if(!$data){
