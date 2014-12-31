@@ -33,7 +33,7 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 		if(isset($params['wsid'])){
 
 		} else {
-			$where['wsid'] = $GLOBALS[];
+			$where['wsid'] = $GLOBALS['wsid'];
 		}
 
 		$data = M('view_article')->field($field)->where($where)->order($order)->limit($limit)->select();
