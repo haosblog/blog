@@ -11,6 +11,6 @@
 class articleController extends controller {
 
 	public function index(){
-		
+		$this->display();
 	}
 }

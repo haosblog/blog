@@ -1,0 +1,3 @@
+<{article}>
+<{$row.title}>
+<{/article}>
