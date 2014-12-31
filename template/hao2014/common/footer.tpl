@@ -46,6 +46,8 @@
 document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);	//此段代码放置在链接点击的部分
 </script>
 <!--div style="position:  fixed; top: 0; right: 0; width: 100px;">top</div-->
+<script type="text/javascript" language="javascript" src="/static/common/js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="/static/hao2014/js/common.js"></script>
 </body>
 </html>
 <{/if}>
