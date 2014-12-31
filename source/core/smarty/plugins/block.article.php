@@ -42,10 +42,9 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 	
 
 	$blockdata = $GLOBALS['blockdata'][$dataindex];
-	$row = $blockdata[$_index];
 	if(isset($blockdata[$_index])){
 		$_index++;
-		$smarty->assign('row', $row);
+		$smarty->assign('row', $blockdata[$_index]);
 		$repeat = true;
 	} else {
 		$_index = 0;
