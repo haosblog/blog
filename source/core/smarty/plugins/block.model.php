@@ -18,8 +18,17 @@ function smarty_block_model($params, $content, &$smarty, &$repeat){
 	if(!$event->checkCache()){
 		$count = isset($params['count']) ? $params['count'] : 10;
 		$orderby = isset($params['ordery']) ? addslashes($params['ordery']) : 'id DESC';
+		$where = array();
 
-		$data = SM($model)->limit($count)->order($orderby)->select();
+		if(isset($params['wsid'])){// wsid参数被传入
+			if(!empty($params['wsid'])){// 传入的wsid不为空（NULL，0，FALSE），则读取该网站下的文章，否则读取所有
+				$where['wsid'] = $params['wsid'];
+			}
+		} else {
+			$where['wsid'] = $GLOBALS['wsid'];
+		}
+
+		$data = SM($model)->limit($count)->order($orderby)->where($where)->select();
 		if(!$data){
 			return '';
 		}
