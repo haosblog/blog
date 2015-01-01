@@ -47,24 +47,6 @@ $(document).ready(function() {
 	$("nav").mouseover(navDock);
 	$("nav").mousemove(navDock);
 	$("nav").mouseout(navDockReset);
-
-	//content元素执行ajax的时候需要进行以下操作
-	//ajax结束时，ajaxStop设置为true，并隐藏遮罩层和显示整体页面
-	$("#content").ajaxSuccess(function(e, xhr, op){
-		ajaxStop = true;
-		//修正内容，将网页标题修改为新的
-		var html = $("#content").html();
-		var arr = html.split("||title||");
-		document.title = arr[0] + " - 小皓的blog";
-
-		history.pushState({"title" : arr[0], "html" : arr[1]}, "", op.url.substr(0, op.url.length - 4));
-		$("#content").html(arr[1]);
-
-		loading.hide();
-		$("#mainBox").fadeTo(1000, 1);
-		regEvent.linkClick();
-		regEvent.index_msgbox();
-	});
 });
 
 
@@ -131,27 +113,50 @@ function loopStart(loop){
 		setTimeout(function(){ loopStart(loop); }, stop);
 	});
 }
+
+function linkClick(){
+	if($(this).attr("target") == "_blank"){
+		return true;
+	}
+
+	var url = $(this).attr("href");
+	ajaxStop = false;		//ajax开始时，ajaxStop设置为false
+	$("#mainBox").fadeTo(1000, 0, function(){
+		if(!ajaxStop){
+			loading.show();
+		}
+	});
+	$.ajax({
+		"url" : url ,
+		"data" : { "t" : 1},
+		"dataType" : "xml",
+		"success" : function(xml){
+
+			ajaxStop = true;
+			//修正内容，将网页标题修改为新的
+			var title = document.title = $(xml).find("title").text() + " - 小皓的blog";
+			var cotent = $(xml).find("body").text();
+			$("#content").html(cotent);
+
+			history.pushState({"title" : title, "html" : cotent}, "", url);
+			loading.hide();
+			$("#mainBox").stop().fadeTo(1000, 1);
+			regEvent.linkClick();
+			regEvent.index_msgbox();
+		},
+		"error" : function (){
+
+		}
+	});
+
+	return false;
+}
+
+
 // 事件注册，主要用于需要在页面更新后需要重新加载的事件
 var regEvent = {
 	linkClick : function(){
-		$("a").unbind("click");
-		$("a").click(function(){
-			if($(this).attr("target") != "_blank"){
-				var url = $(this).attr("href");
-				if(url == "/"){
-					url = "?mod=home";
-				}
-				$("#content").load(url + "&t=1");
-				ajaxStop = false;		//ajax开始时，ajaxStop设置为false
-
-				$("#mainBox").fadeTo(1000, 0, function(){
-					if(!ajaxStop){
-						loading.show();
-					}
-				});
-				return false;
-			}
-		});
+		$("a").unbind("click").click(linkClick);
 	},
 	index_msgbox : function(){
 		var lineCount = 4;
