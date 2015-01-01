@@ -1,4 +1,4 @@
-<{if $t != 1}>
+<{if $smarty.get.t != 1}>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -53,8 +53,8 @@ alert("好啦，废话完了，看网站吧");
 			</div>
 			<div id="content">
 <{else}>
-	<?xml version="1.0" encoding="gbk"?>
-	<root>
-		<title><{$title}></title>
-		<body><![CDATA[
+<?xml version="1.0" encoding="gbk"?>
+<root>
+	<title><{$title}></title>
+	<body><![CDATA[
 <{/if}>
