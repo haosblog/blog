@@ -11,8 +11,8 @@
 				<i class="fr"><{$row.viewcount}>/<{$row.repostcount}></i>
 				<span class="fr"><{date('Y-m-d H:i:s', $row.wrtime)}></span>
 				<span>
-					[<a href="?mod=article_list&cid=<{$articleRs.cid}>"><{$row.catname}></a>]
-					<em class="nobr"><a href="?mod=article_read&id={%$articleRs.id%}" title="{%$articleRs.title%}"><{$row.title}></a></em>
+					[<a href="?mod=article_list&cid=<{$row.cid}>"><{$row.catname}></a>]
+					<em class="nobr"><a href="?mod=article_read&id=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
 				</span>
 			</li>
 		<{/article}>
@@ -22,12 +22,12 @@
 
 <article id="mood">
 	<div class="dialog">
-		<{model model="mood" orderby="wrtime" count="1"}>
+		<{model model="mood" orderby="dateline DESC" count="1"}>
 			<p><{$row['content']}></p>
-			<div><img src="<{$smarty.const.TPL_PATH}>/static/image/mood_dialog_arr.png" alt="" /></div>
+			<div><img src="/static/hao2014/image/mood_dialog_arr.png" alt="" /></div>
 		<{/model}>
 	</div>
-	<aside class="fr"><img src="<{$smarty.const.TPL_PATH}>/static/image/duola.png" /></aside>
+	<aside class="fr"><img src="/static/hao2014/image/duola.png" /></aside>
 </article>
 
 <article id="album" class="indexbox box loop" _stop="2000" _speed="4000">

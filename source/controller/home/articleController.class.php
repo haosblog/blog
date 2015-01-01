@@ -10,7 +10,18 @@
 
 class articleController extends baseController {
 
+	private $c = '';
+
 	public function index(){
-		$this->display();
+		//$this->display();
+		$c = 'adsfadsf';
+		$this->a($c);
+		echo($c);
+	}
+
+	function a(&$c){
+		$this->c = &$c;
+
+		$this->c = '广告狗';
 	}
 }

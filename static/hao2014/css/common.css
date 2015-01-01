@@ -1,9 +1,9 @@
 /* 重置浏览器样式 */
-body { background: url("../pic/bg.jpg") center top #000; overflow: auto; }
+body { background: url("../image/bg.jpg") center top #000; overflow: auto; }
 body, input, button, select, textarea, small { font: 13px "微软雅黑","Microsoft Sans Serif"; color:#fff; }
 	textarea { resize: none; }
 body, ul, ol, li, dl, dd, p, h1, h2, h3, h4, h5, h6, form, fieldset{ margin: 0; padding: 0; }
-input, textarea, select, button { background: url("../pic/article_bg.png"); border:#666 1px solid; }
+input, textarea, select, button { background: url("../image/article_bg.png"); border:#666 1px solid; }
 ul, ol{ list-style: none; }
 table { empty-cells: show; border-collapse: collapse; }
 	caption, th { text-align: left; font-weight: 400; }
@@ -29,8 +29,8 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 
 #mainBox { position: absolute; top: 0; width: 100%; height: 100%; overflow: auto; }
 #main { width: 850px; margin: 0 auto; }
-#main>header>nav { padding: 0 20px; width: 560px; height: 88px; border: 1px solid #656B6B; margin: 0 auto;
-	border-radius: 0 0 12px 12px; background-image: url("../pic/bananer.png"); }
+#main>header>nav { padding: 0 20px; width:  560px; height: 88px; border: 1px solid #656B6B; margin: 0 auto;
+	border-radius: 0 0 12px 12px; background-image: url("../image/bananer.png"); }
 #main>header>nav a { float: left; }
 
 #main>footer { margin-top: 5px; border-top: 1px #000 dotted; text-align: center; padding: 5px;
@@ -39,7 +39,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 #main>footer small>a { color: #999; font-size: 14px; font-weight: 300; }
 
 #clock { position: absolute; top: 89px; width: 200px; height: 200px; margin-left: -74px; z-index: 500; color: #000;
-	background: url("../pic/clock.png") no-repeat; }
+	background: url("../image/clock.png") no-repeat; }
 #clock>p { position: absolute; width: 30px; font-size: 22px; text-align: center; }
 #clock>div { position: absolute; width: 30px; font-size: 30px; text-align: center; left: 85px; top: 80px; }
 
@@ -62,7 +62,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 #arc_list>header>.title { text-indent: 1.3em; text-align: left; }
 #arc_list>header>.timer,#arc_list li>span.fr { width: 140px; }
 #arc_list>header>.count, #arc_list li>i.fr { width: 80px; }
-#arc_list>ul { list-style: url("../pic/m.gif") inside; }
+#arc_list>ul { list-style: url("../image/m.gif") inside; }
 #arc_list li { border-bottom: 1px solid #efefef; padding: 0 5px; }
 #arc_list li>span.fr, #arc_list li>i.fr { text-align: center; display: inline-block; }
 #arc_list li em { display: inline-block; width: 250px; margin-bottom: -8px; }

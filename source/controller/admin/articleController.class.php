@@ -5,7 +5,7 @@
  * copyright 小皓 (C)2013-2099 版权所有
  * www.haosblog.com
  *
- * text
+ * 后台文章管理
  */
 
 class articleController extends baseController {

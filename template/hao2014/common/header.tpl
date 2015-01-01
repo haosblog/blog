@@ -43,15 +43,15 @@ alert("好啦，废话完了，看网站吧");
 		</header>
         <div id="clock"> </div>
 		<div id="body" class="box">
+			<div id="ad_top">
+				<!-- nuffnang -->
+				<script type="text/javascript">
+				nuffnang_bid = "747c9497e9b26a106d0486adf9c8d75e";
+				</script>
+				<script type="text/javascript" src="http://synad2.nuffnang.com.cn/k.js"></script>
+				<!-- nuffnang-->
+			</div>
 			<div id="content">
-				<div id="ad_top">
-					<!-- nuffnang -->
-					<script type="text/javascript">
-					nuffnang_bid = "747c9497e9b26a106d0486adf9c8d75e";
-					</script>
-					<script type="text/javascript" src="http://synad2.nuffnang.com.cn/k.js"></script>
-					<!-- nuffnang-->
-				</div>
 <{else}>
 	<{$title}>||title||
 <{/if}>
