@@ -50,4 +50,7 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
 <!--div style="position:  fixed; top: 0; right: 0; width: 100px;">top</div-->
 </body>
 </html>
+<{else}>
+		]]></body>
+	</root>
 <{/if}>
