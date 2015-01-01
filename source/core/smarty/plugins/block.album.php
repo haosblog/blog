@@ -32,6 +32,9 @@ function smarty_block_album($params, $content, &$smarty, &$repeat){
 	}
 
 	$row = $evnet->getRow();
+	if(!$row){
+		return '';
+	}
 	$row['cover'] = '/data/upload/cover/'. $row['aid'] .'.jpg';
 	$evnet->setRow($row);
 	$evnet->loop();
