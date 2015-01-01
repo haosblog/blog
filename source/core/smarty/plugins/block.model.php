@@ -7,26 +7,17 @@
  */
 
 function smarty_block_model($params, $content, &$smarty, &$repeat){
-	extract($params);
-
-	if(!isset($model)){
+	if(!isset($params['model'])){
 		return '';
-	}
-
-	if(!isset($item)){
-		$item = 'row';
-	}
-
-	if(!isset($count)){
-		$count = 10;
-	}
-
-	if(!isset($orderby)){
-		$orderby = 'id';
 	} else {
-		$orderby = addslashes($orderby);
+		$model = $params['model'];
 	}
 
+	$item = isset($params['item']) ? $params['item'] : 'row';
+	$count = isset($params['count']) ? $params['count'] : 10;
+	$orderby = isset($params['ordery']) ? addslashes($params['ordery']) : 'id DESC';
+
+	// 检测smarty是否存在get_template_vars方法，用于兼容旧版本smarty
 	if(method_exists($smarty, 'get_template_vars')){
 		$_index = $smarty->get_template_vars('_index');
 	} else {
@@ -41,12 +32,12 @@ function smarty_block_model($params, $content, &$smarty, &$repeat){
 	if(!isset($GLOBALS['blockdata'][$dataindex])){
 		$modelObj = SM($model);
 
-		$data = $modelObj->loadList(1, $count, $orderby);
+		$data = $modelObj->limit($count)->order($orderby)->select();
 		if(!$data){
 			return '';
 		}
 
-		$GLOBALS['blockdata'][$dataindex] = $data['list'];
+		$GLOBALS['blockdata'][$dataindex] = $data;
 	}
 
 	$blockdata = $GLOBALS['blockdata'][$dataindex];
