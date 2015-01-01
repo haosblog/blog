@@ -11,13 +11,13 @@
 				<i class="fr"><{$row.viewcount}>/<{$row.repostcount}></i>
 				<span class="fr"><{date('Y-m-d H:i:s', $row.wrtime)}></span>
 				<span>
-					[<a href="?mod=article_list&cid=<{$row.cid}>"><{$row.catname}></a>]
-					<em class="nobr"><a href="?mod=article_read&id=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
+					[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
+					<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
 				</span>
 			</li>
 		<{/article}>
 	</ul>
-	<a href="?mod=article_list" class="more fr">更多...</a>
+	<a href="/article" class="more fr">更多...</a>
 </article>
 
 <article id="mood">
@@ -34,10 +34,10 @@
 	<ul class="loopbox">
 		<{album count="0"}>
 			<li class="fl">
-				<a href="?mod=album_view&aid={%$albumRs.id%}">
+				<a href="/album/view?aid=<{$row.aid}>">
 					<img src="<{$row.cover}>" alt="<{$row.name}>" />
 				</a>
-				<p class="nobr"><a href="?mod=album_view&aid=<{$row.aid}>"><{$row.name}></a></p>
+				<p class="nobr"><a href="/album/view&aid=<{$row.aid}>"><{$row.name}></a></p>
 			</li>
 		<{/album}>
 	</ul>
