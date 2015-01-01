@@ -8,51 +8,33 @@
  */
 
 function smarty_block_album($params, $content, &$smarty, &$repeat){
-	extract($params);
+	$evnet = new blockEvent($params, $content, $smarty, $repeat);
+	if(!$evnet->checkCache()){
+		$field = isset($params['field']) ? $params['field'] : array();
+		$order = isset($params['order']) ? $params['order'] : 'time DESC';
+		$limit = isset($params['count']) ? intval($params['count']) : 10;
+		$where = array();
 
-	$count = intval($count);
+		if(isset($params['wsid'])){// wsid参数被传入
+			if(!empty($params['wsid'])){// 传入的wsid不为空（NULL，0，FALSE），则读取该网站下的文章，否则读取所有
+				$where['wsid'] = $params['wsid'];
+			}
+		} else {
+			$where['wsid'] = $GLOBALS['wsid'];
+		}
 
-	if(!wsid){
-		$wsid = false;
-	}
-
-
-	if(method_exists($smarty, 'get_template_vars')){
-		$_index = $smarty->get_template_vars('_index');
-	} else {
-		$_index = $smarty->getVariable('_index')->value;
-	}
-
-	if(!$_index){
-		$_index = 0;
-	}
-
-	$dataindex = substr(md5(__FUNCTION__ . md5(serialize($params))), 0, 16);
-
-	if(!isset($GLOBALS['blockdata'][$dataindex])){
-		$m_album = M('album');
-		$data = $m_album->loadList(1, $count, $wsid);
+		$data = M('album')->field($field)->where($where)->order($order)->limit($limit)->select();
 		if(!$data){
 			return '';
 		}
 
-		$GLOBALS['blockdata'][$dataindex] = $data;
+		$evnet->setCache($data);
 	}
 
-	$blockdata = $GLOBALS['blockdata'][$dataindex];
-	$row = $blockdata[$_index];
-	if(isset($blockdata[$_index])){
-		$row['cover'] = '/data/upload/cover/'. $row['aid'] .'.jpg';
-		$smarty->assign('row', $row);
-		$_index++;
-
-		$repeat = true;
-	} else {
-		$_index = 0;
-		$repeat = false;
-	}
-
-	$smarty->assign('_index', $_index);
+	$row = $evnet->getRow();
+	$row['cover'] = '/data/upload/cover/'. $row['aid'] .'.jpg';
+	$evnet->setRow($row);
+	$evnet->loop();
 
 	return $content;
 }
