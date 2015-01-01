@@ -33,12 +33,12 @@ alert("好啦，废话完了，看网站吧");
 		<header>
 			<nav>
 				<a href="/"><img _src="index" alt="首页" /></a>
-				<a href="?mod=article_list"><img _src="article" alt="日志" /></a>
-				<a href="?mod=album"><img _src="photo" alt="相册" /></a>
-				<a href="?mod=mood"><img _src="mood" alt="微博" /></a>
-				<a href="?mod=msg"><img _src="msg" alt="留言本" /></a>
-				<a href="?mod=item"><img _src="item" alt="作品" /></a>
-				<a href="?mod=intro"><img _src="intro" alt="简介" /></a>
+				<a href="/article"><img _src="article" alt="日志" /></a>
+				<a href="/album"><img _src="photo" alt="相册" /></a>
+				<a href="/mood"><img _src="mood" alt="微博" /></a>
+				<a href="/comment"><img _src="msg" alt="留言本" /></a>
+				<a href="/item"><img _src="item" alt="作品" /></a>
+				<a href="/intro"><img _src="intro" alt="简介" /></a>
 			</nav>
 		</header>
         <div id="clock"> </div>
