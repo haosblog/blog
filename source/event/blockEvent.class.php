@@ -45,17 +45,17 @@ class blockEvent {
 	public function loop(){
 		$blockdata = self::$_cache[$this->_dataindex];
 		if(isset($blockdata[self::$_loopIndex])){
-			$this->smarty->assign($this->_item, $blockdata[self::$loopIndex]);
-			self::$loopIndex++;
+			$this->smarty->assign($this->_item, $blockdata[self::$_loopIndex]);
+			self::$_loopIndex++;
 
 			$this->repeat = true;
 		} else {
-			self::$loopIndex = 0;
+			self::$_loopIndex = 0;
 			$this->repeat = false;
 		}
 
 
-		$this->smarty->assign('_index', self::$loopIndex);
+		$this->smarty->assign('_index', self::$_loopIndex);
 	}
 
 	public function getDataIndex($params){
