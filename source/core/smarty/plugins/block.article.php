@@ -38,9 +38,8 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 			$where['wsid'] = $GLOBALS['wsid'];
 		}
 
-		$M = M('view_article');
-		$data = $M->field($field)->where($where)->order($order)->limit($limit)->select();
-		print_r($M->getLastSQL());die;
+		$data = M('view_article')->field($field)->where($where)->order($order)->limit($limit)->select();
+
 		if(!$data){
 			return '';
 		}
@@ -51,8 +50,8 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 
 	$blockdata = $GLOBALS['blockdata'][$dataindex];
 	if(isset($blockdata[$_index])){
-		$_index++;
 		$smarty->assign('row', $blockdata[$_index]);
+		$_index++;
 		$repeat = true;
 	} else {
 		$_index = 0;
