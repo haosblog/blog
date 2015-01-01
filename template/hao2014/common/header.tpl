@@ -53,5 +53,8 @@ alert("好啦，废话完了，看网站吧");
 			</div>
 			<div id="content">
 <{else}>
-	<{$title}>||title||
+	<?xml version="1.0" encoding="gbk"?>
+	<root>
+		<title><{$title}></title>
+		<body><![CDATA[
 <{/if}>
