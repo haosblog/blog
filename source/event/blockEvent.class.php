@@ -58,6 +58,29 @@ class blockEvent {
 		$this->smarty->assign('_index', self::$_loopIndex);
 	}
 
+
+	/**
+	 * 获取当前索引行的数据
+	 */
+	public function getRow(){
+		return self::$_cache[$this->_dataindex][self::$_loopIndex];
+	}
+
+	/**
+	 * 设置当前索引行的数据为指定数据
+	 *
+	 * @param type $data
+	 */
+	public function setRow($data){
+		self::$_cache[$this->_dataindex][self::$_loopIndex] = $data;
+	}
+
+	/**
+	 * 根据参数生成数据缓存的索引
+	 *
+	 * @param type $params
+	 * @return type
+	 */
 	public function getDataIndex($params){
 		return substr(md5(__FUNCTION__ . md5(serialize($params))), 0, 16);
 	}
