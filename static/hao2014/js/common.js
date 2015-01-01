@@ -15,10 +15,10 @@ window.onpopstate = function(event){
 }
 // 页面加载完成，初始化页面
 $(document).ready(function() {
-	
+
 	createClock();			//生成时钟
 	loopInit();				//初始化滚动
-	
+
 	regEvent.index_msgbox();
 	regEvent.linkClick();
 	//创建加载中的遮罩
@@ -27,10 +27,10 @@ $(document).ready(function() {
 	loading.children("img").css("margin-top", ($(document).height() - 32) / 2);
 	$("body").append(loading)
 	//初始化导航条参数
-	var navImgPath = "skin/hao2013/pic/navbar/";
+	var navImgPath = "/static/hao2014/image/navbar/";
 	for(var i = 0; i < $("nav img").length; i++){
 		//预加载图像
-		new Image().src = "skin/hao2013/pic/navbar/" + $("nav img:eq(" + i + ")").attr("on");
+		new Image().src = navImgPath + $("nav img:eq(" + i + ")").attr("on");
 		var temjson = {
 			"width" : 80,
 			"height" : 80,
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 		history.pushState({"title" : arr[0], "html" : arr[1]}, "", op.url.substr(0, op.url.length - 4));
 		$("#content").html(arr[1]);
-		
+
 		loading.hide();
 		$("#mainBox").fadeTo(1000, 1);
 		regEvent.linkClick();
@@ -116,7 +116,7 @@ function loopStart(loop){
 	var loopbox = loop.find(".loopbox");
 	var childWidth = loopbox.children("*").width() + parseInt(loopbox.children("*").css("margin-left"));
 	var boxWidth = loopbox.children("*").length * childWidth;
-	
+
 	loopbox.width(boxWidth);
 	//开始滚动
 	var speed = loop.attr("_speed") ? loop.attr("_speed") : 3000;
@@ -127,7 +127,7 @@ function loopStart(loop){
 		last.remove();
 		loopbox.children("*:last").after(last);
 		loopbox.css("margin-left" , "0");
-	
+
 		setTimeout(function(){ loopStart(loop); }, stop);
 	});
 }
@@ -143,7 +143,7 @@ var regEvent = {
 				}
 				$("#content").load(url + "&t=1");
 				ajaxStop = false;		//ajax开始时，ajaxStop设置为false
-				
+
 				$("#mainBox").fadeTo(1000, 0, function(){
 					if(!ajaxStop){
 						loading.show();
@@ -221,29 +221,29 @@ function clockRun(){
 
 
 //调整图片大小
-function ImgAutoSize(imgD,FitWidth,FitHeight) { 
- var image1=new Image(); 
- image1.onload = function () { 
-  if(this.width>0 && this.height>0) { 
-   if(this.width/this.height>= FitWidth/FitHeight) { 
-    if(this.width>FitWidth) { 
-     imgD.width=FitWidth; 
-     imgD.height=(this.height*FitWidth)/this.width; 
-    } else { 
-     imgD.width=this.width; 
-     imgD.height=this.height; 
-    } 
-   } else { 
-    if(this.height>FitHeight) { 
-     imgD.height=FitHeight; 
-     imgD.width=(this.width*FitHeight)/this.height; 
-    } else { 
-     imgD.width=this.width; 
-     imgD.height=this.height; 
-    } 
-   } 
-  } 
-  image1 = null; 
- } 
- image1.src=imgD.src; 
+function ImgAutoSize(imgD,FitWidth,FitHeight) {
+ var image1=new Image();
+ image1.onload = function () {
+  if(this.width>0 && this.height>0) {
+   if(this.width/this.height>= FitWidth/FitHeight) {
+    if(this.width>FitWidth) {
+     imgD.width=FitWidth;
+     imgD.height=(this.height*FitWidth)/this.width;
+    } else {
+     imgD.width=this.width;
+     imgD.height=this.height;
+    }
+   } else {
+    if(this.height>FitHeight) {
+     imgD.height=FitHeight;
+     imgD.width=(this.width*FitHeight)/this.height;
+    } else {
+     imgD.width=this.width;
+     imgD.height=this.height;
+    }
+   }
+  }
+  image1 = null;
+ }
+ image1.src=imgD.src;
 }
