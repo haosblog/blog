@@ -30,13 +30,17 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 			$where['cid'] = $params['cid'];
 		}
 
-		if(isset($params['wsid'])){
-
+		if(isset($params['wsid'])){// wsid参数被传入
+			if(!empty($params['wsid'])){// 传入的wsid不为空（NULL，0，FALSE），则读取该网站下的文章，否则读取所有
+				$where['wsid'] = $params['wsid'];
+			}
 		} else {
 			$where['wsid'] = $GLOBALS['wsid'];
 		}
 
-		$data = M('view_article')->field($field)->where($where)->order($order)->limit($limit)->select();
+		$M = M('view_article');
+		$data = $M->field($field)->where($where)->order($order)->limit($limit)->select();
+		print_r($M->getLastSQL());die;
 		if(!$data){
 			return '';
 		}
