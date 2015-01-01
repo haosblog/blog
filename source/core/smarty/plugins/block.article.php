@@ -8,19 +8,9 @@
  */
 
 function smarty_block_article($params, $content, &$smarty, &$repeat){
-	if(method_exists($smarty, 'get_template_vars')){
-		$_index = $smarty->get_template_vars('_index');
-	} else {
-		$_index = $smarty->getVariable('_index')->value;
-	}
+	$event = new blockEvent($params, $content, $smarty, $repeat);
 
-	if(!$_index){
-		$_index = 0;
-	}
-
-	$dataindex = substr(md5(__FUNCTION__ . md5(serialize($params))), 0, 16);
-
-	if(!isset($GLOBALS['blockdata'][$dataindex])){
+	if(!$event->checkCache()){
 		$field = isset($params['field']) ? $params['field'] : array();
 		$order = isset($params['order']) ? $params['order'] : 'wrtime DESC';
 		$limit = isset($params['count']) ? intval($params['count']) : 10;
@@ -44,21 +34,10 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 			return '';
 		}
 
-		$GLOBALS['blockdata'][$dataindex] = $data;
+		$event->setCache($data);
 	}
 
-
-	$blockdata = $GLOBALS['blockdata'][$dataindex];
-	if(isset($blockdata[$_index])){
-		$smarty->assign('row', $blockdata[$_index]);
-		$_index++;
-		$repeat = true;
-	} else {
-		$_index = 0;
-		$repeat = false;
-	}
-
-	$smarty->assign('_index', $_index);
+	$event->loop();
 
 	return $content;
 }
