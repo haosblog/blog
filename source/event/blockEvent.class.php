@@ -19,6 +19,8 @@ class blockEvent {
 	static private $_cache;
 	// 循环过程中的索引
 	static private $_loopIndex = 0;
+	// 当前进程所需的数据缓存，用于本次进程中重复使用
+	static public $progressData = array();
 
 	private $content, $smarty, $repeat;
 
@@ -56,6 +58,8 @@ class blockEvent {
 
 
 		$this->smarty->assign('_index', self::$_loopIndex);
+
+		return $this->repeat;
 	}
 
 
@@ -75,6 +79,10 @@ class blockEvent {
 		self::$_cache[$this->_dataindex][self::$_loopIndex] = $data;
 	}
 
+	public function setProgressData($key, $value){
+		self::$progressData[$key] = $value;
+	}
+
 	/**
 	 * 根据参数生成数据缓存的索引
 	 *
@@ -82,6 +90,10 @@ class blockEvent {
 	 * @return type
 	 */
 	public function getDataIndex($params){
-		return substr(md5(__FUNCTION__ . md5(serialize($params))), 0, 16);
+		if(!empty($this->_dataindex)){
+			return $this->_dataindex;
+		} else {
+			return substr(md5(__FUNCTION__ . md5(serialize($params))), 0, 16);
+		}
 	}
 }
