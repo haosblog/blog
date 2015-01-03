@@ -2,6 +2,7 @@
 var ajaxStop = true;		//ajax请求是否完成。用于判断是否展示遮罩层
 var loading = null;			//加载中的遮罩层对象
 var navDomValue = [];		//导航条每个元素的参数
+var navClickBind = false;	// 导航栏是否被绑定click事件。用于响应式视图中手机版导航栏的滑出滑入事件绑定
 
 //点击前进后退按钮时的操作
 window.onpopstate = function(event){
@@ -15,44 +16,66 @@ window.onpopstate = function(event){
 }
 // 页面加载完成，初始化页面
 $(document).ready(function() {
+	createClock();			// 生成时钟
+	loopInit();				// 初始化滚动
+	navInit();				// 初始化导航条
+	loadingInit();			// 生成loading图标遮罩层
 
-	createClock();			//生成时钟
-	loopInit();				//初始化滚动
+	// 注册各种必须的页面事件
+	regEvent.index_msgbox();	// 注册
+	regEvent.linkClick();		// 注册链接点击事件，实现ajax加载
+	regEvent.navbar();		// 注册响应式中navbar的点击事件
+});
 
-	regEvent.index_msgbox();
-	regEvent.linkClick();
-	//创建加载中的遮罩
+/**
+ * 初始化生成页面loading图标的遮罩层
+ * @returns {undefined}
+ */
+function loadingInit(){
 	loading = $("<div><img src='/static/hao2014/image/loading.gif' alt='加载中...' /></div>");
 	loading.css({"background" : "rgba(0, 0, 0, 0.6)", "width" : "100%", "height" : $(document).height(), "display" : "none", "text-align" : "center"});
 	loading.children("img").css("margin-top", ($(document).height() - 32) / 2);
-	$("body").append(loading)
+	$("body").append(loading);
+}
+
+/**
+ * 初始化导航栏
+ *
+ * @returns {Boolean}
+ */
+function navInit(){
+	if(screen.width < 800){// 分辨率宽度大于800的时候才执行导航栏初始化
+		return false;
+	}
+
 	//初始化导航条参数
 	var navImgPath = "/static/hao2014/image/navbar/";
-	for(var i = 0; i < $("nav img").length; i++){
+	$("nav img").each(function(){
 		//预加载图像
-		new Image().src = navImgPath + $("nav img:eq(" + i + ")").attr("on");
+		new Image().src = navImgPath + $(this).attr("_src")+ "_on.png";
 		var temjson = {
 			"width" : 80,
 			"height" : 80,
 			"oldwidth" : 80,
 			"oldheight" : 80,
-			"imgold" : navImgPath + $("nav img:eq(" + i + ")").attr("_src") + "_on.png",
-			"imgon" : navImgPath + $("nav img:eq(" + i + ")").attr("_src") + ".png",
-			"left" : $("nav img:eq(" + i + ")").offset().left -  $("nav").offset().left
+			"imgold" : navImgPath + $(this).attr("_src") + "_on.png",
+			"imgon" : navImgPath + $(this).attr("_src") + ".png",
+			"left" : $(this).offset().left -  $("nav").offset().left
 		}
-		$("nav img:eq(" + i + ")").attr("src", temjson.imgold);
+		$(this).attr("src", temjson.imgold);
 		navDomValue.push(temjson);
-	}
+	});
 	//导航鼠标移过
 	$("nav").mouseover(navDock);
 	$("nav").mousemove(navDock);
 	$("nav").mouseout(navDockReset);
-});
-
+}
 
 //导航栏Dock样式
 function navDock(e) {
-	var mouseX = e.pageX - $(this).offset().left;
+	if($(window).width() < 800){// 窗口宽度小于800则不执行
+		return false;
+	}
 	var topWidth = 0;
 	for(var i = 0; i < navDomValue.length; i++){
 		navDomValue[i].left = $("nav img:eq(" + i + ")").offset().left;
@@ -74,17 +97,19 @@ function navDock(e) {
 }
 
 function navDockReset(){
-	var topWidth = 0;
+	if($(window).width() < 800){// 窗口宽度小于800则不执行
+		return false;
+	}
 	for(var i = 0; i < navDomValue.length; i++){
 		navDomValue[i].width = navDomValue[i].oldwidth;
 		navDomValue[i].height = navDomValue[i].oldheight;
 		$("nav img:eq(" + i + ")").width(navDomValue[i].oldwidth);
 		$("nav img:eq(" + i + ")").height(navDomValue[i].oldheight);
-		topWidth += navDomValue[i].width;
 		navDomValue[i].left = $("nav img:eq(" + i + ")").offset().left;
 		$("nav img:eq(" + i + ")").attr("src", navDomValue[i].imgold);
 	}
-	$("nav").width(topWidth);
+	// 移除style属性清除由JQ产生的样式
+	$("nav").removeAttr("style");
 }
 
 //设置滚动
@@ -157,6 +182,21 @@ function linkClick(){
 var regEvent = {
 	linkClick : function(){
 		$("a").unbind("click").click(linkClick);
+	},
+	navbar : function(){
+		$("#pagetitle>button").click(function(){
+			$("nav").show();
+			$("nav>ul").animate({ "width" : "200px"}, 500);
+
+			if(!navClickBind){
+				$("nav, nav a").click(function(){
+					navClickBind = true;
+					$("nav>ul").animate({ "width" : "0"}, 500, function(){
+						$("nav").hide();
+					});
+				});
+			}
+		});
 	},
 	index_msgbox : function(){
 		var lineCount = 4;
