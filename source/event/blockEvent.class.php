@@ -89,7 +89,7 @@ class blockEvent {
 	 * @param type $params
 	 * @return type
 	 */
-	public function getDataIndex($params){
+	public function getDataIndex($params = ''){
 		if(!empty($this->_dataindex)){
 			return $this->_dataindex;
 		} else {

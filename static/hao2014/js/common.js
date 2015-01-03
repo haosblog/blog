@@ -166,7 +166,6 @@ function linkClick(){
 			history.pushState({"title" : title, "html" : cotent}, "", url);
 			loading.hide();
 			$("#mainBox").stop().fadeTo(1000, 1);
-			regEvent.linkClick();
 			regEvent.index_msgbox();
 		},
 		"error" : function (){
@@ -181,7 +180,7 @@ function linkClick(){
 // 事件注册，主要用于需要在页面更新后需要重新加载的事件
 var regEvent = {
 	linkClick : function(){
-		$("a").unbind("click").click(linkClick);
+		$(document).on("click", "a", linkClick);
 	},
 	navbar : function(){
 		$("#pagetitle>button").click(function(){
@@ -189,8 +188,8 @@ var regEvent = {
 			$("nav>ul").animate({ "width" : "200px"}, 500);
 
 			if(!navClickBind){
+				navClickBind = true;
 				$("nav, nav a").click(function(){
-					navClickBind = true;
 					$("nav>ul").animate({ "width" : "0"}, 500, function(){
 						$("nav").hide();
 					});
