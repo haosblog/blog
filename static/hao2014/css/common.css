@@ -32,6 +32,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 #main>header>nav { padding: 0 20px; width:  560px; height: 88px; border: 1px solid #656B6B; margin: 0 auto;
 	border-radius: 0 0 12px 12px; background-image: url("../image/bananer.png"); }
 #main>header>nav a { float: left; }
+#main>header>nav span { display: none; }
 
 #main>footer { margin-top: 5px; border-top: 1px #000 dotted; text-align: center; padding: 5px;
 	font-family: 华文行楷 ,华文新魏, 楷体; }

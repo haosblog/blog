@@ -3,10 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="小皓|独立博客|博客|技术博客|<{$keywords}>" />
+<meta name="Keywords" content="<{$keywords|default:'小皓|独立博客|博客|技术博客|'}>" />
 <meta name="Description" content="小皓的独立博客，记录技术，时事，还有生活|<{$kwcontent}>" />
 <title><{$title}> - 小皓的blog</title>
 <link rel="stylesheet" type="text/css" href="/static/hao2014/css/common.css" />
+<link rel="stylesheet" media="screen and (max-width: 1000px)" href="/static/hao2014/css/media_1000px.css" />
+<link rel="stylesheet" media="screen and (max-width: 700px)" href="/static/hao2014/css/media_700px.css" />
+<link rel="stylesheet" media="screen and (max-width: 480px)" href="/static/hao2014/css/media_480px.css" />
 </head>
 <!--[if lt IE 8]><script type="text/javascript" language="javascript">document.execCommand("Stop");document.write('<iframe src="fuckie.html" width="100%" height="650" frameborder="0"></iframe>');</script><![endif]-->
 <body>
@@ -32,13 +35,13 @@ alert("好啦，废话完了，看网站吧");
 	<div id="main">
 		<header>
 			<nav>
-				<a href="/"><img _src="index" alt="首页" /></a>
-				<a href="/article"><img _src="article" alt="日志" /></a>
-				<a href="/album"><img _src="photo" alt="相册" /></a>
-				<a href="/mood"><img _src="mood" alt="微博" /></a>
-				<a href="/comment"><img _src="msg" alt="留言本" /></a>
-				<a href="/item"><img _src="item" alt="作品" /></a>
-				<a href="/intro"><img _src="intro" alt="简介" /></a>
+				<a href="/"><img _src="index" alt="首页" /><span>首页</span></a>
+				<a href="/article"><img _src="article" alt="日志" /><span>日志</span></a>
+				<a href="/album"><img _src="photo" alt="相册" /><span>相册</span></a>
+				<a href="/mood"><img _src="mood" alt="微博" /><span>微博</span></a>
+				<a href="/comment"><img _src="msg" alt="留言本" /><span>留言</span></a>
+				<a href="/item"><img _src="item" alt="作品" /><span>作品</span></a>
+				<a href="/intro"><img _src="intro" alt="简介" /><span>简介</span></a>
 			</nav>
 		</header>
         <div id="clock"> </div>

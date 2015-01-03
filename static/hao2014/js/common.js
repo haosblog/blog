@@ -22,7 +22,7 @@ $(document).ready(function() {
 	regEvent.index_msgbox();
 	regEvent.linkClick();
 	//创建加载中的遮罩
-	loading = $("<div><img src='pic/loading.gif' alt='加载中...' /></div>");
+	loading = $("<div><img src='/static/hao2014/image/loading.gif' alt='加载中...' /></div>");
 	loading.css({"background" : "rgba(0, 0, 0, 0.6)", "width" : "100%", "height" : $(document).height(), "display" : "none", "text-align" : "center"});
 	loading.children("img").css("margin-top", ($(document).height() - 32) / 2);
 	$("body").append(loading)
