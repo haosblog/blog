@@ -31,6 +31,7 @@ function smarty_block_model($params, $content, &$smarty, &$repeat){
 
 		$data = SM($model)->page($page, $count)->order($orderby)->where($where)->select();
 		$total = SM($model)->where($where)->count();
+		print_r($data);die;
 		if(!$data){
 			return '';
 		}
@@ -41,7 +42,7 @@ function smarty_block_model($params, $content, &$smarty, &$repeat){
 
 	$result = $event->loop();
 	if(!$result){// 循环已结束，将分页信息写入模板变量
-		$page = new page();
+//		$page = new page();
 	}
 
 	return $content;
