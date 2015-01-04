@@ -191,7 +191,8 @@ var regEvent = {
 				navClickBind = true;
 				$("nav, nav a").click(function(){
 					$("nav>ul").animate({ "width" : "0"}, 500, function(){
-						$("nav").hide();
+						// 删除由JQ生成的内嵌样式，恢复到初始状态（避免响应式出问题）
+						$("nav, nav>ul").removeAttr("style");
 					});
 				});
 			}
