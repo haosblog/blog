@@ -31,7 +31,6 @@ function smarty_block_model($params, $content, &$smarty, &$repeat){
 
 		$data = SM($model)->page($page, $count)->order($orderby)->where($where)->select();
 		$total = SM($model)->where($where)->count();
-		print_r($data);die;
 		if(!$data){
 			return '';
 		}
