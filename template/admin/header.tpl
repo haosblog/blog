@@ -20,7 +20,7 @@
 			<div class="headernav">
 				<ul>
 					<li><a href="/admin/"><span class="glyphicon glyphicon-home"></span> 后台首页</a></li>
-					<li><a href="/admin/index/logout"><span class="glyphicon glyphicon-share"></span> 退出登录</a></li>
+					<li><a href="/admin/logout"><span class="glyphicon glyphicon-share"></span> 退出登录</a></li>
 				</ul>
 			</div>
 		</header>

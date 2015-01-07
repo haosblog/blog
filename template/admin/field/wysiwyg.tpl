@@ -43,4 +43,4 @@
 	</div>
 	<input type="text" x-webkit-speech="" id="voiceBtn" data-edit="inserttext" style="display: none;">
 </div>
-<textarea id="<{$name}>" name="<{$name}>" class="form-control" rows="15"></textarea>
+<textarea id="<{$name}>" name="<{$name}>" class="form-control" rows="15"><{$content}></textarea>

@@ -22,7 +22,7 @@ class dynamicController extends baseController {
 
 		$this->buffer['list'] = $modelObj->page($page, 30)->order('id DESC')->select();
 //		$this->buffer['field'] = M('model')->field('modname', 'tablename', 'classable')->getByMid($mid);
-		$this->buffer['modname'] = M('model')->getFieldByMid('modname', $mid);
+		$this->buffer['modname'] = M('model')->getFieldByMid($mid, 'modname');
 		$this->buffer['fieldtype'] = M('model_field')->getFormField($mid, true);
 
 		$this->display();
@@ -39,7 +39,7 @@ class dynamicController extends baseController {
 		$mid = $this->_getMid();
 
 		$this->buffer['mid'] = $mid;
-		$this->buffer['modname'] = M('model')->getFieldByMid('modname', $mid);
+		$this->buffer['modname'] = M('model')->getFieldByMid($mid, 'modname');
 		$this->buffer['list'] = M('model_field')->getFormField($mid);
 
 		$this->display();
@@ -95,7 +95,7 @@ class dynamicController extends baseController {
 			$this->showmessage('错误的处理');
 		}
 
-		$tablename = M('model')->getFieldByMid('tablename', $mid);
+		$tablename = M('model')->getFieldByMid($mid, 'tablename');
 		if(!$tablename){
 			$this->showmessage('错误的模型');
 		}

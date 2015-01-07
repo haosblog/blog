@@ -11,6 +11,8 @@ session_start();
 
 class baseController extends controller {
 
+	protected $wsid;
+
 	public function __construct($router = array()) {
 		parent::__construct($router);
 
@@ -26,6 +28,6 @@ class baseController extends controller {
 		}
 
 		$GLOBALS['tplPath'] = TPL_PATH . $info['tppath'] .'/';
-		$GLOBALS['wsid'] = $info['wsid'];
+		$this->wsid = $GLOBALS['wsid'] = $info['wsid'];
 	}
 }

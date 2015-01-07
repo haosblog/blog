@@ -15,6 +15,7 @@ class editorEvent extends controller {
 	private $_lastList = array();
 
 	public function parseContent($content){
+		$content = htmlspecialchars($content, 3);
 		// 按行分解内容
 		$lineArr = explode("\n", $content);
 		$htmlContent = '';

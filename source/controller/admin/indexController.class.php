@@ -12,11 +12,4 @@ class indexController extends baseController {
 	public function index(){
 		$this->display('index');
 	}
-
-
-	public function logout(){
-		$_SESSION = null;
-
-		$this->showmessage('退出成功！', 1, '/admin/login');
-	}
 }

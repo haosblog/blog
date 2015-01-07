@@ -7,8 +7,11 @@
  */
 class userModel extends model {
 	public function cookieLogin($cookie){
-		$where = array('cookie' => $cookie);
-		$userdata = $this->selectOne('*', $where);
+		if(!$cookie){
+			return false;
+		}
+
+		$userdata = $this->getByCookie($cookie);
 
 		return $userdata;
 	}

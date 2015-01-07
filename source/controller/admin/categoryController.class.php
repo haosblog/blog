@@ -13,7 +13,7 @@ class categoryController extends baseController {
 	public function index(){
 		$mid = intval($_GET['mid']);
 
-		$this->buffer['list'] = M('category')->loadList($mid);
+		$this->buffer['list'] = M('category')->where(array('mid' => $mid, 'wsid' => $this->wsid))->select();
 		$this->buffer['mid'] = $mid;
 
 		$this->display();
@@ -32,6 +32,7 @@ class categoryController extends baseController {
 		);
 
 		$param = $this->getParam($rule);
+		$param['wsid'] = $this->wsid;
 		$cid = intval($_POST['cid']);
 
 		if($cid){

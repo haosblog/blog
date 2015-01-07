@@ -17,6 +17,7 @@ abstract class baseController extends controller {
 		parent::__construct();	//先执行一遍父类的初始化操作
 
 		$this->m_user = M('user');
+
 		if(isset($_POST['loginmode'])){// 登陆模式，进行登陆验证
 			$this->_loginAction();
 		}

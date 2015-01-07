@@ -16,7 +16,14 @@ class articleController extends baseController {
 	}
 
 	public function index(){
-		$this->buffer['list'] = M('view_article')->order('wrtime DESC')->select();
+		$where = array('wsid' => $this->wsid);
+		$cid = intval($_GET['cid']);
+
+		if($cid){
+			$where['cid'] = $cid;
+		}
+
+		$this->buffer['list'] = M('view_article')->where($where)->order('wrtime DESC')->select();
 
 		$this->display();
 	}
@@ -27,22 +34,23 @@ class articleController extends baseController {
 	public function edit(){
 		$aid = intval($_GET['aid']);
 		if($aid){
-			$this->buffer['article'] = M('article')->getByAid($aid);
+			$this->buffer['info'] = M('article')->getByAid($aid);
 		}
 
-		$this->buffer['category'] = M('category')->field('cid', 'catname')->select();
+		$this->buffer['category'] = M('category')->field('cid', 'catname')->where(array('wsid' => $this->wsid))->select();
 
 		$this->display();
 	}
 
 	public function action(){
 		$maps = array();
-		$aid = intval($_GET['aid']);
+		$aid = intval($_POST['aid']);
 		$maps['title'] = $title = htmlspecialchars($_POST['title'], 3);
 		$maps['content_ori'] = $content = addslashes($_POST['content']);
 		$maps['cid'] = $cid = intval($_POST['cid']);
 		$maps['original'] = $original = intval($_POST['original']);
 		$maps['status'] = intval($_POST['status']);
+		$maps['wsid'] = $this->wsid;
 		if(!$original){// 文章不是原创，记录来源地址
 			$maps['fromurl'] = $fromurl = addslashes($_POST['fromurl']);
 		}
@@ -62,10 +70,21 @@ class articleController extends baseController {
 		$parseObj = new editorEvent();
 		$maps['content'] = $html = $parseObj->parseContent($content);
 
+		$m_article = M('article');
+		$m_category = M('category');
 		if($aid){
-			M('article')->where(array('aid' => $aid))->update($maps);
+			$maps['chtime'] = time();
+			// 获取文章原所属栏目，用于对比
+			$oldCid = $m_article->getFieldByAid($aid, 'cid');
+			if($oldCid != $cid){// 本文章栏目已变更
+				$m_category->where(array('cid' => $oldCid))->setDec('count', 1);
+				$m_category->where(array('cid' => $cid))->setInc('count', 1);
+			}
+			$m_article->where(array('aid' => $aid))->update($maps);
 		} else {
-			M('article')->insert($maps);
+			$maps['wrtime'] = $maps['chtime'] = $maps['retime'] = time();
+			$m_category->where(array('cid' => $cid))->setInc('count', 1);
+			$m_article->insert($maps);
 		}
 
 		$this->showmessage('文章发表成功！', 1, '/admin/article');

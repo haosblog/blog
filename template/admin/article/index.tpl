@@ -30,8 +30,8 @@
 							<span class="text-danger" title="设为草稿">草稿</span>
 						<{/if}>
 					</a>
-					<a href="/admin/article/edit/?aid=<{$row.wsid}>">编辑</a>
-					<a href="/admin/article/delete/?aid=<{$row.wsid}>">删除</a>
+					<a href="/admin/article/edit/?aid=<{$row.aid}>">编辑</a>
+					<a href="/admin/article/delete/?aid=<{$row.aid}>">删除</a>
 				</td>
 			</tr>
 		<{/foreach}>
