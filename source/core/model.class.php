@@ -112,8 +112,8 @@ class model {
 			// 需要将第一个字母转为小写，避免出错
 			$name = lcfirst(substr($methodOri,10));
 			if($name == 'iD'){ $name = 'id'; }
-			$where[$name] = $args[1];
-			return $this->Where($where)->getField($this->parseField($args[0]));
+			$where[$name] = $args[0];
+			return $this->Where($where)->getField($this->parseField($args[1]));
 		} elseif(substr($method, 0, 8) == 'selectby'){
 			// 根据某个字段获取记录
 			// 需要查询的字段，由于linux下mysql区分大小写，因此必须使用原始的参数而不是转为小写的
@@ -343,7 +343,7 @@ class model {
 		return $this;
 	}
 
-	public function alias($alias){
+	final public function alias($alias){
 		$this->options['alias'] = $alias;
 		return $this;
 	}
@@ -416,6 +416,71 @@ class model {
 		} else {
 			$sql = $this->parseSQL($field, $where, $orderby, $limit);
 		}
+
+		return $this->query($sql);
+	}
+
+	/**
+	 * 将制定字段加N
+	 *
+	 * @param string|array $field	操作的字段，如果为数组，则操作多个字段
+	 * @param int|array $num		增量，可以为负（不推荐，请用setDec）
+	 * @return type
+	 */
+	public function setInc($field, $num = 1){
+		return $this->setField($field, $num, '+');
+	}
+
+	/**
+	 * 将制定字段减N
+	 *
+	 * @param string|array $field
+	 * @param int|array $num
+	 * @return type
+	 */
+	public function setDec($field, $num = 1){
+		return $this->setField($field, $num, '-');
+	}
+
+	/**
+	 * 对指定字段进行计算
+	 *
+	 * @param string|array $field
+	 * @param int|array $num
+	 * @param string $op			计算
+	 * @return boolean
+	 */
+	public function setField($field, $num = 0, $op = '+'){
+		if(isset($this->options['where'])){
+			$where = $this->parseWhere($this->options['where']);
+			unset($this->options['where']);
+		} else {
+			return false;
+		}
+
+		$sql = "UPDATE ". $this->tablename ." SET ";
+		if(is_array($field)){// $field为数组，允许操作多个字段
+			if(is_numeric($num)){// $num 为数字，则每个算式都应用该增量
+				$numIsArr = false;
+			} elseif(is_array($num)){// $num为数组，则每个字段对应相应列的增量
+				$numIsArr = true;
+			} else {// $num不为数组或数字，退出
+				return false;
+			}
+
+			foreach($field as $key => $value){
+				$sql .= "`$value`=`$value` ". $op;
+				if($numIsArr){
+					$sql .= $num[$key];
+				} else {
+					$sql .= $num;
+				}
+			}
+		} else {
+			$sql .= "`$field`=`$field` ". $op . $num;
+		}
+
+		$sql .= $where;
 
 		return $this->query($sql);
 	}
