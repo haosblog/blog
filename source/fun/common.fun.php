@@ -180,6 +180,36 @@ function loadCSS($cssfiles){
 	}
 }
 
+/**
+ * URL重定向
+ * 
+ * @param string $url 重定向的URL地址
+ * @param integer $time 重定向的等待时间（秒）
+ * @param string $msg 重定向前的提示信息
+ * @return void
+ */
+function redirect($url, $time=0, $msg='') {
+    if (empty($msg)){
+		$msg    = "系统将在{$time}秒之后自动跳转到{$url}！";
+	}
+    if (!headers_sent()) {  
+        // redirect
+        if (0 === $time) {
+			// 使用301跳转，TODO，未来可能更新
+			header('HTTP/1.1 301 Moved Permanently'); 
+            header('Location: ' . $url);
+        } else {
+            header("refresh:{$time};url={$url}");
+            echo($msg);
+        }
+        exit();
+    } else {
+        $str    = "<meta http-equiv='Refresh' content='{$time};URL={$url}'>";
+        if ($time != 0)
+            $str .= $msg;
+        exit($str);
+    }
+}
 
 
 /**

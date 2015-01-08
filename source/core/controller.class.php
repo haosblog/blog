@@ -56,13 +56,25 @@ class controller {
 		);
 		die(json_encode($jsonArr));
 	}
+	
+	/**
+	 * 检测指定的模板是否存在
+	 * 
+	 * @param type $tpl
+	 */
+	final protected function checkTpl($tpl = ''){
+		$tplPath = $GLOBALS['tplPath'] . $this->_getTplPath($tpl);
+		return file_exists($tplPath);
+	}
 
 	/**
 	 * 输出到模板
 	 *
 	 * @param type $tpl	模板路径如果为空，则调用与控制器同名的模板
 	 */
-	protected function display($tpl = ''){
+	final protected function display($tpl = ''){
+		$tplPath = $this->_getTplPath($tpl);
+
 		// 初始化smarty对象
 		$smarty = new Smarty();
 		$smarty->template_dir = $GLOBALS['tplPath'];
@@ -72,17 +84,12 @@ class controller {
 		$smarty->left_delimiter = '<{';
 		$smarty->right_delimiter = '}>';
 
-		if(empty($tpl) || is_array($tpl)){
-			$tpl = $GLOBALS['controller'] . '/'. $GLOBALS['action'];
-		}
-
 		$this->buffer['title'] = $this->title;
 		$this->buffer['keyword'] = $this->keyword;
 		$this->buffer['description'] = $this->description;
 		$smarty->assign($this->buffer);
 
-		$tpl .= '.tpl';
-		$smarty->display($tpl);
+		$smarty->display($tplPath);
 		exit();
 	}
 
@@ -220,6 +227,24 @@ class controller {
 		}
 
 		echo($text);
+	}
+	
+	/**
+	 * 根据传入的模板路径生成正式的模板路径
+	 *
+	 * @param type $tpl		模板路径名，若不传入，默认使用当前的控制器与方法自动拼装
+	 * @return string
+	 */
+	private function _getTplPath($tpl = ''){
+		if(empty($tpl) || is_array($tpl)){
+			$tpl = $GLOBALS['controller'] . '/'. $GLOBALS['action'];
+		}
+		
+		if(strpos($tpl, '.') === false){// 模板路径中不存在点，则补全默认的后缀名tpl
+			$tpl .= '.tpl';
+		}
+		
+		return $tpl;
 	}
 }
 ?>
