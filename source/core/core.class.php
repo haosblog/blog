@@ -17,6 +17,8 @@ abstract class core {
 		define('HAO_ROOT', substr(dirname(__FILE__), 0, -11));
 		define('RUNTIME_PATH', HAO_ROOT .'./runtime');
 		define(TPL_PATH, HAO_ROOT .'./template/');
+		define('IS_AJAX', ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') || !empty($_POST['inajax']) || !empty($_GET['inajax'])) ? true : false);
+		
 		require HAO_ROOT .'./source/fun/common.fun.php';
 		require HAO_ROOT .'./config/config.php';
 		require HAO_ROOT .'./source/core/smarty/Smarty.class.php';

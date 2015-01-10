@@ -23,7 +23,7 @@ class commentController extends baseController {
 	}
 	
 	public function action(){
-		$t = I('get.t');
+		$t = I('get.t');	// 是否来源于ajax请求
 		
 		$rule = array(
 			'username' => array('explain' => '用户名', 'rule' => ''),
@@ -36,7 +36,23 @@ class commentController extends baseController {
 		
 		$maps = $this->getParam($rule);
 		
-		$maps['type'] = I('type');
+		if($this->error){
+			if($t){
+				$this->ajaxShow(0, $this->errormsg);
+			} else {
+				$this->showmessage($this->errormsg);
+			}
+		}
+		
+		$maps['type'] = $type = I('type', 0, 'intval');
+		
+		if($type == 1 || $type == 2){// 评论文章或图片，则需要添加fid
+			$maps['fid'] = I('fid', 0, 'intval');
+			
+			if(!$maps['fid']){
+				$this->showmessage('');
+			}
+		}
 		$maps = array(
 			'username' => I('username'),
 			'title' => I('title'),

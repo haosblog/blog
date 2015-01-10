@@ -27,17 +27,21 @@ class controller {
 	}
 
 	protected function showmessage($message, $status = 0, $jumpurl = ''){
-		if(empty($jumpurl)){
-			$jumpurl = 'javascript:history.back(-1)';
+		if(IN_AJAX){
+			$this->ajaxShow($status, $message, array('jump' => $jumpurl));
+		} else {
+			if(empty($jumpurl)){
+				$jumpurl = 'javascript:history.back(-1)';
+			}
+
+			$this->buffer = array_merge($this->buffer, array(
+				'jumpurl' => $jumpurl,
+				'message' => $message,
+				'status' => $status
+			));
+
+			$this->display('tip');
 		}
-
-		$this->buffer = array_merge($this->buffer, array(
-			'jumpurl' => $jumpurl,
-			'message' => $message,
-			'status' => $status
-		));
-
-		$this->display('tip');
 	}
 
 

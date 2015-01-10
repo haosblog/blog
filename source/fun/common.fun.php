@@ -122,90 +122,90 @@ function controller_file($controller){
  * @return mixed
  */
 function I($name,$default='',$filter=null,$datas=null) {
-    if(strpos($name,'.')) { // 指定参数来源
-        list($method,$name) =   explode('.',$name,2);
-    }else{ // 默认为自动判断
-        $method =   'param';
-    }
-    switch(strtolower($method)) {
-        case 'get'     :   $input =& $_GET;break;
-        case 'post'    :   $input =& $_POST;break;
-        case 'put'     :   parse_str(file_get_contents('php://input'), $input);break;
-        case 'param'   :
-            switch($_SERVER['REQUEST_METHOD']) {
-                case 'POST':
-                    $input  =  $_POST;
-                    break;
-                case 'PUT':
-                    parse_str(file_get_contents('php://input'), $input);
-                    break;
-                default:
-                    $input  =  $_GET;
-            }
-            break;
-        case 'path'    :
-            $input  =   array();
-            if(!empty($_SERVER['PATH_INFO'])){
-                $input  =   explode('/', trim($_SERVER['PATH_INFO'], '/'));
-            }
-            break;
-        case 'request' :   $input =& $_REQUEST;   break;
-        case 'session' :   $input =& $_SESSION;   break;
-        case 'cookie'  :   $input =& $_COOKIE;    break;
-        case 'server'  :   $input =& $_SERVER;    break;
-        case 'globals' :   $input =& $GLOBALS;    break;
-        case 'data'    :   $input =& $datas;      break;
-        default:
-            return NULL;
-    }
-    if(''==$name) { // 获取全部变量
-        $data       =   $input;
-        array_walk_recursive($data,'filter_exp');
-        $filters    =   isset($filter)?$filter:'htmlspecialchars';
-        if($filters) {
-            if(is_string($filters)){
-                $filters    =   explode(',',$filters);
-            }
-            foreach($filters as $filter){
-                $data   =   array_map_recursive($filter,$data); // 参数过滤
-            }
-        }
-    }elseif(isset($input[$name])) { // 取值操作
-        $data       =   $input[$name];
-        is_array($data) && array_walk_recursive($data,'filter_exp');
-        $filters    =   isset($filter)?$filter: 'htmlspecialchars';
-        if($filters) {
-            if(is_string($filters)){
-                $filters    =   explode(',',$filters);
-            }elseif(is_int($filters)){
-                $filters    =   array($filters);
-            }
+	if(strpos($name,'.')) { // 指定参数来源
+		list($method,$name) =   explode('.',$name,2);
+	}else{ // 默认为自动判断
+		$method =   'param';
+	}
+	switch(strtolower($method)) {
+		case 'get'     :   $input =& $_GET;break;
+		case 'post'    :   $input =& $_POST;break;
+		case 'put'     :   parse_str(file_get_contents('php://input'), $input);break;
+		case 'param'   :
+			switch($_SERVER['REQUEST_METHOD']) {
+				case 'POST':
+					$input  =  $_POST;
+					break;
+				case 'PUT':
+					parse_str(file_get_contents('php://input'), $input);
+					break;
+				default:
+					$input  =  $_GET;
+			}
+			break;
+		case 'path'    :
+			$input  =   array();
+			if(!empty($_SERVER['PATH_INFO'])){
+				$input  =   explode('/', trim($_SERVER['PATH_INFO'], '/'));
+			}
+			break;
+		case 'request' :   $input =& $_REQUEST;   break;
+		case 'session' :   $input =& $_SESSION;   break;
+		case 'cookie'  :   $input =& $_COOKIE;    break;
+		case 'server'  :   $input =& $_SERVER;    break;
+		case 'globals' :   $input =& $GLOBALS;    break;
+		case 'data'    :   $input =& $datas;      break;
+		default:
+			return NULL;
+	}
+	if(''==$name) { // 获取全部变量
+		$data       =   $input;
+		array_walk_recursive($data,'filter_exp');
+		$filters    =   isset($filter)?$filter:'htmlspecialchars';
+		if($filters) {
+			if(is_string($filters)){
+				$filters    =   explode(',',$filters);
+			}
+			foreach($filters as $filter){
+				$data   =   array_map_recursive($filter,$data); // 参数过滤
+			}
+		}
+	}elseif(isset($input[$name])) { // 取值操作
+		$data       =   $input[$name];
+		is_array($data) && array_walk_recursive($data,'filter_exp');
+		$filters    =   isset($filter)?$filter: 'htmlspecialchars';
+		if($filters) {
+			if(is_string($filters)){
+				$filters    =   explode(',',$filters);
+			}elseif(is_int($filters)){
+				$filters    =   array($filters);
+			}
 
-            foreach($filters as $filter){
-                if(function_exists($filter)) {
-                    $data   =   is_array($data)?array_map_recursive($filter,$data):$filter($data); // 参数过滤
-                }else{
-                    $data   =   filter_var($data,is_int($filter)?$filter:filter_id($filter));
-                    if(false === $data) {
-                        return   isset($default)?$default:NULL;
-                    }
-                }
-            }
-        }
-    }else{ // 变量默认值
-        $data       =    isset($default)?$default:NULL;
-    }
-    return $data;
+			foreach($filters as $filter){
+				if(function_exists($filter)) {
+					$data   =   is_array($data)?array_map_recursive($filter,$data):$filter($data); // 参数过滤
+				}else{
+					$data   =   filter_var($data,is_int($filter)?$filter:filter_id($filter));
+					if(false === $data) {
+						return   isset($default)?$default:NULL;
+					}
+				}
+			}
+		}
+	}else{ // 变量默认值
+		$data       =    isset($default)?$default:NULL;
+	}
+	return $data;
 }
 
 function array_map_recursive($filter, $data) {
-     $result = array();
-     foreach ($data as $key => $val) {
-         $result[$key] = is_array($val)
-             ? array_map_recursive($filter, $val)
-             : call_user_func($filter, $val);
-     }
-     return $result;
+	 $result = array();
+	 foreach ($data as $key => $val) {
+		 $result[$key] = is_array($val)
+			 ? array_map_recursive($filter, $val)
+			 : call_user_func($filter, $val);
+	 }
+	 return $result;
  }
 
 /**
@@ -291,26 +291,26 @@ function loadCSS($cssfiles){
  * @return void
  */
 function redirect($url, $time=0, $msg='') {
-    if (empty($msg)){
+	if (empty($msg)){
 		$msg    = "系统将在{$time}秒之后自动跳转到{$url}！";
 	}
-    if (!headers_sent()) {
-        // redirect
-        if (0 === $time) {
+	if (!headers_sent()) {
+		// redirect
+		if (0 === $time) {
 			// 使用301跳转，TODO，未来可能更新
 			header('HTTP/1.1 301 Moved Permanently');
-            header('Location: ' . $url);
-        } else {
-            header("refresh:{$time};url={$url}");
-            echo($msg);
-        }
-        exit();
-    } else {
-        $str    = "<meta http-equiv='Refresh' content='{$time};URL={$url}'>";
-        if ($time != 0)
-            $str .= $msg;
-        exit($str);
-    }
+			header('Location: ' . $url);
+		} else {
+			header("refresh:{$time};url={$url}");
+			echo($msg);
+		}
+		exit();
+	} else {
+		$str    = "<meta http-equiv='Refresh' content='{$time};URL={$url}'>";
+		if ($time != 0)
+			$str .= $msg;
+		exit($str);
+	}
 }
 
 
