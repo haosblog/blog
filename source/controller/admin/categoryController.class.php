@@ -31,7 +31,7 @@ class categoryController extends baseController {
 			'arc_description' => array('explain' => '文章页SEO描述', 'rule' => 'null'),
 		);
 
-		$param = $this->getParam($rule);
+		$param = $this->getParam($rule, 'post', false);
 		$param['wsid'] = $this->wsid;
 		$cid = intval($_POST['cid']);
 

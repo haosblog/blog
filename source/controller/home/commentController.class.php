@@ -27,15 +27,16 @@ class commentController extends baseController {
 		
 		$rule = array(
 			'username' => array('explain' => '用户名', 'rule' => ''),
-			'title' => array('explain' => '留言标题', 'rule' => 'null'),
+			'title' => array('explain' => '留言标题', 'rule' => 'null,max:30'),
 			'portrait' => array('explain' => '头像'),
-			'sex' => array('explain' => '栏目SEO描述', 'rule' => 'null'),
-			'arc_title' => array('explain' => '文章页SEO标题', 'rule' => 'null'),
-			'arc_keyword' => array('explain' => '文章页SEO关键词', 'rule' => 'null'),
-			'arc_description' => array('explain' => '文章页SEO描述', 'rule' => 'null'),
+			'sex' => array('explain' => '性别', 'rule' => 'eq:m|f'),
+			'content' => array('explain' => '留言内容'),
+			'email' => array('explain' => '邮箱地址', 'rule' => 'null,email'),
 		);
 		
-		$this->getParam($rule);
+		$maps = $this->getParam($rule);
+		
+		$maps['type'] = I('type');
 		$maps = array(
 			'username' => I('username'),
 			'title' => I('title'),

@@ -109,20 +109,42 @@ class controller {
 				list($key, $value) = explode(':', $item);
 
 				switch ($key){
-					case 'max':
+					case 'max':// 限制字符长度的最大值
 						if($strlen > $value){
 							$this->set_err($explain .'最大长度限定为'. $key);
 						}
 						break;
-					case 'min' :
+					case 'min' :// 限制字符长度的最小值
 						if($strlen < $value && !(empty($strlen) && $null)){
 							$this->set_err($explain .'最小长度限定为'. $key);
 						}
 						break;
-					case 'reg' :
+					
+					case 'eq':// 等于某（几）个值
+						$eqResult = false;
+						if(strpos($value, '|') !== FALSE){
+							$valueArr = explode('|', $value);
+							foreach($valueArr as $v){
+								if($str == $v){
+									$eqResult = true;
+									break;
+								}
+							}
+						} else {
+							$eqResult = $str == $value;
+						}
+						
+						if(!$eqResult){
+							$this->set_err($explain .'值错误'. $key);
+						}
+						
+						break;
+						
+					case 'reg' :// 正则匹配模式
 						if(preg_match($value, $str)){
 							$this->set_err($explain .'不符合格式');
 						}
+						
 				}
 			}
 			switch ($item){
@@ -173,7 +195,7 @@ class controller {
 	 * @param type $ajax
 	 * @return type
 	 */
-	final protected function getParam($rule = array(), $method = 'post', $ajax = false){
+	final protected function getParam($rule = array(), $method = 'post', $return = true){
 		$param = array();
 
 		if($method == 'post'){
@@ -195,12 +217,12 @@ class controller {
 			}
 		}
 
-		if($this->error){
-			if($ajax){
-				$this->ajaxShow(0, $this->errormsg);
-			} else {
+		if($this->error && !$return){// 出错，且设置了不返回信息，则调用showmessage
+//			if($ajax){
+//				$this->ajaxShow(0, $this->errormsg);
+//			} else {
 				$this->showmessage($this->errormsg);
-			}
+//			}
 		}
 
 		return $param;

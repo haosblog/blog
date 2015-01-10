@@ -62,7 +62,7 @@ class siteController extends baseController{
 			'isdefault' => array('explain' => '默认站点', 'rule' => 'null')
 		);
 
-		$param = $this->getParam($rule);
+		$param = $this->getParam($rule, 'post', false);
 
 		$tppath = M('template')->getPath($param['tpid']);
 

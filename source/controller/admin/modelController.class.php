@@ -99,7 +99,7 @@ class modelController extends baseController {
 			);
 		}
 
-		$param = $this->getParam($rule);
+		$param = $this->getParam($rule, 'post', false);
 		$param = array_merge($param, $tmp);
 
 		$m_modelSystem = SM($mid);

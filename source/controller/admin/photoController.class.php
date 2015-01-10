@@ -55,7 +55,12 @@ class photoController extends baseController {
 			'summary' => array('explain' => '图片说明', 'rule' => 'null'),
 		);
 
-		$param = $this->getParam($rule, 'post', true);
+		$param = $this->getParam($rule);
+		
+		if($this->error){
+			$this->ajaxShow(0, $this->errormsg);
+		}
+		
 		$param['wsid'] = $GLOBALS['wsid'];
 		$param['time'] = time();
 

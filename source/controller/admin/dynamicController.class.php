@@ -70,7 +70,7 @@ class dynamicController extends baseController {
 		}
 
 		// 调用getParam获取参数，并与tmp合并，tmp存储了一些字段的默认值
-		$param = array_merge($tmp, $this->getParam($rule));
+		$param = array_merge($tmp, $this->getParam($rule, 'post', false));
 
 		$param['dateline'] = time();
 		$param['wsid'] = $this->wsid;
