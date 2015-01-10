@@ -1,4 +1,4 @@
-<{if $smarty.get.t != 1}>
+<{if !$smarty.const.IS_AJAX}>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

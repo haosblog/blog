@@ -153,7 +153,7 @@ function linkClick(){
 	});
 	$.ajax({
 		"url" : url ,
-		"data" : { "t" : 1},
+		"data" : { "inajax" : 1},
 		"dataType" : "xml",
 		"success" : function(xml){
 

@@ -1,4 +1,4 @@
-<{if $smarty.get.t != 1}>
+<{if !$smarty.const.IS_AJAX}>
 			</div>
 			<div id="search">
 				<form method="get" action="http://www.google.com.hk/cse" id="cse-search-box" target="_blank">
