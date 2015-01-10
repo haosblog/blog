@@ -42,7 +42,11 @@
 		<{/foreach}>
 		<article class="send">
 			<h3>发表评论：</h3>
-			<form action="?mod=msg_send" method="post">
+			<form action="/comment/action" method="post">
+				<div class="hideinput">
+					<input type="radio" name="portrait" value="1" id="portrait1" />
+					<input type="radio" name="portrait" value="2" id="portrait2" />
+				</div>
 				<table>
 					<tr>
 						<td width="150">*您的昵称：</td>
