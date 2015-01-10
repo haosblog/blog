@@ -1,16 +1,12 @@
 <{if !$smarty.const.IS_AJAX}>
 			</div>
 			<div id="search">
-				<form method="get" action="http://www.google.com.hk/cse" id="cse-search-box" target="_blank">
-			        <input type="hidden" name="cx" value="partner-pub-2742900078912360:7692307290" />
-			        <input type="hidden" name="ie" value="UTF-8" />
-					<input type="hidden" name="keyword" id="keyword" class="form" size="20" />
+				<form method="get" action="/article" id="cse-search-box" target="_blank">
 			        <input type="text" name="q" id="q" size="20" />
-					<select class="form" name="type" id="type">
-						<option value="0">谷歌</option>
+					<{*<select class="form" name="type" id="type">
 						<option value="1">日志</option>
 						<option value="2">相册</option>
-					</select>
+					</select>*}>
 			        <input type="submit" name="sa" class="button" value="&#x641c;&#x7d22;" />
 				</form>
 			</div>

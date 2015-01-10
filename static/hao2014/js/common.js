@@ -153,6 +153,8 @@ function linkClick(){
 
 function ajaxPage(url){
 	ajaxStop = false;		//ajax开始时，ajaxStop设置为false
+	var data = arguments[1] ? arguments[1] : {};
+
 	$("#mainBox").fadeTo(1000, 0, function(){
 		if(!ajaxStop){
 			loading.show();
@@ -160,7 +162,7 @@ function ajaxPage(url){
 	});
 	$.ajax({
 		"url" : url ,
-		"data" : { "inajax" : 1},
+		"data" : data,
 		"dataType" : "xml",
 		"success" : function(xml){
 			ajaxStop = true;
@@ -208,23 +210,30 @@ var regEvent = {
 	},
 	form : function (){// 表单提交事件监听
 		$("form").submit(function(){
-			loading.show();
+			var method = $(this).attr("method");
 			var url = $(this).attr("action");
 			var data = $(this).serialize();
-			$.ajax({
-				"url" : url ,
-				"data" : data,
-				"type" : "post",
-				"dataType" : "json",
-				"success" : function(data){
-					alert(data.msg);
-					loading.hide();
-					ajaxPage(location.href);
-				},
-				"error" : function (){
-					alert("系统错误，请稍后再试");
-				}
-			});
+
+			if(method.toLowerCase() == "get"){// get方式提交的页面，直接转到对应页
+				url += (url.indexOf("?") === -1 ? "?" : "&") + data;
+				ajaxPage(url);
+			} else {
+				loading.show();
+				$.ajax({
+					"url" : url ,
+					"data" : data,
+					"type" : "post",
+					"dataType" : "json",
+					"success" : function(data){
+						alert(data.msg);
+						loading.hide();
+						ajaxPage(location.href);
+					},
+					"error" : function (){
+						alert("系统错误，请稍后再试");
+					}
+				});
+			}
 
 			return false;
 		});
