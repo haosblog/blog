@@ -2,7 +2,7 @@
 <article id="arc_read">
 	<header>
 		<h1><{$title}></h1>
-		<p><{date('Y-m-d H:i:s', $article.wrtime)}>&nbsp;&nbsp;<a href="#re" id="article_re">回复（<span><{$article.review}></span>）</a>&nbsp;&nbsp;<a href="#article_read_bottom">分享</a></p>
+		<p><{date('Y-m-d H:i:s', $article.wrtime)}>&nbsp;&nbsp;<a href="#re" id="article_re">回复（<span><{$article.repostcount}></span>）</a>&nbsp;&nbsp;<a href="#article_read_bottom">分享</a></p>
 	</header>
 	<section class="content">
 		<div class="ad_right fr"><iframe src="ad/gg_right.html"></iframe></div>
