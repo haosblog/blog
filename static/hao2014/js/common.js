@@ -209,7 +209,7 @@ var regEvent = {
 		});
 	},
 	form : function (){// 表单提交事件监听
-		$("form").submit(function(){
+		$("form").unbind("submit").submit(function(){
 			var method = $(this).attr("method");
 			var url = $(this).attr("action");
 			var data = $(this).serialize();

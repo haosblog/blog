@@ -14,7 +14,7 @@ class articleController extends baseController {
 
 	public function index(){
 		$cid = $this->buffer['cid'] = intval($_GET['cid']);
-		$keyword = htmlspecialchars($_GET['keyword']);
+		$keyword = htmlspecialchars($_GET['q']);
 		$page = $this->getPage();
 		$order = $_GET['order'];
 		$wsid = $GLOBALS['wsid'];
@@ -31,11 +31,30 @@ class articleController extends baseController {
 		}
 
 		if($keyword){
-			$where[] = array(
-				'title' => $keyword,
-				'cotent' => $keyword,
-				'_op' => 'll'
-			);
+			$keyword = str_replace('+', ' ', $keyword);
+			
+			if(strpos($keyword, ' ') !== false){
+				$keywordArr = explode(' ', $keyword);
+				$tmp['_logic'] = 'OR';
+				$tmp['_op'] = 'll';
+				
+				foreach($keywordArr as $item){
+					$tmp[] = array(
+						'title' => $item,
+						'content' => $item,
+						'_op' => 'l',
+						'_logic' => 'OR'
+					);
+				}
+			} else {
+				$tmp = array(
+					'title' => $keyword,
+					'content' => $keyword,
+					'_op' => 'l',
+					'_logic' => 'OR'
+				);
+			}
+			$where[] = $tmp;
 		}
 
 		switch ($order){
@@ -52,8 +71,11 @@ class articleController extends baseController {
 				break;
 		}
 
+		$m = M('view_article');
 		$this->buffer['category'] = M('category')->field('cid', 'catname', 'count')->where(array('mid' => 0, 'wsid' => $wsid))->select();
-		$this->buffer['article'] = M('view_article')->where($where)->page($page, 20)->order($orderby)->select();
+		$this->buffer['article'] = $m->field('aid', 'cid', 'catname', 'title', 'original', 'viewcount', 'repostcount', 'wrtime', 'wrtime', 'chtime')
+				->where($where)->page($page, 20)->order($orderby)->select();
+//		echo($m->getLastSQL());die;
 
 		$this->display();
 	}

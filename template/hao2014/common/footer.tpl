@@ -3,10 +3,10 @@
 			<div id="search">
 				<form method="get" action="/article" id="cse-search-box" target="_blank">
 			        <input type="text" name="q" id="q" size="20" />
-					<{*<select class="form" name="type" id="type">
+					<select class="form">
 						<option value="1">日志</option>
-						<option value="2">相册</option>
-					</select>*}>
+						<{*<option value="2">相册</option>*}>
+					</select>
 			        <input type="submit" name="sa" class="button" value="&#x641c;&#x7d22;" />
 				</form>
 			</div>
