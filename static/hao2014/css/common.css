@@ -26,3 +26,5 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 /* 盒子通用样式，圆角边框，半透明背景 */
 .box { border: 1px #888 solid; border-radius:8px; background: rgba(0,0,0,0.55); }
 .nobr { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+
+.hideinput { display: none; }

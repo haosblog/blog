@@ -46,30 +46,29 @@ class commentController extends baseController {
 		
 		$maps['type'] = $type = I('type', 0, 'intval');
 		
-		if($type == 1 || $type == 2){// 评论文章或图片，则需要添加fid
+		if($type == 1 || $type == 2 || $type == 3){// 评论文章、图片、模型，则需要添加fid
 			$maps['fid'] = I('fid', 0, 'intval');
 			
 			if(!$maps['fid']){
-				$this->showmessage('');
+				$this->showmessage('评论主题错误');
+			}
+	
+			if ($type == 3){// 评论模型，需要确定模型id
+				$maps['mid'] = I('mid', 0, 'intval');
+
+				if(!$maps['mid']){
+					$this->showmessage('评论主题错误');
+				}
 			}
 		}
-		$maps = array(
-			'username' => I('username'),
-			'title' => I('title'),
-			'portrait' => I('portrait'),
-			'sex' => I('sex'),
-			'content' => I('content'),
-			'type' => I('type'),
-			'mid' => I('mid'),
-			'fid' => I('fid'),
-			'reply' => I('reply'),
-			'email' => I('email'),
-			'ip' => get_ip(),
-			'time' => time(),
-		);
+
+		$maps['reply'] = I('reply');
+		$maps['ip'] = get_ip();
+		$maps['time'] = time();
+		$maps['wsid'] = $this->wsid;
 		
-		if(!$maps['username']){
-			$errormsg;
-		}
+		M('comment')->insert($maps);
+		
+		$this->showmessage('留言发布成功！', 1);
 	}
 }

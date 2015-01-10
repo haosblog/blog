@@ -25,6 +25,7 @@ $(document).ready(function() {
 	regEvent.index_msgbox();	// 注册
 	regEvent.linkClick();		// 注册链接点击事件，实现ajax加载
 	regEvent.navbar();		// 注册响应式中navbar的点击事件
+	regEvent.form();		// 注册表单提交事件
 });
 
 /**
@@ -145,6 +146,12 @@ function linkClick(){
 	}
 
 	var url = $(this).attr("href");
+	ajaxPage(url);
+
+	return false;
+}
+
+function ajaxPage(url){
 	ajaxStop = false;		//ajax开始时，ajaxStop设置为false
 	$("#mainBox").fadeTo(1000, 0, function(){
 		if(!ajaxStop){
@@ -156,7 +163,6 @@ function linkClick(){
 		"data" : { "inajax" : 1},
 		"dataType" : "xml",
 		"success" : function(xml){
-
 			ajaxStop = true;
 			//修正内容，将网页标题修改为新的
 			var title = document.title = $(xml).find("title").text() + " - 小皓的blog";
@@ -167,13 +173,12 @@ function linkClick(){
 			loading.hide();
 			$("#mainBox").stop().fadeTo(1000, 1);
 			regEvent.index_msgbox();
+			regEvent.form();		// 注册表单提交事件
 		},
 		"error" : function (){
 
 		}
 	});
-
-	return false;
 }
 
 
@@ -199,6 +204,29 @@ var regEvent = {
 					});
 				});
 			}
+		});
+	},
+	form : function (){// 表单提交事件监听
+		$("form").submit(function(){
+			loading.show();
+			var url = $(this).attr("action");
+			var data = $(this).serialize();
+			$.ajax({
+				"url" : url ,
+				"data" : data,
+				"type" : "post",
+				"dataType" : "json",
+				"success" : function(data){
+					alert(data.msg);
+					loading.hide();
+					ajaxPage(location.href);
+				},
+				"error" : function (){
+					alert("系统错误，请稍后再试");
+				}
+			});
+
+			return false;
 		});
 	},
 	index_msgbox : function(){

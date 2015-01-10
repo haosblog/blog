@@ -27,7 +27,7 @@ class controller {
 	}
 
 	protected function showmessage($message, $status = 0, $jumpurl = ''){
-		if(IN_AJAX){
+		if(IS_AJAX){
 			$this->ajaxShow($status, $message, array('jump' => $jumpurl));
 		} else {
 			if(empty($jumpurl)){
@@ -106,6 +106,10 @@ class controller {
 
 		if(!$null && empty($str)){
 			$this->set_err($explain .'不能为空');
+		}
+		
+		if($null && empty($str)){// 允许为空，且内容为空，则不做判断
+			return true;
 		}
 
 		foreach($ruleArr as $item){

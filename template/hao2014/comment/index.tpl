@@ -9,7 +9,7 @@
 			<section class="fr">
 				<header>
 					<em><{$msgRs.title}></em>
-					<small class="fr"><{$msgRs.time}></small>
+					<small class="fr"><{date('Y-m-d H:i:s', $msgRs.time)}></small>
 				</header>
 				<p><{$msgRs.content}></p>
 			</section>
@@ -29,7 +29,11 @@
 	</div>
 	<article class="send">
 		<h3>发表评论：</h3>
-		<form action="?mod=msg_send" method="post">
+		<form action="/comment/action" method="post">
+			<div class="hideinput">
+				<input type="radio" name="portrait" value="1" id="portrait1" />
+				<input type="radio" name="portrait" value="2" id="portrait2" />
+			</div>
 			<table>
 				<tr>
 					<td width="150">*您的昵称：</td>
@@ -45,7 +49,10 @@
 				</tr>
 				<tr>
 					<td>*您的性别：</td>
-					<td>男：<input type="radio" name="sex" value="m" />&nbsp;&nbsp;女：<input type="radio" name="sex" value="f" /></td>
+					<td>
+						<label for="portrait1">男：<input type="radio" name="sex" value="m" /></label>&nbsp;&nbsp;
+						<label for="portrait2">女：<input type="radio" name="sex" value="f" /></label>
+					</td>
 				</tr>
 				<tr>
 					<td>您的Email：</td>
