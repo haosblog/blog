@@ -21,4 +21,8 @@ class commentController extends baseController {
 
 		$this->display();
 	}
+	
+	public function action(){
+		M();
+	}
 }
