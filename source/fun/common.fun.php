@@ -146,8 +146,7 @@ function I($name,$default='',$filter=null,$datas=null) {
         case 'path'    :   
             $input  =   array();
             if(!empty($_SERVER['PATH_INFO'])){
-                $depr   =   C('URL_PATHINFO_DEPR');
-                $input  =   explode($depr,trim($_SERVER['PATH_INFO'],$depr));            
+                $input  =   explode('/', trim($_SERVER['PATH_INFO'], '/'));            
             }
             break;
         case 'request' :   $input =& $_REQUEST;   break;
@@ -162,7 +161,7 @@ function I($name,$default='',$filter=null,$datas=null) {
     if(''==$name) { // 获取全部变量
         $data       =   $input;
         array_walk_recursive($data,'filter_exp');
-//        $filters    =   isset($filter)?$filter:C('DEFAULT_FILTER');
+        $filters    =   isset($filter)?$filter:'htmlspecialchars';
         if($filters) {
             if(is_string($filters)){
                 $filters    =   explode(',',$filters);
@@ -174,7 +173,7 @@ function I($name,$default='',$filter=null,$datas=null) {
     }elseif(isset($input[$name])) { // 取值操作
         $data       =   $input[$name];
         is_array($data) && array_walk_recursive($data,'filter_exp');
-//        $filters    =   isset($filter)?$filter:C('DEFAULT_FILTER');
+        $filters    =   isset($filter)?$filter: 'htmlspecialchars';
         if($filters) {
             if(is_string($filters)){
                 $filters    =   explode(',',$filters);
@@ -198,6 +197,16 @@ function I($name,$default='',$filter=null,$datas=null) {
     }
     return $data;
 }
+
+function array_map_recursive($filter, $data) {
+     $result = array();
+     foreach ($data as $key => $val) {
+         $result[$key] = is_array($val)
+             ? array_map_recursive($filter, $val)
+             : call_user_func($filter, $val);
+     }
+     return $result;
+ }
 
 /**
  * 引入源码
