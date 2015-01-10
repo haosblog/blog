@@ -143,10 +143,10 @@ function I($name,$default='',$filter=null,$datas=null) {
                     $input  =  $_GET;
             }
             break;
-        case 'path'    :   
+        case 'path'    :
             $input  =   array();
             if(!empty($_SERVER['PATH_INFO'])){
-                $input  =   explode('/', trim($_SERVER['PATH_INFO'], '/'));            
+                $input  =   explode('/', trim($_SERVER['PATH_INFO'], '/'));
             }
             break;
         case 'request' :   $input =& $_REQUEST;   break;
@@ -180,7 +180,7 @@ function I($name,$default='',$filter=null,$datas=null) {
             }elseif(is_int($filters)){
                 $filters    =   array($filters);
             }
-            
+
             foreach($filters as $filter){
                 if(function_exists($filter)) {
                     $data   =   is_array($data)?array_map_recursive($filter,$data):$filter($data); // 参数过滤
@@ -284,7 +284,7 @@ function loadCSS($cssfiles){
 
 /**
  * URL重定向
- * 
+ *
  * @param string $url 重定向的URL地址
  * @param integer $time 重定向的等待时间（秒）
  * @param string $msg 重定向前的提示信息
@@ -294,11 +294,11 @@ function redirect($url, $time=0, $msg='') {
     if (empty($msg)){
 		$msg    = "系统将在{$time}秒之后自动跳转到{$url}！";
 	}
-    if (!headers_sent()) {  
+    if (!headers_sent()) {
         // redirect
         if (0 === $time) {
 			// 使用301跳转，TODO，未来可能更新
-			header('HTTP/1.1 301 Moved Permanently'); 
+			header('HTTP/1.1 301 Moved Permanently');
             header('Location: ' . $url);
         } else {
             header("refresh:{$time};url={$url}");
@@ -337,6 +337,30 @@ function getCookie($name){
 	return isset($_COOKIE[$name]) ? htmlspecialchars($_COOKIE[$name], 3) : '';
 }
 
+/**
+ * 获取当前访问者的IP地址
+ * 
+ * @return type
+ */
+function get_ip(){
+	$ip=false;
+	if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+		$ip = $_SERVER["HTTP_CLIENT_IP"];
+	}
+	if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		$ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+		if ($ip) {
+			array_unshift($ips, $ip); $ip = FALSE;
+		}
+		for ($i = 0; $i < count($ips); $i++) {
+			if (!eregi ("^(10|172\.16|192\.168)\.", $ips[$i])) {
+				$ip = $ips[$i];
+				break;
+			}
+		}
+	}
+	return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+}
 
 /**
  * 强制转换数组中的所有元素为整型

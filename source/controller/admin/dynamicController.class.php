@@ -123,7 +123,7 @@ class dynamicController extends baseController {
 
 		$return = array(
 			'explain' => $item['viewname'],
-			'rule' => implode('|', $ruleArr),
+			'rule' => implode(',', $ruleArr),
 		);
 
 //		if($item['allowhtml'] == 1){

@@ -23,6 +23,36 @@ class commentController extends baseController {
 	}
 	
 	public function action(){
-		M();
+		$t = I('get.t');
+		
+		$rule = array(
+			'username' => array('explain' => '用户名', 'rule' => ''),
+			'title' => array('explain' => '留言标题', 'rule' => 'null'),
+			'portrait' => array('explain' => '头像'),
+			'sex' => array('explain' => '栏目SEO描述', 'rule' => 'null'),
+			'arc_title' => array('explain' => '文章页SEO标题', 'rule' => 'null'),
+			'arc_keyword' => array('explain' => '文章页SEO关键词', 'rule' => 'null'),
+			'arc_description' => array('explain' => '文章页SEO描述', 'rule' => 'null'),
+		);
+		
+		$this->getParam($rule);
+		$maps = array(
+			'username' => I('username'),
+			'title' => I('title'),
+			'portrait' => I('portrait'),
+			'sex' => I('sex'),
+			'content' => I('content'),
+			'type' => I('type'),
+			'mid' => I('mid'),
+			'fid' => I('fid'),
+			'reply' => I('reply'),
+			'email' => I('email'),
+			'ip' => get_ip(),
+			'time' => time(),
+		);
+		
+		if(!$maps['username']){
+			$errormsg;
+		}
 	}
 }

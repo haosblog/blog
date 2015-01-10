@@ -121,7 +121,7 @@ class controller {
 						break;
 					case 'reg' :
 						if(preg_match($value, $str)){
-							$this->set_err($explain .'不符合格式奥球');
+							$this->set_err($explain .'不符合格式');
 						}
 				}
 			}
@@ -158,14 +158,22 @@ class controller {
 	protected function parseRule($rule){
 		if(empty($rule)){
 			return array();
-		} elseif(strpos($rule, '|') === false) {
+		} elseif(strpos($rule, ',') === false) {
 			return array($rule);
 		} else {
-			return explode('|', $rule);
+			return explode(',', $rule);
 		}
 	}
 
-	protected function getParam($rule = array(), $method = 'post', $ajax = false){
+	/**
+	 * 
+	 * 
+	 * @param type $rule
+	 * @param type $method
+	 * @param type $ajax
+	 * @return type
+	 */
+	final protected function getParam($rule = array(), $method = 'post', $ajax = false){
 		$param = array();
 
 		if($method == 'post'){
