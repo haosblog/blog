@@ -14,5 +14,7 @@ class albumController extends baseController {
 		$page = $this->getPage();
 
 		$this->buffer['list'] = M('album')->page($page, 9) ->select();
+
+		$this->display();
 	}
 }
