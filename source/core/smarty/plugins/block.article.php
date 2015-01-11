@@ -14,7 +14,7 @@ function smarty_block_article($params, $content, &$smarty, &$repeat){
 		$field = isset($params['field']) ? $params['field'] : array();
 		$order = isset($params['order']) ? $params['order'] : 'wrtime DESC';
 		$limit = isset($params['count']) ? intval($params['count']) : 10;
-		$where = array();
+		$where = array('status' => 1);
 
 		if(isset($params['cid'])){
 			$where['cid'] = $params['cid'];
