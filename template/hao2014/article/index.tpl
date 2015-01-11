@@ -9,25 +9,30 @@
 	</ul>
 </aside>
 <article id="arc_list" class="fr box">
-	<header>
-		<b class="count fr">阅/评</b>
-		<b class="timer fr">时间</b>
-		<b class="title">标题</b>
-	</header>
-	<ul>
-		<{foreach from=$article item=row}>
-		<li class="cl">
-			<i class="fr"><{$row.viewcount}>/<{$row.repostcount}></i>
-			<span class="fr"><{date('Y-m-d H:i:s', $row.wrtime)}></span>
-			<span>
-				[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
-				<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
-			</span>
-		</li>
-		<{foreachelse}>
-			<li>暂无文章</li>
-		<{/foreach}>
-	</ul>
+	<table>
+		<thead>
+			<tr>
+				<th class="title">标题</th>
+				<th class="timer">时间</th>
+				<th class="count">阅/评</th>
+			</tr>
+		</thead>
+		<tbody>
+			<{foreach from=$article item=row}>
+				<tr>
+					<td>
+						<img src="/static/hao2014/image/m.gif" alt="" />
+						[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
+						<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
+					</td>
+					<td><{date('Y-m-d H:i:s', $row.wrtime)}></td>
+					<td><{$row.viewcount}>/<{$row.repostcount}></td>
+				</tr>
+			<{foreachelse}>
+				<tr><td>暂无文章</td></tr>
+			<{/foreach}>
+		</tbody>
+	</table>
 	<div id="article_bottom" class="fr">
 		共<{$pageCount}>页&nbsp;
 		当前第<{$page}>页&nbsp;

@@ -4,17 +4,18 @@
 		<h1><{$title}></h1>
 		<p><{date('Y-m-d H:i:s', $article.wrtime)}>&nbsp;&nbsp;<a href="#re" id="article_re">回复（<span><{$article.repostcount}></span>）</a>&nbsp;&nbsp;<a href="#article_read_bottom">分享</a></p>
 	</header>
-	<section class="content">
-		<div class="ad_right fr"><iframe src="ad/gg_right.html"></iframe></div>
-		<{$article.content}>
-	</section>
 	<div class="copyright">
 		<{if $article.original == 1}>
-			本文为小皓原创<br />转载请注明出处：<a href="http://www.haosblog.com/article/read&aid=<{$article.aid}>" target="_blank">http://www.haosblog.com/article/read&aid=<{$article.aid}></a>
+			本文为小皓原创<br />
+			转载请注明出处：<a href="http://www.haosblog.com/article/read&aid=<{$article.aid}>" target="_blank">http://www.haosblog.com/article/read&aid=<{$article.aid}></a>
 		<{else}>
 			本文为转载，出处：<a href="<{$article.fromurl}>" target="_blank"><{$article.fromurl}></a>
 		<{/if}>
 	</div>
+	<section class="content">
+		<div class="ad_right fr"><iframe src="ad/gg_right.html"></iframe></div>
+		<{$article.content}>
+	</section>
 	<div class="bottom">
 		<!-- 百度分享 -->
 		<div id="bdshare" class="bdshare_b fl" style="line-height: 12px;">
@@ -25,21 +26,7 @@
 	<div class="ad_banner"><iframe src="ad/gg_buttom.html"></iframe></div>
 	<article id="comment">
 		<h2>评论</h2>
-		<{foreach from=$reviewList item=reRs}>
-			<article>
-				<header class="fl">
-					<div class="msg_head"><img src="pic/<{$reRs.sex}>.jpg" /></div>
-					<h4 class="center"><{$reRs.username}></h4>
-				</header>
-				<section class="fr">
-					<header>
-						<h5><{$reRs.title}></h5>
-						<small class="fr"><{$reRs.time}></small>
-					</header>
-					<p><{$reRs.content}></p>
-				</section>
-			</article>
-		<{/foreach}>
+		<{include file="./comment.tpl"}>
 		<article class="send">
 			<h3>发表评论：</h3>
 			<form action="/comment/action" method="post">
@@ -58,7 +45,10 @@
 					</tr>
 					<tr>
 						<td>*您的性别：</td>
-						<td>男：<input type="radio" name="sex" value="m" />&nbsp;&nbsp;女：<input type="radio" name="sex" value="f" /></td>
+						<td>
+							<label for="portrait1">男：<input type="radio" name="sex" value="m" /></label>&nbsp;&nbsp;
+							<label for="portrait2">女：<input type="radio" name="sex" value="f" /></label>
+						</td>
 					</tr>
 					<tr>
 						<td>您的Email：</td>

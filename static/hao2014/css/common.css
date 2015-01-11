@@ -1,5 +1,4 @@
 /* 重置浏览器样式 */
-body { background: url("../image/bg.jpg") center top #000; overflow: auto; }
 body, input, button, select, textarea, small { font: 13px "微软雅黑","Microsoft Sans Serif"; color:#fff; }
 	textarea { resize: none; }
 body, ul, ol, li, dl, dd, p, h1, h2, h3, h4, h5, h6, form, fieldset{ margin: 0; padding: 0; }
@@ -23,8 +22,12 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 .clear{ clear: both; }
 .cl:after{ content: ' '; display: block; clear: both; visibility: hidden; }
 .center{ text-align: center; }
-/* 盒子通用样式，圆角边框，半透明背景 */
-.box { border: 1px #888 solid; border-radius:8px; background: rgba(0,0,0,0.55); }
 .nobr { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 
 .hideinput { display: none; }
+
+@media screen and (min-width: 481px){/* 当屏幕宽大于480（非手机）的时候才生效 */
+	body { background: url("../image/bg.jpg") no-repeat center top #000 fixed; }
+	/* 盒子通用样式，圆角边框，半透明背景 */
+	.box { border: 1px #888 solid; border-radius:8px; background: rgba(0,0,0,0.55); }
+}

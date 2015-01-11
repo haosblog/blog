@@ -36,15 +36,19 @@
 .indexbox { position: absolute; left: 35px; }
 /* 文章列表（文章列表页样式部分使用） */
 #arc_list { top: 174px; width: 570px; line-height: 23px; z-index: 10; padding: 5px 10px; }
-#arc_list>header { border-bottom: 1px solid #fff; line-height: 22px; height: 25px; font-size: 16px; }
-#arc_list>header>b { display: inline-block; text-align: center; }
-#arc_list>header>.title { text-indent: 1.3em; text-align: left; }
-#arc_list>header>.timer,#arc_list li>span.fr { width: 140px; }
-#arc_list>header>.count, #arc_list li>i.fr { width: 80px; }
-#arc_list>ul { list-style: url("../image/m.gif") inside; }
-#arc_list li { border-bottom: 1px solid #efefef; padding: 0 5px; }
-#arc_list li>span.fr, #arc_list li>i.fr { text-align: center; display: inline-block; }
-#arc_list li em { display: inline-block; width: 250px; margin-bottom: -8px; }
+#arc_list>table { width: 100% }
+#arc_list thead { line-height: 22px; height: 25px; font-size: 16px; }
+#arc_list tr { border-bottom: 1px solid #fff; }
+#arc_list tbody td:first-child { padding-left: 5px; }
+#arc_list th { font-weight: bold; }
+#arc_list th.title { text-indent: 1.3em; }
+#arc_list th.timer { width: 140px; }
+#arc_list th.count { width: 80px; }
+#arc_list td, #arc_list th { text-align: center; }
+#arc_list td:first-child, #arc_list th:first-child { text-align: left; }
+#arc_list td em { display: inline-block; width: 250px; margin-bottom: -8px; }
+#arc_list img { vertical-align: middle; margin-right: 3px; }
+
 
 /* 微博 */
 #mood { width: 573px; position: absolute; right: 40px; top: 35px; }
@@ -72,7 +76,7 @@
 #friendlink { top: 945px; line-height: 25px; width: 760px; padding: 0 10px; }
 #friendlink>header { font-weight: bold; font-size: 14px; }
 #friendlink>div.fr { width: 685px; height: 25px; overflow: hidden; }
-#friendlink li { width: 85px; text-align: center; overflow: hidden; white-space: nowrap; }
+#friendlink li { text-align: center; overflow: hidden; white-space: nowrap; padding: 0 5px; }
 
 /*############################### 文章列表页 ##################################*/
 #arc_list.fr { width: 640px; }

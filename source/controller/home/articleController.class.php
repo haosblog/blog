@@ -32,12 +32,12 @@ class articleController extends baseController {
 
 		if($keyword){
 			$keyword = str_replace('+', ' ', $keyword);
-			
+
 			if(strpos($keyword, ' ') !== false){
 				$keywordArr = explode(' ', $keyword);
 				$tmp['_logic'] = 'OR';
 				$tmp['_op'] = 'll';
-				
+
 				foreach($keywordArr as $item){
 					$tmp[] = array(
 						'title' => $item,
@@ -82,16 +82,33 @@ class articleController extends baseController {
 
 	public function read(){
 		$aid = intval($_GET['aid']);
+		$page = $this->getPage();
 
 		if(!$aid){
-			$this->display('error');
+			$this->display('404');
 		}
 
-		$where = array('aid' => $aid, 'wsid' => $GLOBALS['wsid']);
+		// 读取当前页评论
+		$this->buffer['comment'] = M('comment')->where(array('type' => 1, 'fid' => $aid, 'wsid' => $this->wsid))->page($page, 5)->select();
+		$this->buffer['nextpage'] = $page + 1;
 
-		$this->buffer['article'] = $article = M('article')->field('cid', 'title', 'content', 'original', 'fromurl', 'viewcount', 'repostcount', 'wrtime')->where($where)->selectOne();
-		$this->title = $article['title'];
+		if(!isset($_GET['comment'])){// GET未传入comment参数，则读取文章信息
+			$m_article = M('article');
+			if(!isset($_SESSION['read'][$aid])){// session中没有标记文章已读，则更新点击数
+				$_SESSION['read'][$aid] = 1;
+				$m_article->where(array('aid' => $aid))->setInc('viewcount');
+			}
+			$where = array('aid' => $aid, 'wsid' => $GLOBALS['wsid']);
 
-		$this->display();
+			$this->buffer['article'] = $article = M('article')->field('aid', 'cid', 'title', 'content', 'original', 'fromurl', 'viewcount', 'repostcount', 'wrtime')->where($where)->selectOne();
+			if(!$article){
+				$this->display('404');
+			}
+			$this->title = $article['title'];
+
+			$this->display();
+		} else {// GET传入了comment参数，则表示ajax读取评论信息，仅输出评论的模板
+			$this->display();
+		}
 	}
 }

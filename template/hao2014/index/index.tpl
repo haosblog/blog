@@ -1,6 +1,28 @@
 <{include file="common/header.tpl"}>
 <article id="arc_list" class="indexbox box">
-	<header>
+	<table>
+		<thead>
+			<tr>
+				<th class="title">标题</th>
+				<th class="timer">时间</th>
+				<th class="count">阅/评</th>
+			</tr>
+		</thead>
+		<tbody>
+			<{article count="8"}>
+				<tr>
+					<td>
+						<img src="/static/hao2014/image/m.gif" alt="" />
+						[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
+						<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
+					</td>
+					<td><{date('Y-m-d H:i:s', $row.wrtime)}></td>
+					<td><{$row.viewcount}>/<{$row.repostcount}></td>
+				</tr>
+			<{/article}>
+		</tbody>
+	</table>
+	<{*<header>
 		<b class="count fr">阅/评</b>
 		<b class="timer fr">时间</b>
 		<b class="title">标题</b>
@@ -16,7 +38,7 @@
 				</span>
 			</li>
 		<{/article}>
-	</ul>
+	</ul>*}>
 	<a href="/article" class="more fr">更多...</a>
 </article>
 
