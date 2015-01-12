@@ -11,8 +11,8 @@ function smarty_block_friendlink($params, $content, &$smarty, &$repeat){
 	extract($params);
 	$count = intval($count);
 
-	if(!wsid){
-		$wsid = false;
+	if(!$wsid){
+		$wsid = $GLOBALS['wsid'];
 	}
 
 
@@ -29,8 +29,7 @@ function smarty_block_friendlink($params, $content, &$smarty, &$repeat){
 	$dataindex = substr(md5(__FUNCTION__ . md5(serialize($params))), 0, 16);
 
 	if(!isset($GLOBALS['blockdata'][$dataindex])){
-		$m_link = M('friend_link');
-		$data = $m_link->loadList(false, $wsid);
+		$data = M('friend_link')->where(array('wsid' => $wsid, 'pass' => 1))->select();
 		if(!$data){
 			return '';
 		}
