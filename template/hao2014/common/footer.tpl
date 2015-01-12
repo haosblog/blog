@@ -21,7 +21,7 @@
 			<div>
 				<a href="http://www.alexa.com/siteinfo/www.haosblog.com" target="_blank"><script type='text/javascript' src='http://xslt.alexa.com/site_stats/js/t/c?url=www.haosblog.com'></script></a>
 			</div>
-			<span><a href="?mod=relationMe">联系站长</a>&nbsp;|&nbsp;<a href="?mod=friend_link">友情链接</a>&nbsp;|&nbsp;切换风格&nbsp;|&nbsp;<a href="?mod=rss">订阅</a></span><br />
+			<span><a href="/contact">联系站长</a>&nbsp;|&nbsp;<a href="/friendlink">友情链接</a>&nbsp;|&nbsp;切换风格&nbsp;|&nbsp;<a href="/rss">订阅</a></span><br />
 			<small>Copyright&nbsp;&copy;&nbsp;2008-2013&nbsp;<a href="http://www.haosblog.com">小皓</a>&nbsp;版权所有</small>
 			<div>
 				<script id="bdcount" type="text/javascript" src="http://hm.baidu.com/h.js?d9cdd5261037c4d0730fc27b40159740"></script>

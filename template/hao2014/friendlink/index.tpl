@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td valign="top"><label for="url">*网站网址：</label></td>
-				<td><input type="text" name="url" id="url" size="" /></td>
+				<td>http://<input type="text" name="url" id="url" size="35" /></td>
 			</tr>
 			<tr>
 				<td valign="top"><label for="content">网站描述：</label></td>
