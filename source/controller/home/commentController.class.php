@@ -23,8 +23,6 @@ class commentController extends baseController {
 	}
 
 	public function action(){
-		$t = I('get.t');	// 是否来源于ajax请求
-
 		$rule = array(
 			'username' => array('explain' => '用户名', 'rule' => ''),
 			'title' => array('explain' => '留言标题', 'rule' => 'null,max:30'),
@@ -37,11 +35,7 @@ class commentController extends baseController {
 		$maps = $this->getParam($rule);
 
 		if($this->error){
-			if($t){
-				$this->ajaxShow(0, $this->errormsg);
-			} else {
-				$this->showmessage($this->errormsg);
-			}
+			$this->showmessage($this->errormsg);
 		}
 
 		$maps['type'] = $type = I('type', 0, 'intval');

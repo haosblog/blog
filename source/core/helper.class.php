@@ -26,7 +26,7 @@ abstract class helper {
 		
 		if(!file_exists($controllerPath)){
 			$controller = substr(PLUGINMOD, 4);
-			$controllerPath = DISCUZ_ROOT  .'./source/plugin/'. PLUGINMOD .'/controller/'. $controller .'Action.class.php';
+			$controllerPath = HAO_ROOT  .'./source/plugin/'. PLUGINMOD .'/controller/'. $controller .'Action.class.php';
 		}
 
 		if(file_exists($controllerPath)){
@@ -114,7 +114,7 @@ abstract class helper {
 		if($groupType == 'system'){
 			$path = HAO_ROOT .'./'. $type .'/'. $group .'/'. $name . ucfirst($type) .'.class.php';
 		} else {
-			$path = DISCUZ_ROOT  .'./source/plugin/'. $group .'/'. $type .'/'. $name . ucfirst($type) .'.class.php';
+			$path = HAO_ROOT  .'./source/plugin/'. $group .'/'. $type .'/'. $name . ucfirst($type) .'.class.php';
 		}
 
 		return array($name, $path, $group, $groupType);

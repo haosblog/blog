@@ -60,10 +60,10 @@ class controller {
 		);
 		die(json_encode($jsonArr));
 	}
-	
+
 	/**
 	 * 检测指定的模板是否存在
-	 * 
+	 *
 	 * @param type $tpl
 	 */
 	final protected function checkTpl($tpl = ''){
@@ -107,7 +107,7 @@ class controller {
 		if(!$null && empty($str)){
 			$this->set_err($explain .'不能为空');
 		}
-		
+
 		if($null && empty($str)){// 允许为空，且内容为空，则不做判断
 			return true;
 		}
@@ -127,7 +127,7 @@ class controller {
 							$this->set_err($explain .'最小长度限定为'. $key);
 						}
 						break;
-					
+
 					case 'eq':// 等于某（几）个值
 						$eqResult = false;
 						if(strpos($value, '|') !== FALSE){
@@ -141,18 +141,18 @@ class controller {
 						} else {
 							$eqResult = $str == $value;
 						}
-						
+
 						if(!$eqResult){
 							$this->set_err($explain .'值错误'. $key);
 						}
-						
+
 						break;
-						
+
 					case 'reg' :// 正则匹配模式
 						if(preg_match($value, $str)){
 							$this->set_err($explain .'不符合格式');
 						}
-						
+
 				}
 			}
 			switch ($item){
@@ -179,6 +179,12 @@ class controller {
 						$this->set_err($explain .'必须为中文');
 					}
 					break;
+
+//				case 'url':
+//					if(!isUrl($str)){
+//						$this->set_err($explain .'必须为URL格式');
+//					}
+//					break;
 				default :
 
 			}
@@ -196,8 +202,8 @@ class controller {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param type $rule
 	 * @param type $method
 	 * @param type $ajax
@@ -266,7 +272,7 @@ class controller {
 
 		echo($text);
 	}
-	
+
 	/**
 	 * 根据传入的模板路径生成正式的模板路径
 	 *
@@ -277,11 +283,11 @@ class controller {
 		if(empty($tpl) || is_array($tpl)){
 			$tpl = $GLOBALS['controller'] . '/'. $GLOBALS['action'];
 		}
-		
+
 		if(strpos($tpl, '.') === false){// 模板路径中不存在点，则补全默认的后缀名tpl
 			$tpl .= '.tpl';
 		}
-		
+
 		return $tpl;
 	}
 }

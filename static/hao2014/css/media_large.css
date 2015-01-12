@@ -72,11 +72,19 @@
 #msgbox .msgmain>aside { width: 200px; }
 #msgbox .msgmain header { height: auto; }
 
-/* 首页友情链接 */
-#friendlink { top: 945px; line-height: 25px; width: 760px; padding: 0 10px; }
+/* 友情链接 */
+#friendlink.indexbox { top: 945px; line-height: 25px; width: 760px; padding: 0 10px; }
 #friendlink>header { font-weight: bold; font-size: 14px; }
-#friendlink>div.fr { width: 685px; height: 25px; overflow: hidden; }
-#friendlink li { text-align: center; overflow: hidden; white-space: nowrap; padding: 0 5px; }
+#friendlink.indexbox>div.fr { width: 685px; height: 25px; overflow: hidden; padding: 0; }
+#friendlink.indexbox li { margin: 0; }
+
+#friendlink { padding: 5px 10px; }
+#friendlink>div { padding: 0 5px; }
+#friendlink li { text-align: center; overflow: hidden; white-space: nowrap; padding: 0 5px; margin: 3px 0; }
+
+#apply { border-top: 1px dashed #fff; padding: 15px 20px; }
+#apply header { border-bottom: 1px solid #efefef; margin-bottom: 15px; }
+#apply td { padding: 3px 0; }
 
 /*############################### 文章列表页 ##################################*/
 #arc_list.fr { width: 640px; }

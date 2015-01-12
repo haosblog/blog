@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteBase /thumb/
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ thumb.php/$1 [QSA,PT,L]
