@@ -13,36 +13,48 @@ class albumController extends baseController {
 	public function index(){
 		$page = $this->getPage();
 
-		$this->buffer['list'] = M('album')->page($page, 9) ->select();
+		$this->buffer['list'] = M('album')->where(array('wsid' => $this->wsid))->page($page, 9) ->select();
 
 		$this->display();
 	}
 
 	public function view(){
-		$aid = I('get.aid', 0, 'intval');
+		$this->buffer['aid'] = $aid = I('get.aid', 0, 'intval');
 		$no = I('get.no', 0, 'intval');
 		$password = I('post.password');
+		$pass = true;
 
 		if($password != ''){
 			$password = md5($password);
 		}
 
-		$albumInfo = M('album')->field(name, intro, path, password, clew)->where(array('aid' => $aid, 'wsid' => $this->wsid))->selectOne();
-		$albumInfo = $hp->album_photo_list($aid, $master, $password);
-		$this->buffer['photoInfo'] = $hp->album_view($aid, $master, $no);
-		$this->buffer['aid'] = $aid;
+		$where = array('aid' => $aid, 'wsid' => $this->wsid);
+
+		$this->buffer['albumInfo'] = $albumInfo = M('album')->field('name', 'intro', 'path', 'password', 'clew')
+				->where($where)->selectOne();
+
+		if(!empty($albumInfo['password'])){
+			if($password == $albumInfo['password']){
+				$pass = true;
+			} else {
+				$pass = false;
+				$this->buffer['deny'] = true;
+			}
+		}
+
+		if($pass){
+			$m_photo = M('photo');
+			$this->buffer['photoList'] = $m_photo->field('pid', 'title', 'path')->where($where)->select();
+			$this->buffer['photoInfo'] = $m_photo->field('pid', 'title', 'path', 'summary')
+					->where($where)->limit($no, 1)->select();
+		}
 
 		if($albumInfo['password'] == 1){
-			$title = '请输入密码访问';
+			$this->title = '请输入密码访问';
 		} else {
-			$title = $photoInfo['title'];
+			$this->title = $this->buffer['photoInfo']['title'];
 		}
-		$tpl->assign('master', $master);
-		$tpl->assign('deny', $albumInfo['password']);
-		$tpl->assign('aid', $aid);
-		$tpl->assign('photoList', $albumInfo['photo']);
-		$tpl->assign('albumInfo', $albumInfo['album']);
-		$tpl->assign('photoInfo', $photoInfo);
-		$tpl->assign('title', $title);
+
+		$this->display();
 	}
 }
