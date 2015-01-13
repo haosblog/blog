@@ -10,17 +10,17 @@
 		<{else}>
 			<div id="album_info" class="box"><strong><{$albumInfo.name}></strong>：<{$albumInfo.intro}></div>
 			<div id="album_photo">
-				<div><img src="img/<{$master}>/photo/<{$albumInfo.path}>/<{$photoInfo.path}>" onload="ImgAutoSize(this, 500, 300);" /></div>
+				<div><img src="<{$photoInfo.path}>" onload="ImgAutoSize(this, 500, 300);" /></div>
 			</div>
 			<h1><{$photoInfo.title}></h1>
-			<div id="album_photo_info" class="box"><{$photoInfo.intro}></div>
+			<div id="album_photo_info" class="box"><{$photoInfo.summary}></div>
 		<{/if}>
 	</div>
 	<div id="album_right">
 		<div id="album_pl_bg" class="box">
-			<{foreach from=$photoList item=photoRs}>
+			<{foreach from=$photoList item=photoRs key=key}>
 				<div class="album_pl_li">
-					<a href="?mod=album_view&aid=<{$aid}>&no=<{$photoRs.no}>">
+					<a href="/album/view&aid=<{$aid}>&no=<{$key}>">
 						<img src="<{$photoRs.url}>" width="150" height="100" alt="" onload="ImgAutoSize(this, 150, 100);" />
 					</a>
 				</div>
