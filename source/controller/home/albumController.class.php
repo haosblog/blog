@@ -30,13 +30,11 @@ class albumController extends baseController {
 
 		$where = array('aid' => $aid, 'wsid' => $this->wsid);
 
-		$this->buffer['albumInfo'] = $albumInfo = M('album')->field('name', 'intro', 'path', 'password', 'clew')
+		$this->buffer['albumInfo'] = $albumInfo = M('album')->field('name', 'intro', 'password', 'clew')
 				->where($where)->selectOne();
 
 		if(!empty($albumInfo['password'])){
-			if($password == $albumInfo['password']){
-				$pass = true;
-			} else {
+			if($password != $albumInfo['password']){
 				$pass = false;
 				$this->buffer['deny'] = true;
 			}
@@ -46,7 +44,7 @@ class albumController extends baseController {
 			$m_photo = M('photo');
 			$this->buffer['photoList'] = $m_photo->field('pid', 'title', 'path')->where($where)->select();
 			$this->buffer['photoInfo'] = $m_photo->field('pid', 'title', 'path', 'summary')
-					->where($where)->limit($no, 1)->select();
+					->where($where)->limit($no, 1)->selectOne();
 		}
 
 		if($albumInfo['password'] == 1){
