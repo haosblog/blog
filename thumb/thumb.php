@@ -12,7 +12,7 @@
 define('IMG_ROOT', dirname(__FILE__) .'/');
 define('HAO_ROOT', dirname(IMG_ROOT). '/');
 
-$uri = str_replace('/thumb/', '', filter_input(INPUT_GET, 'REQUEST_URI'));
+$uri = str_replace('/thumb/', '', filter_input(INPUT_SERVER, 'REQUEST_URI'));
 list($size, $path) = explode('/', $uri, 2);
 
 $fileType = substr($path, strrpos($path, '.') + 1);
