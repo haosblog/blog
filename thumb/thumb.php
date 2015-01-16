@@ -10,7 +10,7 @@
 
 
 define('IMG_ROOT', dirname(__FILE__) .'/');
-define('HAO_ROOT', dirname(IMG_ROOT));
+define('HAO_ROOT', dirname(IMG_ROOT). '/');
 
 $uri = str_replace('/thumb/', '', filter_input(INPUT_GET, 'REQUEST_URI'));
 list($size, $path) = explode('/', $uri, 2);
@@ -36,7 +36,7 @@ if(file_exists($thumbFile)){//缩略图存在则直接读取输出
 	}
 
 	list($maxWidth, $maxHeight) = explode('x', $size);
-	$sourcePath = HAO_ROOT .'/'. $path;
+	$sourcePath = HAO_ROOT . $path;
 	//生成缩略图
 	makethumb($sourcePath, $thumbFile, $maxWidth, $maxHeight) ;
 
@@ -47,7 +47,7 @@ if(file_exists($thumbFile)){//缩略图存在则直接读取输出
  * 输出错误图片
  */
 function errorImg(){
-	$errFilename = HAO_ROOT .'/static/image/common/nophoto.gif';
+	$errFilename = HAO_ROOT .'./static/image/common/nophoto.gif';
 	viewImg($errFilename, 'gif');
 }
 
