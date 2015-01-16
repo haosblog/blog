@@ -1,9 +1,9 @@
-<{include file="head.html" title="简介"}>
+<{include file="common/header.tpl" title="简介"}>
 	<article id="intro">
-		<small class="fr">发表时间：<{$time }></small>
-		<{if $img}>
-			<div class="center"><img src="<{$img}>" id="photo" /></div>
+		<small class="fr">发表时间：<{$info.time }></small>
+		<{if $info.img}>
+			<div class="center"><img src="<{$info.img}>" id="photo" /></div>
 		<{/if}>
-		<p><{$content}></p>
+		<p><{$info.content}></p>
 	</article>
-<{include file="foot.html"}>
+<{include file="common/footer.tpl"}>
