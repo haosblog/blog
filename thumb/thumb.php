@@ -9,7 +9,7 @@
  */
 
 
-define('IMG_ROOT', dirname(__FILE__));
+define('IMG_ROOT', dirname(__FILE__) .'/');
 define('HAO_ROOT', dirname(IMG_ROOT));
 
 $uri = str_replace('/thumb/', '', $_SERVER['REQUEST_URI']);
