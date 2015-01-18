@@ -3,7 +3,7 @@
  * Created by NetBeans.
  * Author: hao
  * Date: 2015-1-8 18:53:03
- * 
+ *
  * 请在此处输入文件注释
  */
 
@@ -17,7 +17,7 @@ class changeController extends controller {
 		$this->_photo();
 		$this->_mood();
 	}
-	
+
 	private function _article(){
 		$page = 1;
 		while(true){
@@ -27,7 +27,6 @@ class changeController extends controller {
 			}
 
 			$addData = array();
-			$editEvent = new editorEvent();
 
 			foreach($list as $item){
 				$tmp = array(
@@ -49,20 +48,7 @@ class changeController extends controller {
 				);
 
 
-				$str = str_replace('<br />&nbsp;&nbsp;&nbsp;&nbsp;', "\n", $item['content']);
-				$str = str_replace("&nbsp;", " ", $str);
-				$str = str_replace("&emsp;&emsp;", "	", $str);
-				$str = str_replace("&#9;", "	", $str);
-
-				$str = str_replace("<a href=\"",'[[',$str);
-				$str = str_replace("\" target=\"_blank\">",'|',$str);
-				$str = str_replace('</a>', ']]', $str);
-				$str = str_replace('<div id="pic" ><img src="', '[[image:', $str);
-				$str = str_replace('" class="img" /></div>', ']]', $str);
-				$str = stripslashes($str);
-
-				$tmp['content_ori'] = substr($str, 4);
-				$tmp['content'] = $editEvent->parseContent($tmp['content_ori']);
+				$this->translate($tmp, $item['content']);
 
 				$addData[] = $tmp;
 			}
@@ -72,10 +58,10 @@ class changeController extends controller {
 		}
 		echo('article success');
 	}
-	
+
 	private function _category(){
 		$list = M('old_class')->select();
-		
+
 		$addData = array();
 		foreach($list as $item){
 			$tmp = array(
@@ -83,17 +69,17 @@ class changeController extends controller {
 				'catname' => $item['name'],
 				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
 			);
-			
+
 			$addData[] = $tmp;
 		}
 		M('category')->multiInsert($addData);
-		
+
 		echo('category success');
 	}
-	
+
 	private function _album(){
 		$list = M('old_album')->select();
-		
+
 		$addData = array();
 		foreach($list as $item){
 			$tmp = array(
@@ -106,17 +92,17 @@ class changeController extends controller {
 				'time' => 0,
 				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
 			);
-			
+
 			$addData[] = $tmp;
 		}
 		M('album')->multiInsert($addData);
-		
+
 		echo('album success');
 	}
-	
+
 	private function _photo(){
 		$list = M('old_photo')->select();
-		
+
 		$addData = array();
 		foreach($list as $item){
 			$tmp = array(
@@ -128,17 +114,17 @@ class changeController extends controller {
 				'time' => $item['time'],
 				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
 			);
-			
+
 			$addData[] = $tmp;
 		}
 		M('photo')->multiInsert($addData);
-		
+
 		echo('photo success');
 	}
-	
+
 	private function _mood(){
 		$list = M('old_mood')->select();
-		
+
 		$addData = array();
 		foreach($list as $item){
 			$tmp = array(
@@ -148,11 +134,51 @@ class changeController extends controller {
 				'wbid' => $item['mid'],
 				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
 			);
-			
+
 			$addData[] = $tmp;
 		}
 		M('mod_mood')->multiInsert($addData);
-		
+
 		echo('mood success');
+	}
+
+	private function _intro(){
+		$list = M('old_intro')->select();
+
+		$addData = array();
+		foreach($list as $item){
+			$tmp = array(
+				'id' => $item['id'],
+				'img' => $item['img'],
+				'time' => $item['time'],
+				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
+			);
+			$this->translate($tmp, $item['content']);
+
+			$addData[] = $tmp;
+		}
+		M('intro')->multiInsert($addData);
+
+		echo('intro success');
+	}
+
+
+
+	private function translate(&$data, $content){
+		$str = str_replace('<br />&nbsp;&nbsp;&nbsp;&nbsp;', "\n", $content);
+		$str = str_replace("&nbsp;", " ", $str);
+		$str = str_replace("&emsp;&emsp;", "	", $str);
+		$str = str_replace("&#9;", "	", $str);
+
+		$str = str_replace("<a href=\"",'[[',$str);
+		$str = str_replace("\" target=\"_blank\">",'|',$str);
+		$str = str_replace('</a>', ']]', $str);
+		$str = str_replace('<div id="pic" ><img src="', '[[image:', $str);
+		$str = str_replace('" class="img" /></div>', ']]', $str);
+		$str = stripslashes($str);
+
+		$editEvent = new editorEvent();
+		$data['content_ori'] = substr($str, 4);
+		$data['content'] = $editEvent->parseContent($data['content_ori']);
 	}
 }
