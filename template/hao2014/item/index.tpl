@@ -1,9 +1,9 @@
-<{include file="common/header.tpl"}>
+<{include file="common/header.tpl" title='小皓的作品'}>
 	<article id="item" class="box">
 		<table width="780" border="0" cellspacing="0" cellpadding="0" id="article_table" align="center">
 			<tr id="article_mark">
-				<td width="100" id="article_title_mark">产品名</td>
-				<td align="center" width="150">产品类型</td>
+				<td width="100" id="article_title_mark">网站名</td>
+				<td align="center" width="150">类型</td>
 				<td align="center" width="480">地址</td>
 				<td align="center" width="150">运营状态</td>
 			</tr>

@@ -16,6 +16,7 @@ class changeController extends controller {
 		$this->_album();
 		$this->_photo();
 		$this->_mood();
+		$this->_intro();
 	}
 
 	private function _article(){
