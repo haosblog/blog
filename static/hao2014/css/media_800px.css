@@ -18,7 +18,8 @@
 /* 时钟在800像素以下隐藏 */
 #clock { display: none; }
 
-#body{ margin: 50px 0 0; border: none; background: none; }
+#body{ margin: 50px 0 0; border: none; }
+.index_index #body { background: none; }
 
 #search { padding: 10px; text-align: right; }
 
