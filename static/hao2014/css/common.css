@@ -57,9 +57,29 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 /* 友情链接 */
 #friendlink.indexbox { padding: 0 10px; }
 #friendlink>header { font-weight: bold; font-size: 14px; }
-#friendlink.indexbox>div.fr { height: 25px; overflow: hidden; padding: 0; }
-#friendlink.indexbox li { margin: 0; }
 
 #friendlink { padding: 5px 10px; }
 #friendlink>div { padding: 0 5px; }
 #friendlink li { text-align: center; overflow: hidden; white-space: nowrap; padding: 0 5px; margin: 3px 0; }
+
+
+/*############################### 文章内容页 ##################################*/
+#arc_read { line-height: 25px; }
+#arc_read>header { text-align: center; }
+#arc_read>header>h1 { font-size: 16px; line-height: 28px; }
+#arc_read>header>p { border-bottom: 1px dashed #efefef; }
+#arc_read>section { padding: 10px; }
+#arc_read>.copyright { font-weight: bold; margin: 10px 2em; line-height: 22px; color: #FF8; }
+
+#comment { border-top: 1px dotted #ddd; }
+#comment>h2, #comment h3 { font-size: 16px; margin: 10px 1em; }
+#comment>article { border: 1px solid #888888; height: 143px; margin-top: 5px; width: 798px;
+	background: rgba(0, 0, 0, 0.55); border-radius: 5px; }
+#comment>article>header { border-right: 1px solid #888; width: 120px; }
+#comment>article .msg_head { border-bottom: 1px solid #888; height: 100px; padding: 10px; width: 100px; }
+#comment h4 { line-height: 20px; }
+#comment>article>section { width: 677px; }
+#comment section>header { border-bottom: 1px dotted #888; padding: 0 5px; line-height: 23px; }
+#comment section>p { padding: 3px 10px; }
+#comment .send { height: auto; padding: 5px 10px; width: 778px; margin-top: 20px; }
+#comment.list { border-top: none; }

@@ -122,6 +122,17 @@ function loopInit(){
 }
 
 function loopStart(loop){
+	var min_screen = loop.attr("data-min-screen");
+	var max_screen = loop.attr("data-max-screen");
+
+	if(min_screen && window.screen.width < min_screen){
+		return false;
+	}
+
+	if(max_screen && window.screen.width > max_screen){
+		return false;
+	}
+
 	var loopbox = loop.find(".loopbox");
 	var childWidth = loopbox.children("*").width() + parseInt(loopbox.children("*").css("margin-left"));
 	var boxWidth = loopbox.children("*").length * childWidth;

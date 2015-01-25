@@ -18,7 +18,9 @@
 /* 时钟在800像素以下隐藏 */
 #clock { display: none; }
 
-#body{ margin: 50px 0 0; border: none; }
+#body{ margin: 50px 0 0; border: none; background: none; }
+
+#search { padding: 10px; text-align: right; }
 
 /*############################### 主页样式 ##################################*/
 /* 文章列表/相册/留言本使用同样的样式板块 */
@@ -27,8 +29,16 @@
 #arc_list th.timer { width: 24%; }
 #arc_list th.count { width: 14%; }
 #arc_list td, #arc_list th { text-align: center; }
-#arc_list td em { width: 70%; }
+#arc_list td em { width: 68%; }
 #arc_list td time { overflow: hidden; height: 23px; display: block; }
 
 /* 微博 TODO 临时隐藏*/
 #mood { display: none; }
+
+/* 友情链接 */
+#friendlink.indexbox>div.fr { float: none; clear: both; }
+#friendlink.indexbox li { margin: 5px; }
+
+
+/*############################### 文章内容页 ##################################*/
+.ad_right { display: none; }

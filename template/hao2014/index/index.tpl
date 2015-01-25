@@ -65,7 +65,7 @@
 </article>*}>
 <article id="friendlink" class="indexbox box cl">
 	<header class="fl">友情链接：</header>
-	<div class="fr loop" _stop="1500" _speed="1500">
+	<div class="fr loop" _stop="1500" _speed="1500" data-min-screen="800">
 		<ul class="loopbox">
 			<{friendlink count="0"}>
 				<li class="fl"><a href="http://<{$row.url}>" title="<{$row.content}>" target="_blank"><{$row.name}></a></li>
