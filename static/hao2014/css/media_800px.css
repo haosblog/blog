@@ -7,11 +7,28 @@
 #main #pagetitle { display: block; position: fixed; top: 0; width: 100%; background-color: #000; height: 28px; line-height: 30px; border-bottom: 1px solid #666; }
 #main #pagetitle h1 { width: 30%; margin: 0 auto; text-align: center; }
 #main #pagetitle button { float: right; margin-right: 5px; }
-#main nav { display: none; width: 100%; height: 100%; position: fixed; top: 0; }
+#main nav { display: none; width: 100%; height: 100%; position: fixed; top: 0; background: rgba(0, 0, 0, .6); }
 #main nav>ul { position: absolute; right: 0; width: 0; height: 100%; background: #111; overflow: hidden; }
-#main nav li { border-bottom: 1px #999 solid; width: 200px; }
+#main nav li { border-bottom: 1px #999 solid; width: 150px; text-align: center; font-size: 10pt; line-height: 1.7em; }
 #main nav span { display: block; }
 #main nav img { display: none; }
 
+.box { margin: 10px 10px; }
+
 /* 时钟在800像素以下隐藏 */
 #clock { display: none; }
+
+#body{ margin: 50px 0 0; border: none; }
+
+/*############################### 主页样式 ##################################*/
+/* 文章列表/相册/留言本使用同样的样式板块 */
+.indexbox {  }
+/* 文章列表（文章列表页样式部分使用） */
+#arc_list th.timer { width: 24%; }
+#arc_list th.count { width: 14%; }
+#arc_list td, #arc_list th { text-align: center; }
+#arc_list td em { width: 70%; }
+#arc_list td time { overflow: hidden; height: 23px; display: block; }
+
+/* 微博 TODO 临时隐藏*/
+#mood { display: none; }

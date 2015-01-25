@@ -8,7 +8,7 @@
 		<{/foreach}>
 	</ul>
 </aside>
-<article id="arc_list" class="fr box">
+<article id="arc_list" class="fr box cl">
 	<table>
 		<thead>
 			<tr>
@@ -25,7 +25,7 @@
 						[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
 						<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
 					</td>
-					<td><{date('Y-m-d H:i:s', $row.wrtime)}></td>
+					<td><time><{date('Y-m-d H:i:s', $row.wrtime)}></time></td>
 					<td><{$row.viewcount}>/<{$row.repostcount}></td>
 				</tr>
 			<{foreachelse}>
