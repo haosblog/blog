@@ -11,13 +11,13 @@
 		<tbody>
 			<{article count="8"}>
 				<tr>
-					<td>
+					<td class="title">
 						<img src="/static/hao2014/image/m.gif" alt="" />
 						[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
 						<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
 					</td>
-					<td><time><span><{date('Y-m-d H:i:s', $row.wrtime)}></time></td>
-					<td><{$row.viewcount}>/<{$row.repostcount}></td>
+					<td class="timer"><time><span><{date('Y-m-d H:i:s', $row.wrtime)}></time></td>
+					<td class="count"><{$row.viewcount}>/<{$row.repostcount}></td>
 				</tr>
 			<{/article}>
 		</tbody>
