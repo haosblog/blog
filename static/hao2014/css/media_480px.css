@@ -6,7 +6,8 @@
 body, input, button, select, textarea, small { color: #333 }
 a { color: #666; }
 
-.box { border: 1px #333 solid; border-radius:5px; }
+body { background: #EFEFEF; }
+.box { border: 1px #333 solid; border-radius:5px; background: #fff; }
 
 #main>header, #main button { color: #fff; }
 #main>header a { color: #efefef; }
