@@ -37,7 +37,7 @@ alert("好啦，废话完了，看网站吧");
 		<header>
 			<div id="pagetitle">
 				<button>导航</button>
-				<h1><{$title}></h1>
+				<h1 class="nobr"><{$title}></h1>
 			</div>
 			<nav>
 				<ul>
