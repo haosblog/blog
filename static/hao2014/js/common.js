@@ -23,6 +23,7 @@ $(document).ready(function() {
 
 	// 注册各种必须的页面事件
 	regEvent.index_msgbox();	// 注册
+	regEvent.index_album_title();	// 注册
 	regEvent.linkClick();		// 注册链接点击事件，实现ajax加载
 	regEvent.navbar();		// 注册响应式中navbar的点击事件
 	regEvent.form();		// 注册表单提交事件
@@ -121,6 +122,17 @@ function loopInit(){
 }
 
 function loopStart(loop){
+	var min_screen = loop.attr("data-min-screen");
+	var max_screen = loop.attr("data-max-screen");
+
+	if(min_screen && window.screen.width < min_screen){
+		return false;
+	}
+
+	if(max_screen && window.screen.width > max_screen){
+		return false;
+	}
+
 	var loopbox = loop.find(".loopbox");
 	var childWidth = loopbox.children("*").width() + parseInt(loopbox.children("*").css("margin-left"));
 	var boxWidth = loopbox.children("*").length * childWidth;
@@ -132,8 +144,7 @@ function loopStart(loop){
 		var stop = loop.attr("_stop") ? loop.attr("_stop") : 0;
 		//删除第一个子元素并放置最后
 		var last = loopbox.children("*:first");
-		last.remove();
-		loopbox.children("*:last").after(last);
+		last.insertAfter(loopbox.children("*:last"));
 		loopbox.css("margin-left" , "0");
 
 		setTimeout(function(){ loopStart(loop); }, stop);
@@ -168,13 +179,16 @@ function ajaxPage(url){
 			ajaxStop = true;
 			//修正内容，将网页标题修改为新的
 			var title = document.title = $(xml).find("title").text() + " - 小皓的blog";
+			var route = $(xml).find("route").text();
 			var cotent = $(xml).find("body").text();
 			$("#content").html(cotent);
+			$("body").attr("class", route);
 
 			history.pushState({"title" : title, "html" : cotent}, "", url);
 			loading.hide();
 			$("#mainBox").stop().fadeTo(1000, 1);
 			regEvent.index_msgbox();
+			regEvent.index_album_title();	// 注册
 			regEvent.form();		// 注册表单提交事件
 		},
 		"error" : function (){
@@ -192,7 +206,7 @@ var regEvent = {
 	navbar : function(){
 		$("#pagetitle>button").click(function(){
 			$("nav").show();
-			$("nav>ul").animate({ "width" : "200px"}, 500);
+			$("nav>ul").animate({ "width" : "150px"}, 500);
 
 			if(!navClickBind){
 				navClickBind = true;
@@ -200,6 +214,7 @@ var regEvent = {
 					if(screen.width >= 800){
 						return false;
 					}
+					$("nav").css("background", "none");
 					$("nav>ul").animate({ "width" : "0"}, 500, function(){
 						// 删除由JQ生成的内嵌样式，恢复到初始状态（避免响应式出问题）
 						$("nav, nav>ul").removeAttr("style");
@@ -255,6 +270,13 @@ var regEvent = {
 		},function(){
 			$(this).parent().children(".msgmain").animate({"width" : "0"}, 500);
 		});
+	},
+	index_album_title : function (){
+		$("#album li").hover(function(){
+			$(this).children("p").animate({ "height" : "25px"}, 500);
+		}, function(){
+			$(this).children("p").animate({ "height" : "0"}, 500);
+		})
 	}
 }
 

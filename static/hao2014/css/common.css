@@ -31,3 +31,55 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 	/* 盒子通用样式，圆角边框，半透明背景 */
 	.box { border: 1px #888 solid; border-radius:8px; background: rgba(0,0,0,0.55); }
 }
+
+
+/*############################### 主页样式 ##################################*/
+/* 文章列表（文章列表页样式部分使用） */
+#arc_list { line-height: 23px; }
+#arc_list>table { width: 100% }
+#arc_list thead { line-height: 22px; height: 25px; font-size: 16px; }
+#arc_list tr { border-bottom: 1px solid #fff; }
+#arc_list tbody td:first-child { padding-left: 5px; }
+#arc_list th { font-weight: bold; }
+#arc_list th.title { text-indent: 1.3em; }
+#arc_list td, #arc_list th { text-align: center; }
+#arc_list td:first-child, #arc_list th:first-child { text-align: left; }
+#arc_list td em { display: inline-block; margin-bottom: -8px; }
+#arc_list img { vertical-align: middle; margin-right: 3px; }
+
+/* 首页相册 */
+#album { height: 170px; overflow: hidden; padding: 0 10px; }
+#album li { width: 200px; height: 150px; overflow: hidden; margin: 10px 10px 10px 0; position: relative;
+	border: 1px solid #888; border-radius:5px; }
+#album li>p { position: absolute; bottom: 0; height: 0; line-height: 25px; font-size: 15px; text-align: center;
+	background: rgba(0,0,0,0.6); width: 100%; }
+
+/* 友情链接 */
+#friendlink.indexbox { padding: 0 10px; }
+#friendlink>header { font-weight: bold; font-size: 14px; }
+
+#friendlink { padding: 5px 10px; }
+#friendlink>div { padding: 0 5px; }
+#friendlink li { text-align: center; overflow: hidden; white-space: nowrap; padding: 0 5px; margin: 3px 0; }
+
+
+/*############################### 文章内容页 ##################################*/
+#arc_read { line-height: 25px; }
+#arc_read>header { text-align: center; }
+#arc_read>header>h1 { font-size: 16px; line-height: 28px; }
+#arc_read>header>p { border-bottom: 1px dashed #efefef; }
+#arc_read>section { padding: 10px; }
+#arc_read>.copyright { font-weight: bold; margin: 10px 2em; line-height: 22px; color: #FF8; }
+
+#comment { border-top: 1px dotted #ddd; }
+#comment>h2, #comment h3 { font-size: 16px; margin: 10px 1em; }
+#comment>article { border: 1px solid #888888; height: 143px; margin-top: 5px; width: 798px;
+	background: rgba(0, 0, 0, 0.55); border-radius: 5px; }
+#comment>article>header { border-right: 1px solid #888; width: 120px; }
+#comment>article .msg_head { border-bottom: 1px solid #888; height: 100px; padding: 10px; width: 100px; }
+#comment h4 { line-height: 20px; }
+#comment>article>section { width: 677px; }
+#comment section>header { border-bottom: 1px dotted #888; padding: 0 5px; line-height: 23px; }
+#comment section>p { padding: 3px 10px; }
+#comment .send { height: auto; padding: 5px 10px; width: 778px; margin-top: 20px; }
+#comment.list { border-top: none; }

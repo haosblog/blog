@@ -1,4 +1,16 @@
 /*
-    Created on : 2015-1-3, 16:32:05
-    Author     : hao
-*/
+ * Created on : 2015-1-3, 16:32:05
+ * Author     : hao
+ * 手机样式（小于480像素）
+ */
+body, input, button, select, textarea, small { color: #333 }
+a { color: #666; }
+
+.box { border: 1px #333 solid; border-radius:5px; }
+
+#main>header, #main button { color: #fff; }
+#main>header a { color: #efefef; }
+
+/*############################### 主页样式 ##################################*/
+/* 文章列表（文章列表页样式部分使用） */
+#arc_list tr { border-bottom: 1px solid #333; }

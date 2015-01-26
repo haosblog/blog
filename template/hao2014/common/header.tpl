@@ -13,7 +13,7 @@
 <link rel="stylesheet" media="screen and (max-width: 480px)" href="/static/hao2014/css/media_480px.css" />
 </head>
 <!--[if lt IE 8]><script type="text/javascript" language="javascript">document.execCommand("Stop");document.write('<iframe src="fuckie.html" width="100%" height="650" frameborder="0"></iframe>');</script><![endif]-->
-<body>
+<body class="<{$smarty.const.CONTROLLER}>_<{$smarty.const.ACTION}>">
 <!--[if lt IE 9]>
 <script>
 alert("这个网站真难看");
@@ -66,5 +66,6 @@ alert("好啦，废话完了，看网站吧");
 <?xml version="1.0" encoding="gbk"?>
 <root>
 	<title><{$title}></title>
+	<route><{$smarty.const.CONTROLLER}>_<{$smarty.const.ACTION}></route>
 	<body><![CDATA[
 <{/if}>

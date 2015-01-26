@@ -1,5 +1,5 @@
 <{include file="common/header.tpl"}>
-<article id="arc_list" class="indexbox box">
+<article id="arc_list" class="indexbox box cl">
 	<table>
 		<thead>
 			<tr>
@@ -16,29 +16,12 @@
 						[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
 						<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
 					</td>
-					<td><{date('Y-m-d H:i:s', $row.wrtime)}></td>
+					<td><time><span><{date('Y-m-d H:i:s', $row.wrtime)}></time></td>
 					<td><{$row.viewcount}>/<{$row.repostcount}></td>
 				</tr>
 			<{/article}>
 		</tbody>
 	</table>
-	<{*<header>
-		<b class="count fr">阅/评</b>
-		<b class="timer fr">时间</b>
-		<b class="title">标题</b>
-	</header>
-	<ul>
-		<{article count="8"}>
-			<li class="cl">
-				<i class="fr"><{$row.viewcount}>/<{$row.repostcount}></i>
-				<span class="fr"><{date('Y-m-d H:i:s', $row.wrtime)}></span>
-				<span>
-					[<a href="/article?cid=<{$row.cid}>"><{$row.catname}></a>]
-					<em class="nobr"><a href="/article/read?aid=<{$row.aid}>" title="<{$row.title}>"><{$row.title}></a></em>
-				</span>
-			</li>
-		<{/article}>
-	</ul>*}>
 	<a href="/article" class="more fr">更多...</a>
 </article>
 
@@ -64,7 +47,7 @@
 		<{/album}>
 	</ul>
 </article>
-<article id="msgbox" class="indexbox box">
+<{*<article id="msgbox" class="indexbox box">
 	{%foreach from=$msg item=msgRs%}
 		<article class="fl">
 			<div class="msgface"><img src="pic/{%$msgRs.sex%}.jpg" alt="{%$msgRs.username%}" /></div>
@@ -79,10 +62,10 @@
 			</div>
 		</article>
 	{%/foreach%}
-</article>
-<article id="friendlink" class="indexbox box">
+</article>*}>
+<article id="friendlink" class="indexbox box cl">
 	<header class="fl">友情链接：</header>
-	<div class="fr loop" _stop="1500" _speed="1500">
+	<div class="fr loop" _stop="1500" _speed="1500" data-min-screen="800">
 		<ul class="loopbox">
 			<{friendlink count="0"}>
 				<li class="fl"><a href="http://<{$row.url}>" title="<{$row.content}>" target="_blank"><{$row.name}></a></li>
@@ -90,9 +73,4 @@
 		</ul>
 	</div>
 </article>
-<style type="text/css">
-#ad_top { display: none; }
-#body { height: 985px; }
-#search{ top: 149px; left: 360px; }
-</style>
 <{include file="common/footer.tpl"}>
