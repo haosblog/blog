@@ -4,6 +4,7 @@
  * 手机样式（小于480像素）
  */
 body, input, button, select, textarea, small { color: #333 }
+table, thead, tbody, tr, td { display: block; }
 a { color: #666; }
 
 body { background: #EFEFEF; }
@@ -12,6 +13,22 @@ body { background: #EFEFEF; }
 #main>header, #main button { color: #fff; }
 #main>header a { color: #efefef; }
 
+#ad_top { display: none; }
+.ad_banner { display: none; }
+.AlexaSiteStatsWidget { display: none; }
+
 /*############################### 主页样式 ##################################*/
 /* 文章列表（文章列表页样式部分使用） */
-#arc_list tr { border-bottom: 1px solid #333; }
+#arc_list thead { display: none; }
+#arc_list tr { border-bottom: 1px solid #333; width: 100%; }
+#arc_list tr:after { clear: both; content: " "; visibility: hidden; display: block; }
+#arc_list td em { white-space: normal; display: inline; }
+#arc_list td.timer, #arc_list td.count { font-size: 13px; color: #999; }
+#arc_list td.timer { float: left; margin-left: 1.5em }
+#arc_list td.count { float: right; margin-right: 1em; }
+
+
+/*############################### 文章内容页 ##################################*/
+#arc_read>header>p { border-bottom-color: #333; }
+#arc_read>.copyright { background-color: #ddd; color: #898989; padding: 5px; border-radius: 5px; }
+.copyright > a { display: inline-block; }
