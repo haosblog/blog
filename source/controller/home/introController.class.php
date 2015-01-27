@@ -11,7 +11,7 @@ class introController extends baseController {
 	
 	public function index(){
 		$this->buffer['info'] = M('intro')->where(array('wsid' => $this->wsid))->limit(1)->order('id DESC')->selectOne();
-		print_r($this->buffer);
+//		print_r($this->buffer);
 		$this->buffer['info']['time'] = date('Y-m-d', $this->buffer['info']['time']);
 		$this->display();
 	}

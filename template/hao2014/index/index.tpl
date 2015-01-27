@@ -35,7 +35,7 @@
 	<aside class="fr"><img src="/static/hao2014/image/duola.png" /></aside>
 </article>
 
-<article id="album" class="indexbox box loop" _stop="2000" _speed="4000">
+<article id="album" class="indexbox box loop" _stop="2000" _speed="4000" data-min-screen="480">
 	<ul class="loopbox">
 		<{album count="0"}>
 			<li class="fl">
