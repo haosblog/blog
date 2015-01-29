@@ -1,12 +1,12 @@
 <{include file="common/header.tpl" title='留言本'}>
 <div id="comment" class="list">
 	<{foreach from=$list item=msgRs}>
-		<article class="cl">
+		<article class="cl box">
 			<header class="fl">
 				<div class="msg_head"><img src="/static/common/image/portrait/<{$msgRs.portrait}>.jpg" /></div>
 				<h1 class="center"><{$msgRs.username}></h1>
 			</header>
-			<section class="fr">
+			<section>
 				<header>
 					<em><{$msgRs.title}></em>
 					<small class="fr"><{date('Y-m-d H:i:s', $msgRs.time)}></small>
