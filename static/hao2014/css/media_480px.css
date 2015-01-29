@@ -47,8 +47,3 @@ body { background: #EFEFEF; }
 #arc_read>header>p { border-bottom-color: #333; }
 #arc_read>.copyright { background-color: #ddd; color: #898989; padding: 5px; border-radius: 5px; }
 .copyright > a { display: inline-block; }
-
-/*############################### 微博页 ##################################*/
-#moodlist>article { border-bottom: 1px dashed #888; height: 200px; margin: 20px auto; padding: 10px; width: 600px; }
-#moodlist small { margin-top: 45px; }
-#moodlist aside { margin-top: -50px; }
