@@ -74,8 +74,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 
 #comment { border-top: 1px dotted #ddd; }
 #comment>h2, #comment h3 { font-size: 16px; margin: 10px 1em; }
-#comment>article { border: 1px solid #888888; height: 143px; margin-top: 5px; width: 798px;
-	background: rgba(0, 0, 0, 0.55); border-radius: 5px; }
+#comment>article { height: 143px; margin-top: 5px; width: 798px; }
 #comment>article>header { border-right: 1px solid #888; width: 120px; }
 #comment>article .msg_head { border-bottom: 1px solid #888; height: 100px; padding: 10px; width: 100px; }
 #comment h4 { line-height: 20px; }
