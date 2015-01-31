@@ -1,21 +1,23 @@
 <{include file="common/header.tpl"}>
-<article id="arc_read">
-	<header>
-		<h1><{$title}></h1>
-		<p><{date('Y-m-d H:i:s', $article.wrtime)}>&nbsp;&nbsp;<a href="#re" id="article_re">回复（<span><{$article.repostcount}></span>）</a>&nbsp;&nbsp;<a href="#article_read_bottom">分享</a></p>
-	</header>
-	<div class="copyright">
-		<{if $article.original == 1}>
-			本文为小皓原创<br />
-			转载请注明出处：<a href="http://www.haosblog.com/article/read&aid=<{$article.aid}>" target="_blank">http://www.haosblog.com/article/read&aid=<{$article.aid}></a>
-		<{else}>
-			本文为转载，出处：<a href="<{$article.fromurl}>" target="_blank"><{$article.fromurl}></a>
-		<{/if}>
-	</div>
-	<section class="content">
-		<div class="ad_right fr"><iframe src="ad/gg_right.html"></iframe></div>
-		<{$article.content}>
-	</section>
+<div id="arc_read">
+	<article>
+		<header>
+			<h1><{$title}></h1>
+			<p><{date('Y-m-d H:i:s', $article.wrtime)}>&nbsp;&nbsp;<a href="#re" id="article_re">回复（<span><{$article.repostcount}></span>）</a>&nbsp;&nbsp;<a href="#article_read_bottom">分享</a></p>
+		</header>
+		<div class="copyright">
+			<{if $article.original == 1}>
+				本文为小皓原创<br />
+				转载请注明出处：<a href="http://www.haosblog.com/article/read&aid=<{$article.aid}>" target="_blank">http://www.haosblog.com/article/read&aid=<{$article.aid}></a>
+			<{else}>
+				本文为转载，出处：<a href="<{$article.fromurl}>" target="_blank"><{$article.fromurl}></a>
+			<{/if}>
+		</div>
+		<article class="content">
+			<div class="ad_right fr"><iframe src="ad/gg_right.html"></iframe></div>
+			<{$article.content}>
+		</article>
+	</article>
 	<div class="bottom">
 		<!-- 百度分享 -->
 		<div id="bdshare" class="bdshare_b fl" style="line-height: 12px;">
@@ -27,7 +29,7 @@
 	<article id="comment">
 		<h2>评论</h2>
 		<{include file="./comment.tpl"}>
-		<article class="send">
+		<article class="send box">
 			<h3>发表评论：</h3>
 			<form action="/comment/action" method="post">
 				<div class="hideinput">
@@ -66,10 +68,10 @@
 			</form>
 		</article>
 	</article>
-</article>
+</div>
 <{if $t != 1}>
 <script type="text/javascript">
-	var v5_url = "http://www.haosblog.com/article/read&aid=<{$article.id}>";
+	var v5_url = "http://www.haosblog.com/article/read&aid=<{$article.aid}>";
 	var v5_title = "<{$article.title}>";
 </script>
 <{/if}>
