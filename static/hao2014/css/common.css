@@ -65,12 +65,12 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 
 /*############################### 文章内容页 ##################################*/
 #arc_read { line-height: 25px; }
-#arc_read>header { text-align: center; }
-#arc_read>header>h1 { font-size: 16px; line-height: 28px; }
-#arc_read>header>p { border-bottom: 1px dashed #efefef; }
-#arc_read>section { padding: 10px; }
-#arc_read>.copyright { font-weight: bold; margin: 10px 2em; line-height: 22px; color: #FF8; }
-#arc_read>.content>p { text-indent: 2em; }
+#arc_read>article>header { text-align: center; }
+#arc_read>article>header>h1 { font-size: 16px; line-height: 28px; }
+#arc_read>article>header>p { border-bottom: 1px dashed #efefef; }
+#arc_read>article>section { padding: 10px; }
+#arc_read>article>.copyright { font-weight: bold; margin: 10px 2em; line-height: 22px; color: #FF8; }
+#arc_read>article>.content>p { text-indent: 2em; }
 
 #comment { border-top: 1px dotted #ddd; }
 #comment>h2, #comment h3 { font-size: 16px; margin: 10px 1em; }

@@ -29,6 +29,6 @@ body { background: #EFEFEF; }
 
 
 /*############################### 文章内容页 ##################################*/
-#arc_read>header>p { border-bottom-color: #333; }
-#arc_read>.copyright { background-color: #ddd; color: #898989; padding: 5px; border-radius: 5px; }
+#arc_read>article>header>p { border-bottom-color: #333; }
+#arc_read>article>.copyright { background-color: #ddd; color: #898989; padding: 5px; border-radius: 5px; }
 .copyright > a { display: inline-block; }
