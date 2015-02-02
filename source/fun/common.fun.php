@@ -209,8 +209,46 @@ function array_map_recursive($filter, $data) {
  }
 
 
-function U($group = SITE_GROUP, $controller = CONTROLLER, $action = ACTION){
+function U($pathinfo = array(), $get = array()){
+	$url = '/';
+	if(isset($pathinfo['site_group'])){
+		$url .= $pathinfo['site_group'] .'/';
+		unset($pathinfo['site_group']);
+	} elseif (defined('SITE_GROUP')){
+		$url .= SITE_GROUP .'/';
+	}
 
+	if(isset($pathinfo['controller'])){
+		$url .= $pathinfo['controller'] .'/';
+		unset($pathinfo['controller']);
+	} else {
+		$url .= CONTROLLER .'/';
+	}
+
+	if(isset($pathinfo['action'])){
+		$url .= $pathinfo['action'] .'/';
+		unset($pathinfo['action']);
+	} else {
+		$url .= ACTION .'/';
+	}
+
+	// $pathinfo变量仍有值，则按顺序并到URL后面
+	if($pathinfo){
+		foreach($pathinfo as $item){
+			$url .= $item .'/';
+		}
+	}
+
+	if($get){// 有需要写入URL的GET参数
+		$url .= '?';
+		foreach($get as $key => $value){
+			$url .= $key .'='. $value .'&';
+		}
+
+		$url = rtrim($url, '&');
+	}
+
+	return $url;
 }
 
 /**
