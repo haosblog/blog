@@ -13,6 +13,8 @@ class articleController extends baseController {
 	private $c = '';
 
 	public function index(){
+		import('page');
+
 		$cid = $this->buffer['cid'] = intval($_GET['cid']);
 		$keyword = htmlspecialchars($_GET['q']);
 		$page = $this->getPage();
@@ -75,6 +77,10 @@ class articleController extends baseController {
 		$this->buffer['category'] = M('category')->field('cid', 'catname', 'count')->where(array('mid' => 0, 'wsid' => $wsid))->select();
 		$this->buffer['article'] = $m->field('aid', 'cid', 'catname', 'title', 'original', 'viewcount', 'repostcount', 'wrtime', 'wrtime', 'chtime')
 				->where($where)->page($page, 20)->order($orderby)->select();
+		$total = M('article')->where($where)->count();
+
+		$pageObj = new page($page, 20, $total);
+
 //		echo($m->getLastSQL());die;
 
 		$this->display();

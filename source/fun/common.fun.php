@@ -208,6 +208,11 @@ function array_map_recursive($filter, $data) {
 	 return $result;
  }
 
+
+function U($group = SITE_GROUP, $controller = CONTROLLER, $action = ACTION){
+
+}
+
 /**
  * 引入源码
  * @param type $lib
@@ -339,7 +344,7 @@ function getCookie($name){
 
 /**
  * 获取当前访问者的IP地址
- * 
+ *
  * @return type
  */
 function get_ip(){
