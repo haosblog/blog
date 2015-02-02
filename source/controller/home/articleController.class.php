@@ -79,7 +79,9 @@ class articleController extends baseController {
 				->where($where)->page($page, 20)->order($orderby)->select();
 		$total = M('article')->where($where)->count();
 
-		$pageObj = new page($page, 20, $total);
+		unset($_GET['page']);
+		$pageObj = new page($page, 20, $total, U(array(), $_GET));
+		$this->buffer['pagenav'] = $pageObj->build();
 
 //		echo($m->getLastSQL());die;
 
