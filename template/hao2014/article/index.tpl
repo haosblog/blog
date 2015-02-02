@@ -33,7 +33,7 @@
 			<{/foreach}>
 		</tbody>
 	</table>
-	<div id="article_bottom" class="fr">
+	<div class="fr page">
 		<{$pagenav}>
 	</div>
 </article>
