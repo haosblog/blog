@@ -91,6 +91,7 @@ abstract class core {
 
 		} elseif(isset($sitegroupArr[$controller])){
 			$GLOBALS['sitegroup'] = $sitegroup = $router[1];
+			define('SITE_GROUP', $sitegroup);
 			$controller = !empty($router[2]) ? $router[2]: 'index';
 			$action = !empty($router[3]) ? $router[3]: 'index';
 
