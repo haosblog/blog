@@ -42,16 +42,16 @@ class page {
 	public function build(){
 		$totalPage = $this->totalPage();
 		$str = '<span>共'. $totalPage .'页</span>';
-		$str = '<span>当前第'. $this->currentPage .'页</span>';
-		$str = '<a href="'. $this->link .'1">首页</span>';
+		$str .= '<span>当前第'. $this->currentPage .'页</span>';
+		$str .= '<a href="'. $this->link .'1">首页</span>';
 		if($this->currentPage > 1){
-			$str = '<a href="'. $this->link . ($this->currentPage - 1) .'">上一页</span>';
+			$str .= '<a href="'. $this->link . ($this->currentPage - 1) .'">上一页</span>';
 		}
 
 		if($this->currentPage < $totalPage){
-			$str = '<a href="'. $this->link . ($this->currentPage + 1) .'">下一页</span>';
+			$str .= '<a href="'. $this->link . ($this->currentPage + 1) .'">下一页</span>';
 		}
-		$str = '<a href="'. $this->link . $totalPage .'">末页</span>';
+		$str .= '<a href="'. $this->link . $totalPage .'">末页</span>';
 
 		return $str;
 	}
