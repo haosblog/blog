@@ -13,9 +13,9 @@ body { background: #EFEFEF; }
 #main>header, #main button { color: #fff; }
 #main>header a { color: #efefef; }
 
-#ad_top { display: none; }
-.ad_banner { display: none; }
-.AlexaSiteStatsWidget { display: none; }
+#ad_top, .AlexaSiteStatsWidget, .ad_banner { display: none; }
+.hide_header { display: block; font-size: 13pt; font-weight: bold; margin: 5px;
+			  border-bottom: 1px dashed; padding-bottom: 6px; text-indent: 1em; }
 
 /*############################### 主页样式 ##################################*/
 /* 文章列表（文章列表页样式部分使用） */
@@ -27,6 +27,21 @@ body { background: #EFEFEF; }
 #arc_list td.timer { float: left; margin-left: 1.5em }
 #arc_list td.count { float: right; margin-right: 1em; }
 
+/* 主页相册 */
+#album { height: auto; }
+#album li { width: 46%; }
+#album>header { margin-left: 0; }
+#album li img { max-width: 100%; }
+@media screen and (max-width: 350px){/* 当屏幕宽小于350的时候才生效 */
+	#album li { width: 100%; }
+	#album li img { width: 100%; }
+}
+
+/*############################### 文章列表页 ##################################*/
+#arc_class { padding: 2px 0; width: auto; }
+#arc_class li { float: left; padding-left: 15px; }
+#arc_class, #arc_list { float: none; }
+.article_index #arc_list { margin: 10px; }
 
 /*############################### 文章内容页 ##################################*/
 #arc_read>article>header>p { border-bottom-color: #333; }

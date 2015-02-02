@@ -6,7 +6,7 @@
 				<div class="msg_head"><img src="/static/common/image/portrait/<{$msgRs.portrait}>.jpg" /></div>
 				<h1 class="center"><{$msgRs.username}></h1>
 			</header>
-			<section class="fr">
+			<section>
 				<header>
 					<em><{$msgRs.title}></em>
 					<small class="fr"><{date('Y-m-d H:i:s', $msgRs.time)}></small>

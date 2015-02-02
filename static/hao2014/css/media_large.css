@@ -75,14 +75,11 @@
 #apply header { border-bottom: 1px solid #efefef; margin-bottom: 15px; }
 #apply td { padding: 3px 0; }
 
-/*############################### 文章列表页 ##################################*/
-#arc_list.fr { width: 640px; }
-#arc_list.fr li em { width: 320px; }
-#arc_class { padding: 3px 0; width: 130px; }
-#arc_class li { padding-left: 20px; }
+
+/*############################### 留言本（文章内容页评论共用） ##################################*/
+#comment>article { margin-top: 5px; width: 798px; }
 
 /*############################### 相册页 ##################################*/
-#album.list { height: auto; padding: 0 100px; }
 
 #album_view_top { margin: 0 auto; width: 800px; height: 600px; }
 #album_left { float: left; width: 600px; text-align: center; }
