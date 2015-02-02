@@ -210,32 +210,40 @@ function array_map_recursive($filter, $data) {
 
 
 function U($pathinfo = array(), $get = array()){
-	$url = '/';
+	$url = '';
 	if(isset($pathinfo['site_group'])){
-		$url .= $pathinfo['site_group'] .'/';
+		$url .= '/'. $pathinfo['site_group'];
 		unset($pathinfo['site_group']);
 	} elseif (defined('SITE_GROUP')){
-		$url .= SITE_GROUP .'/';
+		$url .= '/'. SITE_GROUP;
 	}
 
 	if(isset($pathinfo['controller'])){
-		$url .= $pathinfo['controller'] .'/';
+		$controller = $pathinfo['controller'];
 		unset($pathinfo['controller']);
 	} else {
-		$url .= CONTROLLER .'/';
+		$controller = CONTROLLER;
 	}
 
-	if(isset($pathinfo['action'])){
-		$url .= $pathinfo['action'] .'/';
-		unset($pathinfo['action']);
-	} else {
-		$url .= ACTION .'/';
+	if($controller != 'index'){// 控制器不为index。控制器为index时不拼装控制器与方法
+		$url .= '/'. $controller;
+
+		if(isset($pathinfo['action'])){
+			$action = $pathinfo['action'];
+			unset($pathinfo['action']);
+		} else {
+			$action = ACTION;
+		}
+
+		if($action != 'index'){// 方法不为index，方法为index时忽略方法
+			$url .= '/'. $action;
+		}
 	}
 
 	// $pathinfo变量仍有值，则按顺序并到URL后面
 	if($pathinfo){
 		foreach($pathinfo as $item){
-			$url .= $item .'/';
+			$url .= '/'. $item;
 		}
 	}
 
