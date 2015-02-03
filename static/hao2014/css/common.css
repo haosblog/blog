@@ -25,7 +25,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 .nobr { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 
 .page a, .page span { margin: 0 3px; }
-.hideinput { display: none; }
+.hideinput, hide_header { display: none; }
 
 @media screen and (min-width: 481px){/* 当屏幕宽大于480（非手机）的时候才生效 */
 	body { background: url("../image/bg.jpg") no-repeat center top #000 fixed; }
