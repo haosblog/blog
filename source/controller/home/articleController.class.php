@@ -21,7 +21,7 @@ class articleController extends baseController {
 		$order = $_GET['order'];
 		$wsid = $GLOBALS['wsid'];
 
-		$where = array('wsid' => $wsid);
+		$where = array('wsid' => $wsid, 'status' => 1);
 
 		if($cid){
 			$where['cid'] = $cid;
