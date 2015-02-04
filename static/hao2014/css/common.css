@@ -23,6 +23,9 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 .cl:after{ content: ' '; display: block; clear: both; visibility: hidden; }
 .center{ text-align: center; }
 .nobr { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.img_middle { text-align: center; }
+.img_left { text-align: left; }
+.img_right { text-align: right; }
 
 .page a, .page span { margin: 0 3px; }
 .hideinput, .hide_header { display: none; }
@@ -80,11 +83,14 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 #arc_read>article>header>p { border-bottom: 1px dashed #efefef; }
 #arc_read>article>section { padding: 10px; }
 #arc_read>article>.copyright { font-weight: bold; margin: 10px 2em; line-height: 22px; color: #FF8; }
-#arc_read>article>.content>p { text-indent: 2em; }
+#arc_read>article>.content>p { text-indent: 2em; margin: 6px 0; line-height: 1.6em; }
+@media screen and (max-width: 1000px){/* 当屏幕宽小于1000像素的时候配图的最大宽自适应 */
+	#arc_read .content .img_middle img { max-width: 100%; }
+}
 
-#comment { border-top: 1px dotted #ddd; }
+#comment { border-top: 1px dotted #ddd; clear: both; }
 #comment>h2, #comment h3 { font-size: 16px; margin: 10px 1em; }
-#comment>article { height: 143px; margin-top: 5px; width: 798px; }
+#comment>article { height: 143px; margin-top: 5px; }
 #comment>article>header { border-right: 1px solid #888; width: 120px; }
 #comment>article .msg_head { height: 100px; padding: 10px 10px 0; width: 100px; }
 #comment h4 { line-height: 20px; }
@@ -93,7 +99,7 @@ article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 #comment section>header>* { line-height: 23px; }
 #comment section>header>em { font-size: 15px; font-weight: bold; margin-left: 26px; }
 #comment section>p { padding: 3px 5px; text-indent: 2em; }
-#comment .send { height: auto; padding: 5px 10px; width: 778px; margin-top: 20px; }
+#comment .send { height: auto; padding: 5px 10px; margin-top: 20px; }
 #comment.list { border-top: none; }
 
 

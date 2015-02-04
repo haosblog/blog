@@ -39,6 +39,8 @@
 #arc_list td time { overflow: hidden; height: 23px; display: block; }
 .article_index #arc_list { margin-left: 153px; margin-right: 10px; }
 
+#arc_read>article>.content { padding: 0 10px; }
+
 /* 微博 TODO 临时隐藏*/
 #mood { display: none; }
 
