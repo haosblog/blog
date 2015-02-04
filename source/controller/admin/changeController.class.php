@@ -61,7 +61,7 @@ class changeController extends controller {
 	}
 
 	private function _category(){
-		$list = M('old_class')->where(array('status' => 1))->select();
+		$list = M('old_class')->select();
 
 		$addData = array();
 		foreach($list as $item){
@@ -71,8 +71,7 @@ class changeController extends controller {
 				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
 			);
 
-			$tmp['count'] = M('article')->where(array('cid' => $item['id']))->count();
-
+			$tmp['count'] = M('article')->where(array('cid' => $item['id'], array('status' => 1)))->count();
 			$addData[] = $tmp;
 		}
 		M('category')->multiInsert($addData);
