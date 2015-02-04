@@ -3,6 +3,7 @@
 	<aside id="arc_class" class="fl box cl">
 		<header class="hide_header">文章栏目</header>
 		<ul>
+			<li><a href="/article">所有日志</a>(<{$allCount}>)</li>
 			<{foreach from=$category item=classRs}>
 				<li><a href="/article?cid=<{$classRs.cid}>"><{$classRs.catname}></a>(<{$classRs.count}>)</li>
 			<{foreachelse}>

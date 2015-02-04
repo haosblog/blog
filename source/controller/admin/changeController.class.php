@@ -61,7 +61,7 @@ class changeController extends controller {
 	}
 
 	private function _category(){
-		$list = M('old_class')->select();
+		$list = M('old_class')->where(array('status' => 1))->select();
 
 		$addData = array();
 		foreach($list as $item){
@@ -70,6 +70,8 @@ class changeController extends controller {
 				'catname' => $item['name'],
 				'wsid' => ($item['master'] == 'hao' ? 1 : 2),
 			);
+
+			$tmp['count'] = M('article')->where(array('cid' => $item['id']))->count();
 
 			$addData[] = $tmp;
 		}
@@ -174,7 +176,7 @@ class changeController extends controller {
 		$str = str_replace("<a href=\"",'[[',$str);
 		$str = str_replace("\" target=\"_blank\">",'|',$str);
 		$str = str_replace('</a>', ']]', $str);
-		$str = str_replace('<div id="pic" ><img src="', '[[image:', $str);
+		$str = str_replace('<div class="pic"><img src="', '[[image:/thumb/800x0/data/upload/', $str);
 		$str = str_replace('" class="img" /></div>', ']]', $str);
 		$str = stripslashes($str);
 

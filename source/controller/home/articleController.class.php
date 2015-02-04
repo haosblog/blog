@@ -23,6 +23,7 @@ class articleController extends baseController {
 
 		$where = array('wsid' => $wsid, 'status' => 1);
 
+		$this->buffer['allCount'] = M('article')->where($where)->count();
 		if($cid){
 			$where['cid'] = $cid;
 

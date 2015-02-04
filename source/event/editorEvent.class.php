@@ -266,7 +266,7 @@ class editorEvent extends controller {
 			$large = $path = $pid;
 		}
 
-		return '<div class="'. $align .'"><img data-large="'. $large .'" data-pid="'. $pid .'" src="'. $path .'" /></div>';
+		return '<div class="img_'. $align .'"><img data-large="'. $large .'" data-pid="'. $pid .'" src="'. $path .'" /></div>';
 	}
 
 	private function _getArticleLink($aid){
