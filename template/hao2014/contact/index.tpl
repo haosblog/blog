@@ -3,7 +3,6 @@
 	<p>邮箱地址：</p>
 	<ul>
 		<li><a href="mailto:xiaohao@haosblog.com">xiaohao@haosblog.com</a></li>
-		<li><a href="mailto:hao@websky.me">hao@websky.me</a></li>
 		<li><a href="mailto:hao393162937@126.com">hao393162937@126.com</a></li>
 		<li><a href="mailto:393162937@qq.com">393162937@qq.com</a></li>
 	</ul>
